@@ -31,4 +31,3 @@ $userButton = "<button class='navbar__button--user'>User</button>";
 include(SITE_ROOT . '/src/templates/modalLogin.php');
 include(SITE_ROOT . '/src/templates/modalSignUp.php');
 include(SITE_ROOT . '/src/templates/footer.php');
-?>
