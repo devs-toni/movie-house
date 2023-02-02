@@ -25,7 +25,6 @@ class Templates
   {
     ?>
     </body>
-
     </html>
 <?php
   }
