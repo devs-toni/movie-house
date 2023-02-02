@@ -1,10 +1,47 @@
 @use '../abstracts/variables' as var;
 
+* {
+    font-family: var.$primary-font;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .modal {
-    margin: 10rem auto;
+    position: absolute;
+    top: 0;
+    text-align: center;
+    justify-content: space-between;
+    margin: 8vh 11vw;
     background-color: var.$bg-color;
-    min-width: 400px;
+    height: 84vh;
+    width: 78vw;
     
+    &__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        width: 100%;
+        padding: 1.8rem;
+    }
+
+    &__btn-close {
+        position: absolute;
+        top: 0.2rem;
+        right: 0.6rem;
+        background-color: var.$bg-color;
+        color: var.$orange-color;
+        font-size: 1.7rem;
+        border: none;
+        cursor: pointer;
+    }
+    
+    &__title {
+        font-size: 3.2rem;
+    }
+
     &__title, .form__label {
         color: var.$orange-color;
     }
@@ -12,7 +49,61 @@
     .form__label {
         display: flex;
         margin: 5px 0;
+        font-size: 1.1rem;
+        margin-top: 0;
     }
+
+    .form__input {
+        background-color: var.$bg-input-color;
+        width: 35vw;
+        height: 2.5rem;
+        border: none;
+        color: var.$white-color;
+        font-size: 1.2rem;
+        padding-left: 0.5rem;
+    }
+
+    &__form {
+        height: 75%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        &--login {
+                height: 40vh;
+            }
+    }
+
+    &__btn-submit {
+        height: 2.5rem;
+        width: 100%;
+        background-color: var.$orange-color;
+        border: none;
+        font-size: 1.1rem;
+        cursor: pointer;
+
+        &--login {
+            margin-top: 1.3rem;
+        }
+    }
+
+    &__p {
+        font-size: 1.1rem;
+        color: var.$white-color;
+        margin-top: 1.5rem;
+
+        span {
+           text-decoration: underline;
+           cursor: pointer;
+        }
+
+        &--login {
+            margin-bottom: 1.6rem;
+            margin-top: 0;
+        }
+    }
+    
 }
 
 
