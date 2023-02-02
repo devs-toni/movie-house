@@ -5,11 +5,11 @@
     background-color: var.$bg-color;
     min-width: 400px;
     
-    &__title, .form__input {
+    &__title, .form__label {
         color: var.$orange-color;
     }
     
-    .form__input {
+    .form__label {
         display: flex;
         margin: 5px 0;
     }

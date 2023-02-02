@@ -3,12 +3,12 @@
     <h2 class="modal__title">Login</h2>
     <form method="dialog" class="modal__form">
         <div class>
-            <label class="form__input" for="email">Email</label>
+            <label class="form__label" for="email">Email</label>
             <input id="email" type="text">
         </div>
 
         <div>
-            <label class="form__input" for="password">Password</label>
+            <label class="form__label" for="password">Password</label>
             <input id="password" type="text">
         </div>
 
