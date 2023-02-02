@@ -14,5 +14,20 @@ $db = new Repository();
 
 Templates::addHeader('Neflis');
 
+$logButton = true;
+$loginButton = "<button class='navbar__button'>Login</button>";
+$userButton = "<button class='navbar__button--user'>User</button>";
+
+
+?>
+
+<nav class="navbar">
+    <input class="navbar__input" type="text" placeholder="Search">
+    <?php echo $logButton ? $loginButton : $userButton ?>
+</nav>
+
+
+<?php
+include(SITE_ROOT . '/src/templates/modalLogin.php');
 include(SITE_ROOT . '/src/templates/footer.php');
 ?>

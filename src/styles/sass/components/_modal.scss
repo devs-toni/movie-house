@@ -1,0 +1,18 @@
+@use '../abstracts/variables' as var;
+
+.modal {
+    margin: 10rem auto;
+    background-color: var.$bg-color;
+    min-width: 400px;
+    
+    &__title, .form__input {
+        color: var.$orange-color;
+    }
+    
+    .form__input {
+        display: flex;
+        margin: 5px 0;
+    }
+}
+
+
