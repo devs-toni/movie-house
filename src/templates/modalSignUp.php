@@ -17,6 +17,6 @@
             </div>
             <button class="modal__btn-submit">Sign Up</button>
         </form>
-        <p class="modal__p">Already a user? <span>LOGIN</span></p>
+        <p class="modal__p">Already a user? <span id="redirectLogin">LOGIN</span></p>
     </div>
 </dialog>
