@@ -1,4 +1,4 @@
-<dialog open class="modal">
+<dialog class="modal">
     <div class="modal__container">
         <button class="modal__btn-close">🗙</button>
         <h2 class="modal__title">LOGIN</h2>

@@ -1,4 +1,4 @@
-<dialog open class="modal-sign-up modal">
+<dialog class="modal-sign-up modal">
     <div class="modal__container">
         <button id="closeSignUp" class="modal__btn-close">🗙</button>
         <h2 class="modal__title">SIGN UP</h2>

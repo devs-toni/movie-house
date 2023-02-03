@@ -36,8 +36,8 @@ async function mainFetch() {
     .catch(err => console.error(err));
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  mainFetch();
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//   mainFetch();
+// });
 
 
