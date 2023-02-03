@@ -1,4 +1,4 @@
-<dialog class="modal">
+<dialog class="modal modal__login">
     <div class="modal__container">
         <button class="modal__btn-close">🗙</button>
         <h2 class="modal__title">LOGIN</h2>
@@ -16,7 +16,7 @@
             <button type="submit" class="modal__btn-submit modal__btn-submit--login">Login</button>
         </form>
         <div>
-            <p class="modal__p modal__p--login">Need an account? <span>SIGN UP</span></p>
+            <p class="modal__p modal__p--login">Need an account? <span id="redirectRegister">SIGN UP</span></p>
         </div>
     </div>
 </dialog>
