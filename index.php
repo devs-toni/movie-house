@@ -1,7 +1,7 @@
 <?php
 require_once('config.php');
 require_once(SITE_ROOT . '/src/repository/Repository.php');
-require_once(SITE_ROOT . '/src/templates/header.php');
+require_once(SITE_ROOT . '/src/templates/Templates.php');
 require_once(SITE_ROOT . '/src/models/User.php');
 $db = new Repository();
 
@@ -30,4 +30,4 @@ $userButton = "<button class='navbar__button--user'>User</button>";
 <?php
 include(SITE_ROOT . '/src/templates/modalLogin.php');
 include(SITE_ROOT . '/src/templates/modalSignUp.php');
-include(SITE_ROOT . '/src/templates/footer.php');
+Templates::addFooter();
