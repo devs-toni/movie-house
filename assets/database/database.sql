@@ -6,7 +6,7 @@ CREATE TABLE  movies (
     id int NOT NULL AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
     language CHAR(2) NOT NULL,
-    description VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
     poster_path VARCHAR(255) NOT NULL,
     release_date DATE NOT NULL,
     vote_average FLOAT NOT NULL,    
