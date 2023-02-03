@@ -38,7 +38,22 @@ class Repository extends Connection
     $this->con->close();
   }
 
-  function deleteMovies() {
+  function getAllFilms(){
+    $this->connect();
+    $allPosterMovies=[];
+    $result = mysqli_query($this->con, 'SELECT poster_path FROM movies');
+    if (mysqli_num_rows($result) > 0) {
+      while($row = mysqli_fetch_assoc($result)) {
+        array_push($allPosterMovies, $row["poster_path"]);
+      }
+    } else {
+      echo "0 results";
+    }
+    $this->con->close();
+    return $allPosterMovies;
+  }
+
+  function deleteFilms() {
     $this->connect();
     mysqli_query($this->con, 'DELETE FROM MOVIES');
     $this->con->close();

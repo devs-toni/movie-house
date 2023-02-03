@@ -1,0 +1,15 @@
+@use '../abstracts/variables' as var;
+
+
+.aside {
+    height: 100%;
+    width: 150px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: var.$orange-color;
+    font-size: 350%;
+    font-weight: bold;
+    text-align: center;
+    writing-mode: vertical-lr;
+}
