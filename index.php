@@ -13,6 +13,9 @@ $urlImages = "https://image.tmdb.org/t/p/w500";
 
 Templates::addHeader('Neflis');
 
+include_once("./src/templates/aside.php");
+include_once("./src/templates/allFilms.php");
+
 $logButton = true;
 $loginButton = "<button class='navbar__button'>Login</button>";
 $userButton = "<button class='navbar__button--user'>User</button>";
