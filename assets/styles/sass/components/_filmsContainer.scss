@@ -1,0 +1,79 @@
+@use '../abstracts/variables' as var;
+
+.all-films {
+
+  padding: 20px 50px;
+
+  &__title {
+    color: red;
+  }
+
+  &__container {
+
+    &__paginated-list {
+      list-style-type: none;
+      display: flex;
+      flex-flow: row wrap;
+      padding-right: var.$aside-width;
+
+      & li {
+        margin-right: 10px;
+
+        & img {
+          height: var.$film-height;
+          width: var.$film-width;
+        }
+      }
+    }
+
+    &__pagination-container {
+      color: blue;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &__pagination-numbers {
+        color: blue;
+
+        &__pagination-number {
+          font-size: 1.1rem;
+          background-color: transparent;
+          border: none;
+          margin: 0.25rem 0.25rem;
+          cursor: pointer;
+          height: 2.5rem;
+          width: 2.5rem;
+          border-radius: .2rem;
+
+          &:hover {
+            background: #fff;
+          }
+
+          &.active {
+            color: #fff;
+            background: #0085b6;
+          }
+        }
+      }
+
+      &__pagination-button {
+        font-size: 1.1rem;
+        background-color: transparent;
+        border: none;
+        margin: 0.25rem 0.25rem;
+        cursor: pointer;
+        height: 2.5rem;
+        width: 2.5rem;
+        border-radius: .2rem;
+
+        &:not(.disabled):hover {
+          background: #fff;
+        }
+      }
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}
