@@ -36,9 +36,12 @@ function closeSignUp() {
   modalSignUp.close();
 }
 
+
+// LOAD DATABASE
+
 async function mainFetch() {
   document.body.innerHTML = "<div class='lds-facebook center'><div></div><div></div><div></div></div>";
-  let twentyElementsPages = 20;
+  let twentyElementsPages = 30;
   let films = [];
   for (let i = 1; i <= twentyElementsPages; i++) {
     await fetch(`${api}&page=${i}`)
@@ -50,8 +53,8 @@ async function mainFetch() {
   }
 
   const file = new FormData();
-  const finalArray = films.flat();
-
+  let finalArray = films.flat();
+  finalArray = finalArray.filter(f => f.poster_path !== null && f.release_date !== null);
   const json = JSON.stringify(finalArray);
   file.append("films", json);
   const config = {

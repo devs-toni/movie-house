@@ -3,10 +3,9 @@ let totalImages;
 
 const loadImages = (total) => {
   if (total) totalImages = total;
-
   if (imagesLoaded === totalImages) {
-    document.querySelector('#paginatedList').style.display = 'flex';
-    document.querySelector('#loader').style.display = 'none';
+    document.querySelector('#paginatedList').classList.remove('hidden');
+    document.querySelector('#loader').classList.add('hidden');
   }
 }
 

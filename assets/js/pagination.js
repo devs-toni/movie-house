@@ -10,7 +10,7 @@ function doPagination() {
 
   const appendPageNumber = (index) => {
     const pageNumber = document.createElement("button");
-    pageNumber.className = "all-films__container__pagination-container__pagination-numbers__pagination-number";
+    pageNumber.className = "pg-num";
     pageNumber.innerHTML = index;
     pageNumber.setAttribute("page-index", index);
     pageNumber.setAttribute("aria-label", "Page " + index);
@@ -39,7 +39,7 @@ function doPagination() {
   };
 
   const handleActivePageNumber = () => {
-    document.querySelectorAll(".all-films__container__pagination-container__pagination-numbers__pagination-number").forEach((button) => {
+    document.querySelectorAll(".pg-num").forEach((button) => {
       button.classList.remove("active");
 
       const pageIndex = Number(button.getAttribute("page-index"));
@@ -81,7 +81,7 @@ function doPagination() {
     nextButton.addEventListener("click", () => {
       setCurrentPage(currentPage + 1);
     });
-    document.querySelectorAll(".all-films__container__pagination-container__pagination-numbers__pagination-number").forEach((button) => {
+    document.querySelectorAll(".pg-num").forEach((button) => {
       const pageIndex = Number(button.getAttribute("page-index"));
       if (pageIndex) {
         button.addEventListener("click", () => {
