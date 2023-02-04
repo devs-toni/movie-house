@@ -11,7 +11,7 @@ $db = new Repository();
 
 $urlImages = "https://image.tmdb.org/t/p/w500";
 
-Templates::addHeader('Neflis');
+Templates::addHeader('Neflis', ['imageLoader', 'pagination', 'loadDb'], ['modals']);
 
 include_once("./src/templates/aside.php");
 
