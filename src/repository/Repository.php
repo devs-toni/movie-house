@@ -41,10 +41,10 @@ class Repository extends Connection
   function getAllFilms(){
     $this->connect();
     $allPosterMovies=[];
-    $result = mysqli_query($this->con, 'SELECT poster_path FROM movies');
+    $result = mysqli_query($this->con, 'SELECT title, poster_path FROM movies');
     if (mysqli_num_rows($result) > 0) {
       while($row = mysqli_fetch_assoc($result)) {
-        array_push($allPosterMovies, $row["poster_path"]);
+        $allPosterMovies[$row['title']] = $row["poster_path"];
       }
     } else {
       echo "0 results";
