@@ -10,9 +10,6 @@ $db->deleteFilms();
 for ($i = 0; $i < count($films); $i++) {
   $f = $films[$i];
   if (!$f->adult) {
-    print_r('<pre>');
-    print_r($f);
-    print_r('</pre>');
     $movie = new Movie($f->title, $f->original_language, $f->overview, $f->poster_path, $f->release_date, $f->vote_average);
     $db->addFilm($movie);
   }
