@@ -10,7 +10,10 @@ async function mainFetch() {
       })
       .catch(err => console.error(err));
   }
+  saveData(films, twentyElementsPages);
+}
 
+async function saveData(films, limit) {
   const file = new FormData();
   let finalArray = films.flat();
   finalArray = finalArray.filter(f => f.poster_path !== null && f.release_date !== null);

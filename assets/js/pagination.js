@@ -1,11 +1,11 @@
-function doPagination() {
+function doPagination(total) {
   const paginationNumbers = document.getElementById("paginationNumbers");
   const paginatedList = document.getElementById("paginatedList");
-  const listItems = paginatedList.querySelectorAll("li");
   const nextButton = document.getElementById("nextButton");
   const prevButton = document.getElementById("prevButton");
   const paginationLimit = 24;
-  const pageCount = Math.ceil(listItems.length / paginationLimit);
+  const pageCount = Math.ceil(total / paginationLimit);
+  const url = "https://image.tmdb.org/t/p/w500";
   let currentPage;
 
   const appendPageNumber = (index) => {
@@ -23,20 +23,45 @@ function doPagination() {
     }
   };
 
-  const setCurrentPage = (pageNum) => {
+  const setCurrentPage = async pageNum => {
     currentPage = pageNum;
     handleActivePageNumber();
     handlePageButtonsStatus();
 
     const prevRange = (pageNum - 1) * paginationLimit;
-    const currRange = pageNum * paginationLimit;
-    listItems.forEach((item, index) => {
-      item.classList.add("hidden");
-      if (index >= prevRange && index < currRange) {
-        item.classList.remove("hidden");
-      }
-    });
-  };
+
+    await fetch(`src/controllers/PaginationResults.php?min=${prevRange}`)
+      .then(res => res.json())
+      .then(res => {    
+        ul = document.querySelector('#paginatedList');
+        ul.innerHTML = '';
+        for (let i = 0; i < res[0].length; i++) {
+          ul.innerHTML += `<li><img src="assets/images/loader.gif" alt="${res[1][i]}" data-src="${url}${res[2][i]}"></li>`;
+        }
+        document.querySelector('#paginatedList').classList.remove('hidden');
+        document.querySelector('#loader').classList.add('hidden');
+        let lazyloadImages = document.querySelectorAll('#paginatedList li img');
+        if ("IntersectionObserver" in window) {
+          var imageObserver = new IntersectionObserver(function (entries, observer) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                var image = entry.target;
+                image.src = image.dataset.src;
+                imageObserver.unobserve(image);
+              }
+            });
+          });
+        }
+        lazyloadImages.forEach(function (image) {
+          imageObserver.observe(image);
+        });
+
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
 
   const handleActivePageNumber = () => {
     document.querySelectorAll(".pg-num").forEach((button) => {
@@ -91,6 +116,4 @@ function doPagination() {
     });
   });
 }
-
-
 

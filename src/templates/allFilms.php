@@ -6,17 +6,7 @@
     if (count($allPoster) > 0) {
       Templates::addImageLoader();
       ?>
-        <ul id="paginatedList" aria-live="polite" class="container__pg-list hidden">
-          <?php
-          foreach ($allPoster as $name => $poster) { ?>
-            <li>
-              <img src='<?= $urlImages . $poster ?>' alt='<?= $name ?>' onload='imageLoaded();'>
-            </li>
-    <?php } ?>
-          <script>
-            loadImages(<?= count($allPoster) ?>)
-          </script>
-        </ul>
+        <ul id="paginatedList" aria-live="polite" class="container__pg-list hidden"></ul>
 
         <nav class="container__pg-nav">
           <button class="pg-btn" id="prevButton" title="Previous page" aria-label="Previous page">
@@ -30,7 +20,7 @@
           </button>
         </nav>
         <script type="text/javascript">
-          doPagination();
+          doPagination(<?=count($allPoster)?>);
         </script>
 <?php } ?> 
     </div>

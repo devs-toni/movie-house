@@ -6,12 +6,7 @@ require_once(SITE_ROOT . '/src/templates/Templates.php');
 require_once(SITE_ROOT . '/src/repository/Repository.php');
 $db = new Repository();
 
-
-
-
-$urlImages = "https://image.tmdb.org/t/p/w500";
-
-Templates::addHeader('Neflis', ['imageLoader', 'pagination', 'loadDb'], ['modals']);
+Templates::addHeader('Neflis', ['pagination', 'loadDb'], ['modals']);
 
 include_once("./src/templates/aside.php");
 
