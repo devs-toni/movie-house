@@ -1,6 +1,5 @@
 <?php
-
-require_once('dbConfig.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['REQUEST_URI'])[1] . '/config.php');
 
 class Connection {
 

@@ -4,6 +4,8 @@ require_once('Connection.php');
 class Repository extends Connection
 {
 
+  // USERS
+
   function addUser(User $user): void
   {
     $this->connect();
@@ -19,6 +21,51 @@ class Repository extends Connection
     $pre->close();
     $this->con->close();
   }
+
+  function isAdmin(int $id)
+  {
+    $this->connect();
+    $pre = mysqli_prepare($this->con, 'SELECT rol FROM users WHERE id=?');
+    $pre->bind_param('i', $id);
+    $pre->execute();
+    $result = $pre->get_result();
+
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        if ($row['rol'] === 'A') {
+          $pre->close();
+          $this->con->close();
+          return true;
+        }
+      }
+    }
+    $pre->close();
+    $this->con->close();
+    return false;
+  }
+
+  function getUserByEmail($mail) {
+    $this->connect();
+    $pre = mysqli_prepare($this->con, 'SELECT id, password FROM users WHERE email=?');
+    $pre->bind_param('s', $mail);
+    $pre->execute();
+    $result = $pre->get_result();
+
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        $res['pass'] = $row['password']; 
+        $res['id'] = $row['id']; 
+      }
+    } else {
+      $res = [];
+    }
+    $pre->close();
+    $this->con->close();
+    return $res;
+  }
+
+  // FILMS
+
   function addFilm(Movie $film): void
   {
     $this->connect();

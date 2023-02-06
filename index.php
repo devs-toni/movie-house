@@ -1,30 +1,27 @@
 <?php
+session_start();
 require_once('config.php');
-require_once(SITE_ROOT . '/src/models/User.php');
-require_once(SITE_ROOT . '/src/models/Movie.php');
-require_once(SITE_ROOT . '/src/templates/Templates.php');
-require_once(SITE_ROOT . '/src/repository/Repository.php');
+require_once(DIR_MODELS . 'User.php');
+require_once(DIR_MODELS . 'Movie.php');
+require_once(DIR_TEMPLATES . 'Templates.php');
+require_once(DIR_REPO . 'Repository.php');
+
 $db = new Repository();
+$isLogged = false;
+$isAdmin = false;
 
-Templates::addHeader('Neflis', ['pagination', 'loadDb'], ['modals']);
+if (isset($_SESSION['user'])) {
+  $isLogged = true;
+  $isAdmin = $db->isAdmin($_SESSION['user']);
+}
 
-include_once("./src/templates/aside.php");
+Templates::addHeader('Neflis', ['pagination'], ['modals']);
 
-$logButton = true;
-$loginButton = "<button class='navbar__button'>Login</button>";
-$userButton = "<button class='navbar__button--user'>User</button>";
+include_once(DIR_TEMPLATES . 'aside.php');
+Templates::addNav($isLogged, $isAdmin);
 
+include_once(DIR_TEMPLATES . 'allFilms.php');
+include_once(DIR_TEMPLATES . 'modalLogin.php');
+include_once(DIR_TEMPLATES . 'modalSignUp.php');
 
-?>
-
-<nav class="navbar">
-    <input class="navbar__input" type="text" placeholder="Search">
-    <?php echo $logButton ? $loginButton : $userButton ?>
-</nav>
-
-
-<?php
-include_once("./src/templates/allFilms.php");
-include(SITE_ROOT . '/src/templates/modalLogin.php');
-include(SITE_ROOT . '/src/templates/modalSignUp.php');
 Templates::addFooter();
