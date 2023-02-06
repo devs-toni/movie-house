@@ -4,7 +4,6 @@
     <?php
     $allPoster = $db->getAllFilms();
     if (count($allPoster) > 0) {
-      Templates::addImageLoader();
       ?>
         <ul id="paginatedList" aria-live="polite" class="container__pg-list hidden"></ul>
 

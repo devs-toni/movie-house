@@ -1,0 +1,9 @@
+@mixin gradient() {
+  @keyframes gradient {
+    to {
+      background-position: 330px 0, 0 0;
+    }
+  }
+
+  animation: gradient 3s ease infinite;
+}
