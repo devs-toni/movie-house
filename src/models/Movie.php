@@ -6,11 +6,11 @@ class Movie
   private string $language;
   private string $description;
   private string $posterPath;
-  private string $releaseDate;
+  private $releaseDate;
   private float $voteAverage;
   private int $voteCount;
 
-  function __construct(string $title, string $language, string $description, string $posterPath, string $releaseDate, float $voteAverage)
+  function __construct(string $title, string $language, string $description, string $posterPath, $releaseDate, float $voteAverage)
   {
     $this->title = $title;
     $this->language = $language;

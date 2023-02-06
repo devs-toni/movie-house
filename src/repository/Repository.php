@@ -4,6 +4,8 @@ require_once('Connection.php');
 class Repository extends Connection
 {
 
+  // USERS
+
   function addUser(User $user): void
   {
     $this->connect();
@@ -19,6 +21,51 @@ class Repository extends Connection
     $pre->close();
     $this->con->close();
   }
+
+  function isAdmin(int $id)
+  {
+    $this->connect();
+    $pre = mysqli_prepare($this->con, 'SELECT rol FROM users WHERE id=?');
+    $pre->bind_param('i', $id);
+    $pre->execute();
+    $result = $pre->get_result();
+
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        if ($row['rol'] === 'A') {
+          $pre->close();
+          $this->con->close();
+          return true;
+        }
+      }
+    }
+    $pre->close();
+    $this->con->close();
+    return false;
+  }
+
+  function getUserByEmail($mail) {
+    $this->connect();
+    $pre = mysqli_prepare($this->con, 'SELECT id, password FROM users WHERE email=?');
+    $pre->bind_param('s', $mail);
+    $pre->execute();
+    $result = $pre->get_result();
+
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        $res['pass'] = $row['password']; 
+        $res['id'] = $row['id']; 
+      }
+    } else {
+      $res = [];
+    }
+    $pre->close();
+    $this->con->close();
+    return $res;
+  }
+
+  // FILMS
+
   function addFilm(Movie $film): void
   {
     $this->connect();
@@ -38,13 +85,14 @@ class Repository extends Connection
     $this->con->close();
   }
 
-  function getAllFilms(){
+  function getAllFilms()
+  {
     $this->connect();
-    $allPosterMovies=[];
-    $result = mysqli_query($this->con, 'SELECT poster_path FROM movies');
+    $allPosterMovies = [];
+    $result = mysqli_query($this->con, 'SELECT title, poster_path FROM movies');
     if (mysqli_num_rows($result) > 0) {
-      while($row = mysqli_fetch_assoc($result)) {
-        array_push($allPosterMovies, $row["poster_path"]);
+      while ($row = mysqli_fetch_assoc($result)) {
+        $allPosterMovies[$row['title']] = $row["poster_path"];
       }
     } else {
       echo "0 results";
@@ -53,7 +101,36 @@ class Repository extends Connection
     return $allPosterMovies;
   }
 
-  function deleteFilms() {
+  function getPaginationMovies($min, $max)
+  {
+    $this->connect();
+
+    $ids = [];
+    $titles = [];
+    $posters = [];
+    $posterMovies = [];
+
+    $pre = mysqli_prepare($this->con, 'SELECT id, title, poster_path FROM movies LIMIT ?, ?');
+    $pre->bind_param('ii', $min, $max);
+    $pre->execute();
+    $result = $pre->get_result();
+
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        array_push($ids, $row['id']);
+        array_push($titles, $row['title']);
+        array_push($posters, $row['poster_path']);
+      }
+    } else {
+      echo "0 results";
+    }
+    array_push($posterMovies, $ids, $titles, $posters);
+    $this->con->close();
+    return $posterMovies;
+  }
+
+  function deleteFilms()
+  {
     $this->connect();
     mysqli_query($this->con, 'DELETE FROM MOVIES');
     $this->con->close();

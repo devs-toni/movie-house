@@ -8,7 +8,7 @@ CREATE TABLE  movies (
     language CHAR(2) NOT NULL,
     description TEXT NOT NULL,
     poster_path VARCHAR(255) NOT NULL,
-    release_date DATE NOT NULL,
+    release_date DATE NULL,
     vote_average FLOAT NOT NULL,    
     vote_count INT NOT NULL,
     PRIMARY KEY (id)

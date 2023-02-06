@@ -3,7 +3,7 @@
 
 .aside {
     height: 100%;
-    width: 150px;
+    width: var.$aside-width;
     position: fixed;
     top: 0;
     right: 0;

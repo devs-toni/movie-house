@@ -2,15 +2,15 @@
     <div class="modal__container">
         <button class="modal__btn-close">🗙</button>
         <h2 class="modal__title">LOGIN</h2>
-        <form method="dialog" class="modal__form modal__form--login">
+        <form action="src/controllers/Login.php" method="POST" class="modal__form modal__form--login">
             <div class>
                 <label class="form__label" for="email">Email</label>
-                <input class="form__input" id="email" type="text">
+                <input class="form__input" name="email" id="email" type="text" required>
             </div>
 
             <div>
                 <label class="form__label" for="password">Password</label>
-                <input class="form__input" id="password" type="password">
+                <input class="form__input" name="password" id="password" type="password" required>
             </div>
 
             <button type="submit" class="modal__btn-submit modal__btn-submit--login">Login</button>
