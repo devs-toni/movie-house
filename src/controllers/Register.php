@@ -12,4 +12,4 @@ $pass = $_REQUEST['password'];
 $db->addUser(new User($username, $mail, $pass));
 $data = $db->getUserByEmail($mail);
 $_SESSION['user'] = $data['id'];
-header('Location: /' . explode('/', $_SERVER['REQUEST_URI'])[1] . '/index.php');
+header('Location: ../../index.php');
