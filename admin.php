@@ -1,6 +1,9 @@
 <?php
+
+session_start();
 require_once('config.php');
 require_once(DIR_TEMPLATES . 'Templates.php');
+require_once(DIR_SESSION . 'Session.php');
 
 Templates::addHeader('Administrator', [], ['admin']);
 

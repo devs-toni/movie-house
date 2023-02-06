@@ -1,5 +1,5 @@
 <?php
+require_once("../utils/Session.php");
+
 session_start();
-session_destroy();
-$_SESSION = [];
-header('Location: ../../index.php');
+Session::destroySession('../../index.php');

@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once("../../config.php");
-
 require_once('../repository/Repository.php');
 
 $db = new Repository();
@@ -19,6 +18,7 @@ if (count($data) === 0) {
 
 if (password_verify($pass, $data['pass'])) {
   $_SESSION['user'] = $data['id'];
+  $_SESSION['lastActivity'] = time();
   $response = 'Ok';
 } else {
   $response = 'Error';

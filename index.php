@@ -5,6 +5,10 @@ require_once(DIR_MODELS . 'User.php');
 require_once(DIR_MODELS . 'Movie.php');
 require_once(DIR_TEMPLATES . 'Templates.php');
 require_once(DIR_REPO . 'Repository.php');
+require_once(DIR_SESSION . 'Session.php');
+
+if (isset($_SESSION['user']))
+  Session::checkSessionExpiration();
 
 $db = new Repository();
 $isLogged = false;
@@ -15,7 +19,7 @@ if (isset($_SESSION['user'])) {
   $isAdmin = $db->isAdmin($_SESSION['user']);
 }
 
-Templates::addHeader('Neflis', ['pagination'], ['alerts','formValidation']);
+Templates::addHeader('Neflis', ['pagination'], ['formValidation']);
 
 include_once(DIR_TEMPLATES . 'aside.php');
 Templates::addNav($isLogged, $isAdmin);
@@ -23,4 +27,13 @@ Templates::addNav($isLogged, $isAdmin);
 include_once(DIR_TEMPLATES . 'allFilms.php');
 include_once(DIR_TEMPLATES . 'modalLogin.php');
 include_once(DIR_TEMPLATES . 'modalSignUp.php');
-Templates::addFooter(['modals']);
+Templates::addFooter(['modals', 'alerts']);
+
+if (isset($_REQUEST['expire'])) {
+  ?>
+    <script>
+      window.history.pushState('', '', 'index.php');
+      customAlert('center', 'info', '', '<h4>Session expired . . .</h4>', false, 4000);
+    </script>  
+  <?php
+}
