@@ -1,5 +1,7 @@
 <?php
 session_start();
+set_include_path(str_replace('\\', '/', __DIR__ . '/'));
+
 require_once('config.php');
 require_once(DIR_MODELS . 'User.php');
 require_once(DIR_MODELS . 'Movie.php');

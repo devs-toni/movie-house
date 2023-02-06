@@ -17,4 +17,4 @@ Templates::addHeader('Administrator', [], ['admin']);
 
 <?php
 include(DIR_TEMPLATES . 'admin/modalAddFilm.php');
-Templates::addFooter();
+Templates::addFooter([]);
