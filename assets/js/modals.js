@@ -5,50 +5,63 @@ const modalLogin = document.querySelector(".modal__login");
 const btnCloseLogin = document.querySelector(".modal__btn-close");
 const btnRedirectRegister = document.querySelector("#redirectRegister");
 const btnRedirectLogin = document.querySelector("#redirectLogin");
+const backgroundModalActive = document.getElementById("backgroundModalActive");
+
 btnOpenModal && btnOpenModal.addEventListener("click", showLoginModal);
 btnCloseSignUp.addEventListener("click", closeSignUp);
 btnCloseLogin.addEventListener("click", closeLogin);
 btnRedirectRegister.addEventListener("click", showRegisterModal);
 btnRedirectLogin.addEventListener("click", redirectLogin);
 
-
 function showLoginModal() {
   modalLogin.show();
+  backgroundModalActive.classList.add("modal__background--active");
+  setTimeout(() => {
+    backgroundModalActive.addEventListener("click", closeLogin);
+  }, 1);
 }
 
 function closeLogin() {
   modalLogin.close();
+  backgroundModalActive.classList.remove("modal__background--active");
+  backgroundModalActive.removeEventListener("click", closeLogin);
 }
 
 function showRegisterModal() {
-  modalLogin.close();
+  closeLogin();
   modalSignUp.show();
+  backgroundModalActive.classList.add("modal__background--active");
+  setTimeout(() => {
+    backgroundModalActive.addEventListener("click", closeSignUp);
+  }, 1);
 }
 
 function redirectLogin() {
-  modalSignUp.close();
-  modalLogin.show();
+  closeSignUp();
+  showLoginModal();
 }
 
 function closeSignUp() {
   modalSignUp.close();
+  backgroundModalActive.classList.remove("modal__background--active");
+  backgroundModalActive.removeEventListener("click", closeSignUp);
 }
+
+//DROPDOWN
 
 function openMenu() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
+window.onclick = function (event) {
+  if (!event.target.matches(".dropbtn")) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
       var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
+      if (openDropdown.classList.contains("show")) {
+        openDropdown.classList.remove("show");
       }
     }
   }
-}
-
-
+};
