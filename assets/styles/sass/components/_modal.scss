@@ -8,7 +8,7 @@
 }
 
 .modal {
-    position: absolute;
+    position: fixed;
     top: 0;
     text-align: center;
     justify-content: space-between;
@@ -21,25 +21,26 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
         height: 100%;
         width: 100%;
-        padding: 1.8rem;
+        padding: 7vh;
     }
 
     &__btn-close {
         position: absolute;
         top: 0.2rem;
-        right: 0.6rem;
+        right: 0.7rem;
         background-color: var.$bg-color;
         color: var.$orange-color;
-        font-size: 1.7rem;
+        font-size: 2rem;
         border: none;
         cursor: pointer;
     }
     
     &__title {
         font-size: 3.2rem;
+        margin-bottom: 2rem;
     }
 
     &__title, .form__label {
@@ -55,7 +56,7 @@
 
     .form__input {
         background-color: var.$bg-input-color;
-        width: 35vw;
+        width: 30rem;
         height: 2.5rem;
         border: none;
         color: var.$white-color;
@@ -64,14 +65,15 @@
     }
 
     &__form {
-        height: 75%;
+        height: 30rem;
+        width: 30rem;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: space-between;
+        justify-content: space-around;
 
         &--login {
-                height: 40vh;
+                height: 18rem;
             }
     }
 
@@ -82,28 +84,32 @@
         border: none;
         font-size: 1.1rem;
         cursor: pointer;
-
-        &--login {
-            margin-top: 1.3rem;
+        
+        &--signUp{
+            margin-top: 1rem;
         }
     }
 
     &__p {
         font-size: 1.1rem;
         color: var.$white-color;
-        margin-top: 1.5rem;
+        margin-top: 2.5rem;
 
         span {
             text-decoration: underline;
             cursor: pointer;
         }
-
-        &--login {
-            margin-bottom: 1.6rem;
-            margin-top: 0;
-        }
     }
-    
+
+    &__background--active {
+        filter: blur(3px) contrast(0.8) brightness(0.8);
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 }
+ 
 
 

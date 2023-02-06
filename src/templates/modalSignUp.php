@@ -15,7 +15,7 @@
                 <label class="form__label" id="password-sign-up">Password</label>
                 <input class="form__input" type="password" name="password-sign-up" id="password-sign-up">
             </div>
-            <button class="modal__btn-submit">Sign Up</button>
+            <button class="modal__btn-submit modal__btn-submit--signUp">Sign Up</button>
         </form>
         <p class="modal__p">Already a user? <span id="redirectLogin">LOGIN</span></p>
     </div>
