@@ -15,7 +15,7 @@ if (isset($_SESSION['user'])) {
   $isAdmin = $db->isAdmin($_SESSION['user']);
 }
 
-Templates::addHeader('Neflis', ['pagination'], ['modals']);
+Templates::addHeader('Neflis', ['pagination'], ['formFetch','formValidations']);
 
 include_once(DIR_TEMPLATES . 'aside.php');
 Templates::addNav($isLogged, $isAdmin);
@@ -23,5 +23,4 @@ Templates::addNav($isLogged, $isAdmin);
 include_once(DIR_TEMPLATES . 'allFilms.php');
 include_once(DIR_TEMPLATES . 'modalLogin.php');
 include_once(DIR_TEMPLATES . 'modalSignUp.php');
-
-Templates::addFooter();
+Templates::addFooter(['modals']);

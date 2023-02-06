@@ -19,12 +19,14 @@ function showLoginModal() {
   setTimeout(() => {
     backgroundModalActive.addEventListener("click", closeLogin);
   }, 1);
+  document.body.style.overflow = 'hidden';
 }
 
 function closeLogin() {
   modalLogin.close();
   backgroundModalActive.classList.remove("modal__background--active");
   backgroundModalActive.removeEventListener("click", closeLogin);
+  document.body.style.overflow = 'inherit';
 }
 
 function showRegisterModal() {
