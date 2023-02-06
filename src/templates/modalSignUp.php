@@ -15,6 +15,10 @@
                 <label class="form__label" for="passwordSignUp">Password</label>
                 <input class="form__input" type="password" name="password" id="passwordSignUp" required>
             </div>
+            <div>
+                <label class="form__label" for="rPasswordSignUp">Repeat Password</label>
+                <input class="form__input" type="password" name="rPassword" id="rPasswordSignUp" required>
+            </div>
             <button type="submit" class="modal__btn-submit modal__btn-submit--signUp">Sign Up</button>
         </form>
         <p class="modal__p">Already a user? <span id="redirectLogin">LOGIN</span></p>
