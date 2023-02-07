@@ -1,29 +1,30 @@
-const searchInput =  document.getElementById("searchInput");
-
+const searchInput = document.getElementById("searchInput");
+const title = document.querySelector('.all-films__title');
 searchInput.addEventListener("keyup", searchMovies);
 
 
 function searchMovies() {
 
-    let ul = document.querySelector('#paginatedList');
+  let ul = document.querySelector('#paginatedList');
 
-    let movie = searchInput.value;
-    const paginationContainer = document.getElementById("paginationContainer");
+  let movie = searchInput.value;
+  const paginationContainer = document.getElementById("paginationContainer");
 
-    if(movie.length >= 2) {
+  if (movie.length >= 2) {
+    title.textContent = 'Search Results';
+    fetch("src/controllers/Search.php?schMovies=" + movie, {
+      method: "GET"
+    })
+      .then(res => res.json())
+      .then(data => {
+        paginationContainer.style.visibility = "hidden";
+        printFilms(data);
+      })
+  }
 
-        fetch("src/controllers/Search.php?schMovies=" + movie, {
-            method: "GET"
-        })
-        .then(res => res.json())
-        .then(data => {
-            paginationContainer.style.visibility = "hidden";
-            printFilms(data);
-        })
-    }
-
-    if(movie.length == 0) {
-        setCurrentPage(currentPage);
-        paginationContainer.style.visibility = "visible";
-    }
+  if (movie.length == 0) {
+    title.document.querySelector('.all-films__title').textContent = 'Catalogue';
+    setCurrentPage(currentPage);
+    paginationContainer.style.visibility = "visible";
+  }
 }

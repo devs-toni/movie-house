@@ -52,20 +52,23 @@ function closeSignUp() {
 }
 
 //DROPDOWN
+const dropBtn = document.querySelector('.navbar__button--user');
+const iconDropBtn = document.querySelector('i.fa-solid.fa-user-group');
+
+dropBtn.addEventListener("click", dropdown);
+iconDropBtn.addEventListener("click", dropdown);
 
 function openMenu() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
-window.onclick = function (event) {
-  if (!event.target.matches(".dropbtn")) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains("show")) {
-        openDropdown.classList.remove("show");
-      }
+const dropdown = () => {
+  var dropdowns = document.getElementsByClassName("dropdown__dropdown-content");
+  var i;
+  for (i = 0; i < dropdowns.length; i++) {
+    var openDropdown = dropdowns[i];
+    if (openDropdown.classList.contains("show")) {
+      openDropdown.classList.remove("show");
     }
   }
-};
+}
