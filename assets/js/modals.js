@@ -36,6 +36,7 @@ function showRegisterModal() {
   setTimeout(() => {
     backgroundModalActive.addEventListener("click", closeSignUp);
   }, 1);
+  document.body.style.overflow = 'hidden';
 }
 
 function redirectLogin() {
@@ -47,6 +48,7 @@ function closeSignUp() {
   modalSignUp.close();
   backgroundModalActive.classList.remove("modal__background--active");
   backgroundModalActive.removeEventListener("click", closeSignUp);
+  document.body.style.overflow = 'inherit';
 }
 
 //DROPDOWN
