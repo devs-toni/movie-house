@@ -11,7 +11,7 @@
 
   &__title {
     color: var.$orange-color;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 
   .container {
@@ -43,6 +43,7 @@
         img {
           height: var.$film-height;
           width: var.$film-width;
+          transition: all 0.5s ease;
 
           &:hover {
             transform: scale(1.1);
@@ -74,7 +75,8 @@
         border-radius: .2rem;
 
         &:hover {
-          background: #ff693f49;;
+          background: #ff693f49;
+          ;
         }
 
         &.active {
@@ -106,4 +108,11 @@
 
 .hidden {
   display: none !important;
+}
+
+.design {
+  color: var.$orange-color;
+  margin-bottom: 0px;
+  text-align: start;
+  margin-left: 20px;
 }

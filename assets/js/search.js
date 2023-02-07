@@ -1,7 +1,7 @@
 const searchInput = document.getElementById("searchInput");
 const title = document.querySelector('.all-films__title');
 
-searchInput.addEventListener("keyup", searchMovies);
+searchInput && searchInput.addEventListener("keyup", searchMovies);
 
 
 function searchMovies() {

@@ -71,13 +71,17 @@
   &__dropdown-content {
     text-align: right;
     background-color: var.$bg-input-color;
-    display: none;
+    display: block;
+    max-height: 0;
     position: absolute;
     min-width: 160px;
     top: 60px;
     right: 100px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 1.5);
     z-index: 1;
+    transition: ease 1s; 
+    overflow: hidden;
+    pointer-events: none;
   }
 
   a {
@@ -86,6 +90,8 @@
     text-decoration: none;
     display: block;
     font-weight: 600;
+    cursor: pointer;
+    transition: ease 6s; 
 
     &:hover {
       background-color: #ff693f35;
@@ -94,5 +100,6 @@
 }
 
 .show {
-  display: block;
+  max-height: 300px;
+  pointer-events: inherit;
 }

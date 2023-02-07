@@ -14,7 +14,7 @@ function login(e) {
       if (res === 'Ok') {
         window.location.reload();
       } else {
-        customAlert('center', 'error', 'Error', '<h4>Email/Password wrong!</h4>', false, 2000);
+        customAlert('center', 'warning', 'Error', '<h4>Email/Password wrong!</h4>', false, 2000, '#232323', '#ff683f');
       }
     })
     .catch(err => {
@@ -33,7 +33,7 @@ function register(e) {
     window.location = `src/controllers/Register.php?name=${username}&mail=${mail}&pass=${pass}`;
   } else {
     const error = getErrorMsg(errors);
-    customAlert('center', 'warning', 'Error', error, true, 0);
+    customAlert('center', 'warning', 'Error', error, true, 0, '#232323', '#ff683f', '#ff683f');
   }
 }
 

@@ -52,23 +52,6 @@ function closeSignUp() {
 }
 
 //DROPDOWN
-const dropBtnUser = document.querySelector('.navbar__button--user');
-const iconDropBtn = document.querySelector('.navbar__button i.fa-solid.fa-user-group');
-
 function openMenu() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
-
-const dropdown = () => {
-  var dropdowns = document.getElementsByClassName("dropdown__dropdown-content");
-  var i;
-  for (i = 0; i < dropdowns.length; i++) {
-    var openDropdown = dropdowns[i];
-    if (openDropdown.classList.contains("show")) {
-      openDropdown.classList.remove("show");
-    }
-  }
-}
-
-dropBtnUser && dropBtnUser.addEventListener("click", dropdown);
-iconDropBtn && iconDropBtn.addEventListener("click", dropdown);

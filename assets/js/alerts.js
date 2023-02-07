@@ -7,7 +7,7 @@ const getErrorMsg = (errors) => {
   return error;
 }
 
-const customAlert = (position, icon, title, html, showConfirmButton, timer) => {
+const customAlert = (position, icon, title, html, showConfirmButton, timer, background, color, confirmButtonColor) => {
   Swal.fire({
     position,
     icon,
@@ -15,6 +15,9 @@ const customAlert = (position, icon, title, html, showConfirmButton, timer) => {
     html,
     showConfirmButton,
     timer: timer,
+    background,
+    color,
+    confirmButtonColor
   });
 }
 
