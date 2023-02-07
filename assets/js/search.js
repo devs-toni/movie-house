@@ -1,12 +1,10 @@
 const searchInput = document.getElementById("searchInput");
 const title = document.querySelector('.all-films__title');
+
 searchInput.addEventListener("keyup", searchMovies);
 
 
 function searchMovies() {
-
-  let ul = document.querySelector('#paginatedList');
-
   let movie = searchInput.value;
   const paginationContainer = document.getElementById("paginationContainer");
 
@@ -23,7 +21,7 @@ function searchMovies() {
   }
 
   if (movie.length == 0) {
-    title.document.querySelector('.all-films__title').textContent = 'Catalogue';
+    title.textContent = 'Catalogue';
     setCurrentPage(currentPage);
     paginationContainer.style.visibility = "visible";
   }
