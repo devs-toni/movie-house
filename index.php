@@ -12,6 +12,8 @@ require_once(DIR_SESSION . 'Session.php');
 if (isset($_SESSION['user']))
   Session::checkSessionExpiration();
 
+print_r($_SESSION);
+
 $db = new Repository();
 $isLogged = false;
 $isAdmin = false;
@@ -32,10 +34,10 @@ include_once(DIR_TEMPLATES . 'modalSignUp.php');
 Templates::addFooter(['modals', 'alerts']);
 
 if (isset($_REQUEST['expire'])) {
-  ?>
-    <script>
-      window.history.pushState('', '', 'index.php');
-      customAlert('center', 'info', '', '<h4>Session expired . . .</h4>', false, 4000);
-    </script>  
-  <?php
+?>
+  <script>
+    window.history.pushState('', '', 'index.php');
+    customAlert('center', 'info', '', '<h4>Session expired . . .</h4>', false, 4000);
+  </script>
+<?php
 }
