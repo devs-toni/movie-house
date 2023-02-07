@@ -145,7 +145,7 @@ class Repository extends Connection
     $posters = [];
     $searchMovies = [];
     
-    $result = mysqli_query($this->con, 'SELECT id, title, poster_path FROM movies WHERE title LIKE "%' . $movie . '%"');
+    $result = mysqli_query($this->con, 'SELECT id, title, poster_path FROM movies WHERE title COLLATE utf8mb4_general_ci LIKE "%' . $movie . '%"');
     if (mysqli_num_rows($result) > 0) {
       while ($row = mysqli_fetch_assoc($result)) {
         array_push($ids, $row['id']);
