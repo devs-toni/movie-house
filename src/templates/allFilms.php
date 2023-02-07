@@ -7,7 +7,7 @@
       ?>
         <ul id="paginatedList" aria-live="polite" class="container__pg-list hidden"></ul>
 
-        <nav class="container__pg-nav">
+        <nav class="container__pg-nav" id="paginationContainer">
           <button class="pg-btn" id="prevButton" title="Previous page" aria-label="Previous page">
           &lt;
           </button>

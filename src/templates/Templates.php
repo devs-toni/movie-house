@@ -19,6 +19,7 @@ class Templates
           <?php foreach ($scriptsDefer as $s) { ?>
               <script defer src="assets/js/<?= $s ?>.js?v=<?= rand() ?>"></script>
           <?php } ?>
+      <script defer src="assets/js/search.js?v=<?= rand() ?>"></script>
           <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
           <title><?= $title ?></title>
         </head>
@@ -72,17 +73,19 @@ class Templates
         </div>
       </div>';
 
-    $loginButton =
-      "<button class='navbar__button'>Login</button>";
-    $userButton = $isAdmin
-      ? 
-      $dropdown . '<a href="admin.php">Admin</a>' . $close
-      :
-      $dropdown . $close;
-    ?>
-        <nav class="navbar">
-          <input class="navbar__input" type="text" placeholder="Search">
-          <?= $isLogged ? $userButton : $loginButton ?>
-        </nav>
-  <?php }
-}
+      $loginButton =
+        "<button class='navbar__button'>Login</button>";
+      $userButton = $isAdmin
+        ?
+        $dropdown . '<a href="admin.php">Admin</a>' . $close
+        :
+        $dropdown . $close;
+  ?>
+    <nav class="navbar">
+      <?php 
+        require("searchInput.php");
+        echo $isLogged ? $userButton : $loginButton 
+      ?>
+    </nav>
+<?php }
+  }
