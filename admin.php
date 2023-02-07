@@ -1,6 +1,9 @@
 <?php
+
+session_start();
 require_once('config.php');
 require_once(DIR_TEMPLATES . 'Templates.php');
+require_once(DIR_SESSION . 'Session.php');
 
 Templates::addHeader('Administrator', [], ['admin']);
 
@@ -14,4 +17,4 @@ Templates::addHeader('Administrator', [], ['admin']);
 
 <?php
 include(DIR_TEMPLATES . 'admin/modalAddFilm.php');
-Templates::addFooter();
+Templates::addFooter([]);

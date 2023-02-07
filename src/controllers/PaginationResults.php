@@ -1,5 +1,4 @@
 <?php
-require_once('../../config.php');
 require_once('../repository/Repository.php');
 $db = new Repository();
 $min = $_GET['min'];

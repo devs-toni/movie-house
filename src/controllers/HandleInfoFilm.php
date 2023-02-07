@@ -4,8 +4,8 @@ require_once('../repository/Repository.php');
 
 $db = new Repository();
 
-$titleFilm = $_GET['film'];
+$filmId = $_GET['film'];
 
-$filmInfo = $db->getInfoFilm($titleFilm);
+$filmInfo = $db->getInfoFilm($filmId);
 
 echo json_encode($filmInfo);

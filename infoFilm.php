@@ -5,29 +5,29 @@ require_once(DIR_TEMPLATES . 'Templates.php');
 
 Templates::addHeader('Neflis', [], ['infoFilm']);
 
-$filmName = $_GET['film'];
+$filmId = $_GET['film'];
 ?>
 
 <nav>
     <div>
-        <button>Back</button>
-        <button>Home</button>
+        <i class="fa-solid fa-circle-arrow-left"></i>
+        <i class="fa-solid fa-house"></i>
     </div>
-    <button>User</button>
+    <i class="fa-solid fa-user"></i>
 </nav>
 
 <section>
     <div>
-        <img id="imgFilm" src="" alt="<?= $filmName ?>">
+        <img id="imgFilm" src="" alt="" data-id=<?= $filmId ?>>
         <div>
-            <button>Likes</button>
-            <button>AddList</button>
-            <button>AddComments</button>
+            <i class="fa-solid fa-thumbs-up"></i>
+            <i class="fa-solid fa-circle-plus"></i>
+            <i class="fa-solid fa-comment"></i>
         </div>
     </div>
     <div>
         <div>
-            <h2><?= $filmName ?></h2>
+            <h2>Title</h2>
             <h4 id="dateFilm">Año</h4>
             <h3>Sipnosis</h3>
             <p id="descriptionFilm">description</p>
@@ -45,4 +45,4 @@ $filmName = $_GET['film'];
 
 </div>
 <?php
-Templates::addFooter();
+Templates::addFooter([]);

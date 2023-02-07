@@ -2,7 +2,7 @@
 
 class Templates
 {
-  static function addHeader(string $title, array|null $scriptsNotDefer, array|null $scriptsDefer): void
+  static function addHeader(string $title, array $scriptsNotDefer, array $scriptsDefer): void
   {
 ?>
     <!DOCTYPE html>
@@ -19,6 +19,8 @@ class Templates
       <?php foreach ($scriptsDefer as $s) { ?>
         <script defer src="assets/js/<?= $s ?>.js?v=<?= rand() ?>"></script>
       <?php } ?>
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script defer src="https://kit.fontawesome.com/8bbf7b9ae4.js" crossorigin="anonymous"></script>
       <title><?= $title ?></title>
     </head>
 
@@ -27,9 +29,12 @@ class Templates
       <?php
     }
 
-    static function addFooter()
+    static function addFooter(array|null $scripts)
     {
       ?>
+        <?php foreach ($scripts as $s) { ?>
+          <script src="assets/js/<?= $s ?>.js?v=<?= rand() ?>"></script>
+        <?php } ?>
     </body>
 
     </html>

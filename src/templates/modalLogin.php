@@ -3,7 +3,7 @@
     <div class="modal__container">
         <button class="modal__btn-close">🗙</button>
         <h2 class="modal__title">LOGIN</h2>
-        <form action="src/controllers/Login.php" method="POST" class="modal__form modal__form--login">
+        <form id="loginForm" method="POST" class="modal__form modal__form--login">
             <div class>
                 <label class="form__label" for="email">Email</label>
                 <input class="form__input" name="email" id="email" type="text" required>

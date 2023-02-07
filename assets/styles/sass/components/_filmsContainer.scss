@@ -1,4 +1,5 @@
 @use '../abstracts/variables' as var;
+@import '../abstracts/animations';
 
 .all-films {
   padding: 20px 50px;
@@ -17,10 +18,29 @@
 
       li {
         margin-right: 10px;
+        margin-bottom: 10px;
+
+        .skeleton {
+          height: var.$film-height;
+          width: var.$film-width;
+          cursor: progress;
+          background:
+            linear-gradient(0.25turn, transparent, #fff, transparent),
+            linear-gradient(#dfdede, #dfdede);
+          background-repeat: no-repeat;
+          background-size: 220px 330px, 220px 330px;
+          background-position: -330px 0, 0 0;
+          border-radius: 10px !important;
+          @include gradient();
+        }
 
         img {
           height: var.$film-height;
           width: var.$film-width;
+        }
+
+        .lazy {
+          display: none;
         }
       }
     }

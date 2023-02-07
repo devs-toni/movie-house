@@ -102,7 +102,7 @@ class Repository extends Connection
     return $allPosterMovies;
   }
 
-  function getPaginationMovies($min, $max)
+  function getPaginationMovies($min, $size)
   {
     $this->connect();
 
@@ -112,7 +112,7 @@ class Repository extends Connection
     $posterMovies = [];
 
     $pre = mysqli_prepare($this->con, 'SELECT id, title, poster_path FROM movies LIMIT ?, ?');
-    $pre->bind_param('ii', $min, $max);
+    $pre->bind_param('ii', $min, $size);
     $pre->execute();
     $result = $pre->get_result();
 
@@ -137,17 +137,17 @@ class Repository extends Connection
     $this->con->close();
   }
 
-  function getInfoFilm(string $titleFilm)
+  function getInfoFilm(string $filmId)
   {
     $queryInfoFilm = 'SELECT id, description, poster_path, release_date, vote_count FROM movies 
-        WHERE title=?';
+        WHERE id=?';
     $queryComments = 'SELECT text, username FROM comments 
         INNER JOIN users ON comments.id_user = users.id
         WHERE comments.id_movie = ?';
 
     $this->connect();
     $pre = mysqli_prepare($this->con, $queryInfoFilm);
-    $pre->bind_param("s", $titleFilm);
+    $pre->bind_param("s", $filmId);
     $pre->execute();
     $res = $pre->get_result();
 
