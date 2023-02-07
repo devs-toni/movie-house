@@ -44,7 +44,8 @@ class Repository extends Connection
     return false;
   }
 
-  function getUserByEmail($mail) {
+  function getUserByEmail($mail)
+  {
     $this->connect();
     $pre = mysqli_prepare($this->con, 'SELECT id, password FROM users WHERE email=?');
     $pre->bind_param('s', $mail);
@@ -53,8 +54,8 @@ class Repository extends Connection
 
     if (mysqli_num_rows($result) > 0) {
       while ($row = mysqli_fetch_assoc($result)) {
-        $res['pass'] = $row['password']; 
-        $res['id'] = $row['id']; 
+        $res['pass'] = $row['password'];
+        $res['id'] = $row['id'];
       }
     } else {
       $res = [];
@@ -134,5 +135,53 @@ class Repository extends Connection
     $this->connect();
     mysqli_query($this->con, 'DELETE FROM MOVIES');
     $this->con->close();
+  }
+
+  function getInfoFilm(string $titleFilm)
+  {
+    $queryInfoFilm = 'SELECT id, description, poster_path, release_date, vote_count FROM movies 
+        WHERE title=?';
+    $queryComments = 'SELECT text, username FROM comments 
+        INNER JOIN users ON comments.id_user = users.id
+        WHERE comments.id_movie = ?';
+
+    $this->connect();
+    $pre = mysqli_prepare($this->con, $queryInfoFilm);
+    $pre->bind_param("s", $titleFilm);
+    $pre->execute();
+    $res = $pre->get_result();
+
+    while ($row = $res->fetch_assoc()) {
+      $idMovie = $row['id'];
+      $info = (object) [
+        "description" => $row["description"],
+        "imgPath" => $row["poster_path"],
+        "date" => $row["release_date"],
+        "rate" => $row["vote_count"],
+        "comments" => []
+      ];
+    }
+
+    $pre = mysqli_prepare($this->con, $queryComments);
+    $pre->bind_param("s", $idMovie);
+    $pre->execute();
+    $res2 = $pre->get_result();
+
+    $comments = [];
+    if (mysqli_num_rows($res2) > 0) {
+      while ($row = $res2->fetch_assoc()) {
+        $comment = (object) [
+          "username" => $row["username"],
+          "comment" => $row["text"]
+        ];
+        array_push($comments, $comment);
+      }
+    }
+
+    $info->comments = $comments;
+
+    $pre->close();
+    $this->con->close();
+    return $info;
   }
 }

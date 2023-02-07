@@ -6,6 +6,8 @@ require_once(DIR_MODELS . 'Movie.php');
 require_once(DIR_TEMPLATES . 'Templates.php');
 require_once(DIR_REPO . 'Repository.php');
 
+print_r($_SESSION);
+
 $db = new Repository();
 $isLogged = false;
 $isAdmin = false;

@@ -23,7 +23,7 @@ function doPagination(total) {
     }
   };
 
-  const setCurrentPage = async pageNum => {
+  const setCurrentPage = async (pageNum) => {
     currentPage = pageNum;
     handleActivePageNumber();
     handlePageButtonsStatus();
@@ -31,18 +31,24 @@ function doPagination(total) {
     const prevRange = (pageNum - 1) * paginationLimit;
 
     await fetch(`src/controllers/PaginationResults.php?min=${prevRange}`)
-      .then(res => res.json())
-      .then(res => {    
-        ul = document.querySelector('#paginatedList');
-        ul.innerHTML = '';
+      .then((res) => res.json())
+      .then((res) => {
+        ul = document.querySelector("#paginatedList");
+        ul.innerHTML = "";
         for (let i = 0; i < res[0].length; i++) {
           ul.innerHTML += `<li><img src="assets/images/loader.gif" alt="${res[1][i]}" data-src="${url}${res[2][i]}"></li>`;
         }
-        document.querySelector('#paginatedList').classList.remove('hidden');
-        document.querySelector('#loader').classList.add('hidden');
-        let lazyloadImages = document.querySelectorAll('#paginatedList li img');
+        document.querySelector("#paginatedList").classList.remove("hidden");
+        document.querySelector("#loader").classList.add("hidden");
+        let lazyloadImages = document.querySelectorAll("#paginatedList li img");
+        for (let i = 0; i < lazyloadImages.length; i++) {
+          lazyloadImages[i].addEventListener("click", openInfoFilm);
+        }
         if ("IntersectionObserver" in window) {
-          var imageObserver = new IntersectionObserver(function (entries, observer) {
+          var imageObserver = new IntersectionObserver(function (
+            entries,
+            observer
+          ) {
             entries.forEach(function (entry) {
               if (entry.isIntersecting) {
                 var image = entry.target;
@@ -55,13 +61,11 @@ function doPagination(total) {
         lazyloadImages.forEach(function (image) {
           imageObserver.observe(image);
         });
-
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
-  }
-
+  };
 
   const handleActivePageNumber = () => {
     document.querySelectorAll(".pg-num").forEach((button) => {
@@ -117,3 +121,6 @@ function doPagination(total) {
   });
 }
 
+function openInfoFilm(e) {
+  window.location.href = "infoFilm.php?film=" + e.target.alt;
+}
