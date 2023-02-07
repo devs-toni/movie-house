@@ -137,6 +137,30 @@ class Repository extends Connection
     $this->con->close();
   }
 
+  function getSearchMovies($movie)
+  {
+    $this->connect();
+
+    $ids = [];
+    $titles = [];
+    $posters = [];
+    $searchMovies = [];
+
+    $result = mysqli_query($this->con, 'SELECT id, title, poster_path FROM movies WHERE title LIKE "%' . $movie . '%"');
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        array_push($ids, $row['id']);
+        array_push($titles, $row['title']);
+        array_push($posters, $row['poster_path']);
+      }
+    } else {
+      echo "0 results";
+    }
+    array_push($searchMovies, $ids, $titles, $posters);
+    $this->con->close();
+    return $searchMovies;
+  }
+
   function getInfoFilm(string $filmId)
   {
     $queryInfoFilm = 'SELECT id, description, poster_path, release_date, vote_count FROM movies 

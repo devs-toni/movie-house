@@ -1,1 +1,20 @@
 @use '../abstracts/variables' as var;
+
+.navbar {
+    display: flex;
+    // justify-content: space-between;
+
+    &__button {
+        background-color: var.$bg-color;
+        color: var.$orange-color;
+        padding: 0.3rem;
+    }
+
+    &__input {
+        background-color: var.$bg-color;
+    }
+
+    &__input::placeholder{
+        color:var.$orange-color;
+    }
+}

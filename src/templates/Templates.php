@@ -19,6 +19,7 @@ class Templates
       <?php foreach ($scriptsDefer as $s) { ?>
         <script defer src="assets/js/<?= $s ?>.js?v=<?= rand() ?>"></script>
       <?php } ?>
+      <script defer src="assets/js/search.js?v=<?= rand() ?>"></script>
       <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <script defer src="https://kit.fontawesome.com/8bbf7b9ae4.js" crossorigin="anonymous"></script>
       <title><?= $title ?></title>
@@ -83,8 +84,10 @@ class Templates
         $dropdown . $close;
   ?>
     <nav class="navbar">
-      <input class="navbar__input" type="text" placeholder="Search">
-      <?= $isLogged ? $userButton : $loginButton ?>
+      <?php
+      require("searchInput.php");
+      echo $isLogged ? $userButton : $loginButton
+      ?>
     </nav>
 <?php }
   }
