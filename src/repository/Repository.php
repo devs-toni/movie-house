@@ -163,7 +163,7 @@ class Repository extends Connection
 
   function getInfoFilm(string $filmId)
   {
-    $queryInfoFilm = 'SELECT id, description, poster_path, release_date, vote_count FROM movies 
+    $queryInfoFilm = 'SELECT id, title, description, poster_path, release_date, vote_count FROM movies 
         WHERE id=?';
     $queryComments = 'SELECT text, username FROM comments 
         INNER JOIN users ON comments.id_user = users.id
@@ -178,6 +178,7 @@ class Repository extends Connection
     while ($row = $res->fetch_assoc()) {
       $idMovie = $row['id'];
       $info = (object) [
+        "title" => $row["title"],
         "description" => $row["description"],
         "imgPath" => $row["poster_path"],
         "date" => $row["release_date"],
@@ -185,6 +186,7 @@ class Repository extends Connection
         "comments" => []
       ];
     }
+    $pre->close();
 
     $pre = mysqli_prepare($this->con, $queryComments);
     $pre->bind_param("s", $idMovie);
@@ -207,5 +209,80 @@ class Repository extends Connection
     $pre->close();
     $this->con->close();
     return $info;
+  }
+
+  function checkIfisAlreadyRated(string $filmId, string $userId)
+  {
+
+    $querySelect = "SELECT id FROM likes WHERE id_movie=? && id_user=?";
+
+    $this->connect();
+    $pre = mysqli_prepare($this->con, $querySelect);
+    $pre->bind_param("ss", $filmId, $userId);
+    $pre->execute();
+    $res = $pre->get_result();
+
+    if (mysqli_num_rows($res) > 0) {
+      while ($row = $res->fetch_assoc()) {
+        $idLike = $row['id'];
+      }
+    } else {
+      $idLike = "";
+    }
+
+    $pre->close();
+    $this->con->close();
+    return $idLike;
+  }
+
+  function deleteLike(string $likeId)
+  {
+    $queryDelete = "DELETE FROM likes WHERE id=?";
+    $this->connect();
+    $pre = mysqli_prepare($this->con, $queryDelete);
+    $pre->bind_param("s", $likeId);
+    $pre->execute();
+
+    $pre->close();
+    $this->con->close();
+  }
+
+  function insertLike(string $filmId, string $userId)
+  {
+    $queryInsert = "INSERT INTO likes (id_user, id_movie) VALUES (?, ?)";
+
+    $this->connect();
+    $pre = mysqli_prepare($this->con, $queryInsert);
+    $pre->bind_param("ss", $userId, $filmId);
+    $pre->execute();
+
+    $pre->close();
+    $this->con->close();
+  }
+
+  function addLikeRate(string $filmId)
+  {
+    $queryUpdateRateAdd = "UPDATE movies SET vote_count = (@cur_value := vote_count) + 1 WHERE id=?";
+
+    $this->connect();
+    $pre = mysqli_prepare($this->con, $queryUpdateRateAdd);
+    $pre->bind_param("s", $filmId);
+    $pre->execute();
+
+    $pre->close();
+    $this->con->close();
+  }
+
+  function substrLikeRate(string $filmId)
+  {
+    $queryUpdateRateSub = "UPDATE movies SET vote_count = (@cur_value := vote_count) - 1 WHERE id=?";
+
+    $this->connect();
+    $pre = mysqli_prepare($this->con, $queryUpdateRateSub);
+    $pre->bind_param("s", $filmId);
+    $pre->execute();
+
+    $pre->close();
+    $this->con->close();
   }
 }
