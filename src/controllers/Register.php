@@ -5,9 +5,9 @@ require_once('../models/User.php');
 
 $db = new Repository();
 
-$username = $_REQUEST['username'];
-$mail = $_REQUEST['email'];
-$pass = $_REQUEST['password'];
+$username = $_REQUEST['name'];
+$mail = $_REQUEST['mail'];
+$pass = $_REQUEST['pass'];
 
 $db->addUser(new User($username, $mail, $pass));
 $data = $db->getUserByEmail($mail);

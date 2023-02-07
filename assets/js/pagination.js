@@ -5,8 +5,18 @@ function doPagination(total) {
   const prevButton = document.getElementById("prevButton");
   const paginationLimit = 24;
   const pageCount = Math.ceil(total / paginationLimit);
-  const url = "https://image.tmdb.org/t/p/w500";
   let currentPage;
+
+  function testImage(image) {
+    var tester = new Image();
+    tester.onload = imageFound(image);
+  }
+
+  function imageFound(image) {
+    console.log('That image is found and loaded');
+    image.parentNode.lastChild.classList.add('hidden');
+    image.classList.remove('lazy');
+  }
 
   const appendPageNumber = (index) => {
     const pageNumber = document.createElement("button");
@@ -32,30 +42,18 @@ function doPagination(total) {
 
     await fetch(`src/controllers/PaginationResults.php?min=${prevRange}`)
       .then(res => res.json())
-      .then(res => {    
-        ul = document.querySelector('#paginatedList');
-        ul.innerHTML = '';
+      .then(res => {
+        paginatedList.innerHTML = '';
         for (let i = 0; i < res[0].length; i++) {
-          ul.innerHTML += `<li><img src="assets/images/loader.gif" alt="${res[1][i]}" data-src="${url}${res[2][i]}"></li>`;
+          paginatedList.innerHTML += `<li><img class="lazy" src="${res[2][i]}" alt="${res[1][i]}" data-id="${res[0][i]}"><div class="skeleton"></div></li>`;
         }
         document.querySelector('#paginatedList').classList.remove('hidden');
-        document.querySelector('#loader').classList.add('hidden');
         let lazyloadImages = document.querySelectorAll('#paginatedList li img');
-        if ("IntersectionObserver" in window) {
-          var imageObserver = new IntersectionObserver(function (entries, observer) {
-            entries.forEach(function (entry) {
-              if (entry.isIntersecting) {
-                var image = entry.target;
-                image.src = image.dataset.src;
-                imageObserver.unobserve(image);
-              }
-            });
-          });
-        }
-        lazyloadImages.forEach(function (image) {
-          imageObserver.observe(image);
-        });
-
+        lazyloadImages.forEach(i => {
+          i.onload = () => {
+            testImage(i);
+          }
+        })
       })
       .catch(err => {
         console.error(err);

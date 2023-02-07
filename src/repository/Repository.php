@@ -101,7 +101,7 @@ class Repository extends Connection
     return $allPosterMovies;
   }
 
-  function getPaginationMovies($min, $max)
+  function getPaginationMovies($min, $size)
   {
     $this->connect();
 
@@ -111,7 +111,7 @@ class Repository extends Connection
     $posterMovies = [];
 
     $pre = mysqli_prepare($this->con, 'SELECT id, title, poster_path FROM movies LIMIT ?, ?');
-    $pre->bind_param('ii', $min, $max);
+    $pre->bind_param('ii', $min, $size);
     $pre->execute();
     $result = $pre->get_result();
 
