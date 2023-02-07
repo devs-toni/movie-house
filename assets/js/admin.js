@@ -1,6 +1,30 @@
+const addFilm = document.querySelector('#addFilm');
+const modalAddFilm = document.querySelector('.modal__addFilm');
+const closeBtn = document.querySelector(".modal__btn-close");
 const loadDb = document.querySelector('#loadDatabase');
+const dltFilm = document.querySelector('.dltFilms');
 const backBtn = document.querySelector('#goBack');
 const api = 'https://api.themoviedb.org/3/movie/popular?api_key=f97d6a2165e719275828bcd71a17fccc&language=en-US';
+
+addFilm.addEventListener("click", showAddModal);
+closeBtn.addEventListener("click", closeAddModal);
+
+function showAddModal() {
+  modalAddFilm.show();
+}
+
+function closeAddModal(){
+  modalAddFilm.close();
+}
+
+
+const data = new FormData(addModal);
+const config = {
+  'method': 'POST',
+  'body': data,
+}
+fetch("src/controllers/AddFilm.php", config);
+
 
 async function mainFetch() {
   document.body.innerHTML = "<div class='lds-facebook center'><div></div><div></div><div></div></div>";
