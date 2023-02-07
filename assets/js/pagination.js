@@ -5,7 +5,6 @@ function doPagination(total) {
   const prevButton = document.getElementById("prevButton");
   const paginationLimit = 24;
   const pageCount = Math.ceil(total / paginationLimit);
-  const url = "https://image.tmdb.org/t/p/w500";
   let currentPage;
 
   function testImage(image) {
@@ -46,7 +45,7 @@ function doPagination(total) {
       .then(res => {
         paginatedList.innerHTML = '';
         for (let i = 0; i < res[0].length; i++) {
-          paginatedList.innerHTML += `<li><img class="lazy" src="${url}${res[2][i]}" alt="${res[1][i]}"><div class="skeleton"></div></li>`;
+          paginatedList.innerHTML += `<li><img class="lazy" src="${res[2][i]}" alt="${res[1][i]}" data-id="${res[0][i]}"><div class="skeleton"></div></li>`;
         }
         document.querySelector('#paginatedList').classList.remove('hidden');
         let lazyloadImages = document.querySelectorAll('#paginatedList li img');
