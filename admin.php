@@ -17,10 +17,13 @@ Templates::addHeader('Administrator', [], ['admin']);
 <div class="containerAdmin__btns">
 <button id="addFilm" class="addFilms"><img src="assets/images/add.png">.<br>Add Film</button>
 <button id="loadDatabase" class="loadDB"><img src="assets/images/refresh.png">.<br>Restart Database</button>
-<button id="deleteFilm" class="dltFilms"><img src="assets/images/dlt.png">.<br>Delete Film</button>
+<button id="editFilm" class="editFilms"><i class="admin-icons fa-solid fa-pencil"></i>.<br>Edit Film</button>
 </div>
 </body>
 
 <?php
 include(DIR_TEMPLATES . 'admin/modalAddFilm.php');
+include(DIR_TEMPLATES . 'admin/modalEditFilm.php');
+include(DIR_TEMPLATES . 'admin/editDataModal.php');
+
 Templates::addFooter([]);

@@ -30,7 +30,30 @@
     height: 100%;
     width: 100%;
     padding: 7vh;
+
+        //admin page styles
+        .list-container {
+            width: 100%;
+            min-height: 10rem;
+            background-color: var.$bg-input-color;
+            margin-top: 1rem;
+
+            &__table {
+                width: 100%;
+                text-align: left;
+
+                .film-ID {
+                    width: 10%;
+                }
+
+                .film-actions {
+                    width: 10%;
+                }
+            }
+        }
+        //---------------------------
   }
+
 
   &__btn-close {
     position: absolute;

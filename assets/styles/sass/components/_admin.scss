@@ -17,8 +17,6 @@
     height: 70vh;
     justify-content: center;
     align-items: center;
-    // margin: 0 auto;
-    // justify-content: space-between;
     }
 }
 
@@ -27,9 +25,7 @@
     margin-right: 3rem;
     width: 120px;
     height: 120px;
-    // background-size: 50px 50px;
-    // position: absolute;
-    // top: 50%;
+    cursor: pointer;
 }
 
 .loadDB{
@@ -38,20 +34,24 @@
     margin-right: 3rem;
     width: 120px;
     height: 120px;
-    // position: absolute;
-    // top: 50%;
+    cursor: pointer;
 }
 
-.dltFilms {
+.editFilms {
     background-color: var.$orange-color;
     margin-left: 3rem;
     width: 120px;
     height: 120px;
+    cursor: pointer;
 }
 
 #goBack {
     background-color: var.$orange-color;
     width: 50px;
-    // display: flex;
-    // justify-content: end;
+    cursor: pointer;
 }
+
+.admin-icons {
+    font-size: 60px;
+}
+
