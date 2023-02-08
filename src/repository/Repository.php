@@ -211,6 +211,8 @@ class Repository extends Connection
     return $info;
   }
 
+  //LIKES
+
   function checkIfisAlreadyRated(string $filmId, string $userId)
   {
 
@@ -286,8 +288,37 @@ class Repository extends Connection
     $this->con->close();
   }
 
+  //COMMENTS
+
   function addCommentFilm(string $userId, string $filmId, string $comment)
   {
     $query = "INSERT INTO comments (id_user, id_movie, text) VALUES (?,?,?)";
+    $queryComments = 'SELECT text, username FROM comments 
+        INNER JOIN users ON comments.id_user = users.id
+        WHERE comments.id_movie = ? && comments.id_user = ? && comments.text = ?';
+
+    $this->connect();
+    $pre = mysqli_prepare($this->con, $query);
+    $pre->bind_param("sss", $userId, $filmId, $comment);
+    $pre->execute();
+    $pre->close();
+
+    $pre = mysqli_prepare($this->con, $queryComments);
+    $pre->bind_param("sss", $filmId, $userId, $comment);
+    $pre->execute();
+    $res = $pre->get_result();
+
+    if (mysqli_num_rows($res) > 0) {
+      while ($row = $res->fetch_assoc()) {
+        $comment = (object) [
+          "username" => $row["username"],
+          "comment" => $row["text"]
+        ];
+      }
+    }
+
+    $pre->close();
+    $this->con->close();
+    return $comment;
   }
 }

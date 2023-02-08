@@ -9,9 +9,7 @@ $filmId = $_POST['idOpenedFilm'];
 $comment = $_POST['comment'];
 
 
-
-
 $newComment = $db->addCommentFilm($userId, $filmId, $comment);
 
 
-echo json_encode($comment);
+echo json_encode($newComment);

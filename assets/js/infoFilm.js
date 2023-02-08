@@ -106,6 +106,11 @@ function addCommentFilm(e) {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      const commentContainer = document.createElement("div");
+      commentContainer.innerHTML = `<h5>${data.username}</h5><p>${data.comment}</p>`;
+
+      commentsContainer.appendChild(commentContainer);
     });
+
+  modalAddComment.close();
 }
