@@ -165,7 +165,7 @@ class Repository extends Connection
   {
     $queryInfoFilm = 'SELECT id, title, description, poster_path, release_date, vote_count FROM movies 
         WHERE id=?';
-    $queryComments = 'SELECT text, username FROM comments 
+    $queryComments = 'SELECT comments.id, text, id_user, username FROM comments 
         INNER JOIN users ON comments.id_user = users.id
         WHERE comments.id_movie = ?';
 
@@ -197,6 +197,8 @@ class Repository extends Connection
     if (mysqli_num_rows($res2) > 0) {
       while ($row = $res2->fetch_assoc()) {
         $comment = (object) [
+          "idComment" => $row["id"],
+          "idUser" => $row["id_user"],
           "username" => $row["username"],
           "comment" => $row["text"]
         ];
@@ -293,7 +295,7 @@ class Repository extends Connection
   function addCommentFilm(string $userId, string $filmId, string $comment)
   {
     $query = "INSERT INTO comments (id_user, id_movie, text) VALUES (?,?,?)";
-    $queryComments = 'SELECT text, username FROM comments 
+    $queryComments = 'SELECT comments.id, text, id_user, username FROM comments 
         INNER JOIN users ON comments.id_user = users.id
         WHERE comments.id_movie = ? && comments.id_user = ? && comments.text = ?';
 
@@ -311,6 +313,8 @@ class Repository extends Connection
     if (mysqli_num_rows($res) > 0) {
       while ($row = $res->fetch_assoc()) {
         $comment = (object) [
+          "idComment" => $row["id"],
+          "idUser" => $row["id_user"],
           "username" => $row["username"],
           "comment" => $row["text"]
         ];
@@ -320,5 +324,19 @@ class Repository extends Connection
     $pre->close();
     $this->con->close();
     return $comment;
+  }
+
+  function deleteComment(string $idComment)
+  {
+    $query = "DELETE FROM comments WHERE id=?";
+
+    $this->connect();
+    $pre = mysqli_prepare($this->con, $query);
+    $pre->bind_param("s", $idComment);
+    $pre->execute();
+
+    $pre->close();
+    $this->con->close();
+    return "deleted";
   }
 }

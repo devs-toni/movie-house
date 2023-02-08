@@ -13,6 +13,14 @@
 
 }
 
+.comment__delete {
+    opacity: 0;
+
+    &--active {
+    opacity: 1;
+    }
+}
+
 img {
     height: 50px;
 }

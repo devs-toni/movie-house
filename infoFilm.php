@@ -14,11 +14,6 @@ $filmId = $_GET['film'];
             <i class="fa-solid fa-circle-arrow-left"></i>
             <i class="fa-solid fa-house"></i>
         </div>
-        <?php
-        if (isset($_SESSION['user'])) {
-            echo "<i class='fa-solid fa-user'></i>";
-        }
-        ?>
     </nav>
 
     <section>
@@ -56,6 +51,17 @@ $filmId = $_GET['film'];
         <textarea type="text" name="comment"></textarea>
         <button id="btnSendComment">Send</button>
     </form>
+</dialog>
+<dialog id="modalConfirmDelete">
+    <h4>Are you sure to delete this comment?</h4>
+    <div>
+        <button id="btnConfirmDelete">Yes</button>
+        <button id="cancelDelete">No</button>
+    </div>
+</dialog>
+<dialog id="modalMessageDeleted">
+    <h4><i class="fa-solid fa-circle-check"></i></h4>
+    <h4>Your comment has been deleted correctly</h4>
 </dialog>
 
 </div>
