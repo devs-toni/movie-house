@@ -50,7 +50,13 @@ $filmId = $_GET['film'];
 
 
 </div>
-
+<dialog id="modalAddComment">
+    <h2>Leave your comment...</h2>
+    <form id="formComments">
+        <textarea type="text" name="comment"></textarea>
+        <button id="btnSendComment">Send</button>
+    </form>
+</dialog>
 
 </div>
 <?php

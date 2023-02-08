@@ -12,8 +12,6 @@ require_once(DIR_SESSION . 'Session.php');
 if (isset($_SESSION['user']))
   Session::checkSessionExpiration();
 
-print_r($_SESSION);
-
 $db = new Repository();
 $isLogged = false;
 $isAdmin = false;

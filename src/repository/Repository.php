@@ -285,4 +285,9 @@ class Repository extends Connection
     $pre->close();
     $this->con->close();
   }
+
+  function addCommentFilm(string $userId, string $filmId, string $comment)
+  {
+    $query = "INSERT INTO comments (id_user, id_movie, text) VALUES (?,?,?)";
+  }
 }
