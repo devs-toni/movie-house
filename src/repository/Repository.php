@@ -70,8 +70,9 @@ class Repository extends Connection
   function addFilm(Movie $film): void
   {
     $this->connect();
-    $pre = mysqli_prepare($this->con, 'INSERT INTO movies (title, language, description, poster_path, release_date, vote_average, vote_count) VALUES (?,?,?,?,?,?,?)');
+    $pre = mysqli_prepare($this->con, 'INSERT INTO movies (id, title, language, description, poster_path, release_date, vote_average, vote_count) VALUES (?,?,?,?,?,?,?,?)');
 
+    $id = $film->getId();
     $title = $film->getTitle();
     $lang = $film->getLanguage();
     $desc = $film->getDescription();
@@ -80,10 +81,27 @@ class Repository extends Connection
     $vote_average = $film->getVoteAverage();
     $vote_count = $film->getVoteCount();
 
-    $pre->bind_param('sssssdi', $title, $lang, $desc, $poster, $date, $vote_average, $vote_count);
+    $pre->bind_param('isssssdi', $id, $title, $lang, $desc, $poster, $date, $vote_average, $vote_count);
     $pre->execute();
     $pre->close();
     $this->con->close();
+  }
+
+  function existFilm($id) {
+        $this->connect();
+    $pre = mysqli_prepare($this->con, 'SELECT title FROM movies WHERE id = ?');
+    $pre->bind_param('i', $id);
+    $pre->execute();
+    $result = $pre->get_result();
+
+    if (mysqli_num_rows($result) > 0) {
+      $response = true;
+    } else {
+      $response = false;
+    }
+    $pre->close();
+    $this->con->close();
+    return $response;
   }
 
   function getAllFilms()
@@ -128,30 +146,6 @@ class Repository extends Connection
     array_push($posterMovies, $ids, $titles, $posters);
     $this->con->close();
     return $posterMovies;
-  }
-  function getTop10Movies()
-  {
-    $this->connect();
-
-    $ids = [];
-    $titles = [];
-    $posters = [];
-    $movies = [];
-
-    $result = mysqli_query($this->con, 'SELECT id, title, poster_path FROM movies ORDER BY vote_average DESC LIMIT 10 ');
-
-    if (mysqli_num_rows($result) > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
-        array_push($ids, $row['id']);
-        array_push($titles, $row['title']);
-        array_push($posters, $row['poster_path']);
-      }
-    } else {
-      echo "0 results";
-    }
-    array_push($movies, $ids, $titles, $posters);
-    $this->con->close();
-    return $movies;
   }
 
   function deleteFilms()

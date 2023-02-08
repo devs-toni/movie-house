@@ -1,7 +1,7 @@
 <section class="top-10">
         <div class="top contenedor">
           <div class="top__controls">
-            <h3>Top 10 Films</h3>
+            <h3>Trending Topic</h3>
           </div>
 
           <div class="top__main">
