@@ -1,7 +1,7 @@
 const searchInput = document.getElementById("searchInput");
 const tableBody = document.getElementById('tableBody');
 let adminPage = false;
-const title = document.querySelector(".all-films__title");
+// const title = document.querySelector(".all-films__title");
 
 searchInput && searchInput.addEventListener("keyup", searchMovies);
 
@@ -10,7 +10,7 @@ function searchMovies() {
   const paginationContainer = document.getElementById("paginationContainer");
 
   if (movie.length >= 2) {
-    title.textContent = "Search Results";
+    // title.textContent = "Search Results";
     fetch("src/controllers/Search.php?schMovies=" + movie, {
       method: "GET",
     })
@@ -26,7 +26,7 @@ function searchMovies() {
   }
 
   if (movie.length == 0) {
-    title.textContent = "Catalogue";
+    // title.textContent = "Catalogue";
         if(!adminPage){
         setCurrentPage(currentPage);
         paginationContainer.style.visibility = "visible";
