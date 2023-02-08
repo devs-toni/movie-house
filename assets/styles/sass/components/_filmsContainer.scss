@@ -3,10 +3,10 @@
 
 .index-container {
   background-color: var.$bg-color;
-
 }
 
 .all-films {
+  position: absolute;
   padding: 20px 50px;
 
   &__title {
@@ -111,8 +111,10 @@
 }
 
 .design {
+  position: fixed;
+  bottom: 0;
   color: var.$orange-color;
-  margin-bottom: 0px;
+  margin-top: auto;
   text-align: start;
   margin-left: 20px;
 }
