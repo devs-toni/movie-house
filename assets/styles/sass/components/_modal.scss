@@ -31,27 +31,28 @@
     width: 100%;
     padding: 7vh;
 
-        //admin page styles
-        .list-container {
-            width: 100%;
-            min-height: 10rem;
-            background-color: var.$bg-input-color;
-            margin-top: 1rem;
+    //admin page styles
+    .list-container {
+      width: 100%;
+      min-height: 10rem;
+      background-color: var.$bg-input-color;
+      margin-top: 1rem;
 
-            &__table {
-                width: 100%;
-                text-align: left;
+      &__table {
+        width: 100%;
+        text-align: left;
 
-                .film-ID {
-                    width: 10%;
-                }
-
-                .film-actions {
-                    width: 10%;
-                }
-            }
+        .film-ID {
+          width: 10%;
         }
-        //---------------------------
+
+        .film-actions {
+          width: 10%;
+        }
+      }
+    }
+
+    //---------------------------
   }
 
 
@@ -91,7 +92,7 @@
     color: white;
     font-size: 1.2rem;
     padding: 8px 12px;
-    
+
     &:focus {
       outline: 1px solid rgb(155, 155, 155);
     }
@@ -104,7 +105,7 @@
       -webkit-box-shadow: 0 0 0 30px var.$bg-input-color inset !important;
       cursor: text;
       transition: background-color 5000s ease-in-out 0s;
-      
+
     }
   }
 
@@ -119,6 +120,7 @@
     &--login {
       height: 18rem;
     }
+
     div {
       border-radius: 5px;
     }
@@ -155,5 +157,89 @@
     position: absolute;
     top: 0;
     left: 0;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .modal-sign-up {
+    height: 90% !important;
+    padding: 50px 0;
+  }
+
+  .modal {
+    width: 60%;
+    height: 80vh;
+
+    &__btn-close {
+      font-size: 1.5rem;
+    }
+
+    &__title {
+      font-size: 3rem;
+    }
+
+    .form__input {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    &__form {
+      width: 100%;
+    }
+
+    &__btn-submit {
+      width: 50%;
+    }
+
+    &__p {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+
+  .modal-sign-up {
+    height: 80% !important;
+    padding: 50px 0;
+  }
+
+  .modal {
+    width: 60%;
+    height: 50vh;
+
+    &__btn-close {
+      font-size: 1.2rem;
+    }
+
+    &__title {
+      font-size: 1.6rem;
+    }
+
+    .form__label {
+      font-size: 0.7rem;
+
+    }
+
+    .form__input {
+      width: 100%;
+      margin-bottom: 20px;
+      padding: 0.2rem .6rem;
+      font-size: 0.7em;
+      height: 1.5rem;
+    }
+
+    &__form {
+      width: 100%;
+    }
+
+    &__btn-submit {
+      width: 50%;
+      font-size: 0.8em;
+    }
+
+    &__p {
+      font-size: 0.6rem;
+    }
   }
 }
