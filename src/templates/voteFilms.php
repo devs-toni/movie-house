@@ -1,4 +1,4 @@
-<section class="top-10">
+<section class="top-votes">
         <div class="top contenedor">
           <div class="top__controls">
             <h3>Most Voted Films</h3>

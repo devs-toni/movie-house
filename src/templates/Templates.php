@@ -36,7 +36,6 @@ class Templates
         <?php foreach ($scripts as $s) { ?>
           <script src="assets/js/<?= $s ?>.js?v=<?= rand() ?>"></script>
         <?php } ?>
-        <p class="design">Designed by Lovelace team @ 2023</p>
     </body>
 
     </html>

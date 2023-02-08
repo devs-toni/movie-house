@@ -17,6 +17,13 @@
 
 @media screen and (max-width: 1250px) {
   .aside {
-    display: none;
+    //display: none;
+    height: 10%;
+    width: 100%;
+    writing-mode: horizontal-tb;
+    position: inherit;
+    font-size: 1.6em;
+    text-align: left;
+    padding: 15px 0 0 20px;
   }
 }

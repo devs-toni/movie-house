@@ -15,18 +15,18 @@ function loadFilms(total) {
   let pageCount = Math.ceil(total / paginationLimit);
 
   getPaginationNumbers(pageCount);
-  setCurrentPage(1);
+  setCurrentPage(1, pageCount);
   prevButton.addEventListener("click", () => {
-    setCurrentPage(currentPage - 1);
+    setCurrentPage(currentPage - 1, pageCount);
   });
   nextButton.addEventListener("click", () => {
-    setCurrentPage(currentPage + 1);
+    setCurrentPage(currentPage + 1, pageCount);
   });
   document.querySelectorAll(".pg-num").forEach((button) => {
     const pageIndex = Number(button.getAttribute("page-index"));
     if (pageIndex) {
       button.addEventListener("click", () => {
-        setCurrentPage(pageIndex);
+        setCurrentPage(pageIndex, pageCount);
       });
     }
   });
@@ -41,7 +41,6 @@ const getPaginationNumbers = (pageCount) => {
 const handleActivePageNumber = () => {
   document.querySelectorAll(".pg-num").forEach((button) => {
     button.classList.remove("active");
-
     const pageIndex = Number(button.getAttribute("page-index"));
     if (pageIndex == currentPage) {
       button.classList.add("active");
@@ -82,15 +81,6 @@ const appendPageNumber = (index) => {
   paginationNumbers.appendChild(pageNumber);
 };
 
-function testImage(image) {
-  const tester = new Image();
-  tester.onload = imageFound(image);
-}
-
-function imageFound(image) {
-  image.parentNode.lastChild.classList.add("hidden");
-  image.classList.remove("lazy");
-}
 function openInfoFilm(e) {
   window.location.href = "infoFilm.php?film=" + e.target.dataset.id;
 }
@@ -101,7 +91,6 @@ const setCurrentPage = async (pageNum, pageCount) => {
   currentPage = pageNum;
   handleActivePageNumber();
   handlePageButtonsStatus(pageCount);
-
   const prevRange = (pageNum - 1) * paginationLimit;
 
   await fetch(`src/controllers/PaginationResults.php?min=${prevRange}`)
@@ -113,17 +102,13 @@ const setCurrentPage = async (pageNum, pageCount) => {
       console.error(err);
     });
 }
-
 async function printFilms(data, container, action) {
-  let lazyLoadImages;
   let printContainer = document.querySelector(container);
-
+  
   if (data) {
     printContainer.innerHTML = "";
     printDbFilms(data, printContainer);
-    lazyLoadImages = document.querySelectorAll(`${container} li img`);
   } else {
-    
     if (action === 'mark') {
       results = await fetchApi(trendingUrl);
       const file = new FormData();
@@ -136,34 +121,30 @@ async function printFilms(data, container, action) {
       results = await fetchDb('src/controllers/MostVotedFilms.php', null);
       printDbVotedFilms(results, printContainer);
     }
-    lazyLoadImages = document.querySelectorAll(`${container} div img`);
   }
-
-  lazyLoadImages.forEach((i) => {
-    i.addEventListener("click", openInfoFilm);
-    i.onload = () => {
-      testImage(i);
-    };
-  });
-
   printContainer.classList.remove("hidden");
 
   function printApiFilms(results, container, files) {
     for (let i = 0; i < files; i++) {
-      container.innerHTML += `<div class="carousel__film"><img class="lazy" src="${url}${results[i].poster_path}" alt="${results[i].title}" data-id="${results[i].id}"><div class="skeleton"></div></div>`;
+      container.innerHTML += `<div class="carousel__film"><img src="${url}${results[i].poster_path}" alt="${results[i].title}" data-id="${results[i].id}"></div>`;
     }
   }
 
   function printDbFilms(results, container) {
     for (let i = 0; i < results[0].length; i++) {
-      container.innerHTML += `<li><img class="lazy" src="${results[2][i]}" alt="${results[1][i]}" data-id="${results[0][i]}"><div class="skeleton"></div></li>`
+      container.innerHTML += `<div class="list__film"><img src="${results[2][i]}" alt="${results[1][i]}" data-id="${results[0][i]}"></div>`
     }
   }
+
   function printDbVotedFilms(results, container) {
     for (let i = 0; i < results[0].length; i++) {
-      container.innerHTML += `<div class="carousel-votes__film"><img class="lazy" src="${url}${results[2][i]}" alt="${results[1][i]}" data-id="${results[0][i]}"><div class="skeleton"></div></div>`;
+      container.innerHTML += `<div class="carousel-votes__film"><img src="${url}${results[2][i]}" alt="${results[1][i]}" data-id="${results[0][i]}"></div>`;
     }
   }
+
+  document.querySelectorAll('img[data-id]').forEach(img => {
+    img.onclick = openInfoFilm;
+  });
 }
 
 const fetchApi = async (url) => {
@@ -197,5 +178,5 @@ const fetchDb = async (url, body) => {
     .catch((err) => {
       console.error(err);
     });
-    return response;
+  return response;
 }

@@ -1,9 +1,10 @@
 @use '../abstracts/variables' as var;
 @import '../abstracts/animations';
 
-.top-10 {
-  width: 86.2%;
-  margin: 20px 0 20px 50px;
+.top-trend,
+.top-votes {
+  width: 86%;
+  margin: 40px 0 120px 90px;
 
   .top {
 
@@ -14,6 +15,7 @@
 
       h3 {
         color: var.$orange-color;
+        font-size: 1.3em;
       }
     }
 
@@ -63,7 +65,7 @@
           flex-wrap: nowrap;
 
           &__film {
-            min-width: 17%;
+            min-width: 12%;
             transition: .3 ease all;
             box-shadow: 5px, 5px 10px rgba(0, 0, 0, 0.3);
             margin-right: 10px;
@@ -88,48 +90,76 @@
   }
 }
 
+@media screen and (max-width: 1900px) {
+
+  .top-trend,
+  .top-votes {
+    margin-left: 50px;
+    margin-bottom: 120px;
+  }
+}
+
 @media screen and (max-width: 1250px) {
 
-  .top-10 {
-    margin-right: 200px;
+  .top-trend,
+  .top-votes {
+    margin-left: 50px;
+    margin-bottom: 120px;
 
     .top {
-
-      &__controls {
-
-
-        h3 {}
-      }
-
       &__main {
-
 
         .left-arrow,
         .right-arrow {
           display: none;
-
-          &:hover {}
         }
 
-        .left-arrow {}
-
-        .right-arrow {}
-
-        .carousel-container {
+        .carousel-container,
+        .carousel-votes-container {
           overflow: visible;
 
-          .carousel {
+          .carousel,
+          .carousel-votes {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1250px) {
+
+  .top-trend,
+  .top-votes {
+    margin: 0 auto;
+    margin-bottom: 120px;
+
+    .top {
+      &__main {
+
+        .left-arrow,
+        .right-arrow {
+          display: none;
+        }
+
+        .carousel-container,
+        .carousel-votes-container {
+          overflow: visible;
+
+          .carousel,
+          .carousel-votes {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
 
             &__film {
-
+              margin-right: 0;
 
               img {
-
-
-                &:hover {}
+                margin: 0;
               }
             }
           }
@@ -141,16 +171,37 @@
 
 @media screen and (max-width: 500px) {
 
-  .top-10 {
+  .top-trend,
+  .top-votes {
+    margin: 0 auto;
+    margin-bottom: 120px;
+
     .top {
+      &__controls {
+        h3 {
+          font-size: 0.9em;
+        }
+      }
+
       &__main {
-        .carousel-container {
+
+        .carousel-container,
+        .carousel-votes-container {
           overflow: visible;
 
-          .carousel {
+          .carousel,
+          .carousel-votes {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+
+            &__film {
+              margin-right: 0;
+
+              img {
+                margin: 0;
+              }
+            }
           }
         }
       }
