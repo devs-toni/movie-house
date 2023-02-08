@@ -8,6 +8,7 @@ const formComments = document.getElementById("formComments");
 const modalConfirmDelete = document.getElementById("modalConfirmDelete");
 const btnConfirmDelete = document.getElementById("btnConfirmDelete");
 const modalMessageDeleted = document.getElementById("modalMessageDeleted");
+const closeAddComment = document.getElementById("closeAddComment");
 
 let idOpenedFilm;
 let idUserRegistered;
@@ -19,6 +20,8 @@ btnAddCommentFilm &&
   btnAddCommentFilm.addEventListener("click", openModalCommentFilm);
 btnSendComment && btnSendComment.addEventListener("click", addCommentFilm);
 btnConfirmDelete && btnConfirmDelete.addEventListener("click", deleteComment);
+closeAddComment &&
+  closeAddComment.addEventListener("click", closeModalAddComment);
 
 function getDataInfoFilm() {
   idOpenedFilm = document.querySelector("img").dataset.id;
@@ -30,7 +33,8 @@ function getDataInfoFilm() {
     .then((data) => {
       const { title, description, imgPath, date, rate, comments } = data;
       printInfoFilm(imgPath, date, rate, description, comments, title);
-    });
+    })
+    .catch((err) => console.error(err));
 
   if (btnAddLikeFilm) {
     idUserRegistered = btnAddLikeFilm.dataset.userid;
@@ -48,7 +52,8 @@ function getDataInfoFilm() {
         if (data) {
           btnAddLikeFilm.classList.add("info-film__btn-like--active");
         }
-      });
+      })
+      .catch((err) => console.error(err));
   }
 }
 
@@ -63,6 +68,7 @@ function printInfoFilm(imgPath, date, rate, description, comments, title) {
   if (comments) {
     for (let i = 0; i < comments.length; i++) {
       const commentContainer = document.createElement("div");
+      commentContainer.classList.add("container__each-comment");
       if (comments[i].idUser == idUserRegistered) {
         commentContainer.innerHTML = `<div><h5>${comments[i].username}</h5>
         <p class = "comment__delete--active" data-idcomment = ${comments[i].idComment}>delete</p>
@@ -103,11 +109,16 @@ function addLikeFilm() {
         rateFilm.innerText = rate;
         btnAddLikeFilm.classList.add("info-film__btn-like--active");
       }
-    });
+    })
+    .catch((err) => console.error(err));
 }
 
 function openModalCommentFilm() {
   modalAddComment.show();
+}
+
+function closeModalAddComment() {
+  modalAddComment.close();
 }
 
 function addCommentFilm(e) {
@@ -123,6 +134,7 @@ function addCommentFilm(e) {
     .then((res) => res.json())
     .then((data) => {
       const commentContainer = document.createElement("div");
+      commentContainer.classList.add("container__each-comment");
       commentContainer.innerHTML = `<div><h5>${data.username}</h5>
                                     <p class = "comment__delete--active" data-idcomment = ${data.idComment}>delete</p>
                                     </div><p>${data.comment}</p>`;
@@ -130,7 +142,8 @@ function addCommentFilm(e) {
       document
         .querySelector(`[data-idcomment="${data.idComment}"]`)
         .addEventListener("click", startDeleteComment);
-    });
+    })
+    .catch((err) => console.error(err));
 
   modalAddComment.close();
 }
@@ -157,5 +170,6 @@ function deleteComment() {
           modalMessageDeleted.close();
         }, 2000);
       }
-    });
+    })
+    .catch((err) => console.error(err));
 }
