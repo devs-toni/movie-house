@@ -4,33 +4,33 @@
         <h2 class="modal__title">EDIT</h2>
         <form class="modal__form modal__form--editFilm">
             <div>
-                <label class="form__label" for="title">Title</label>
-                <input class="form__input" name="title" id="title" type="text" required>
+                <label class="form__label" for="editTitle">Title</label>
+                <input class="form__input" name="editTitle" id="editTitle" type="text" required>
             </div>
 
             <div>
-                <label class="form__label" for="language">Language</label>
-                <input class="form__input" name="language" id="language" type="text" required>
+                <label class="form__label" for="editLanguage">Language</label>
+                <input class="form__input" name="editLanguage" id="editLanguage" type="text" required>
             </div>
 
             <div>
-                <label class="form__label" for="description">Description</label>
-                <input class="form__input" name="description" id="description" type="text" required>
+                <label class="form__label" for="editDescription">Description</label>
+                <input class="form__input" name="editDescription" id="editDescription" type="text" required>
             </div>
 
             <div>
-                <label class="form__label" for="posterPath">PosterPath</label>
-                <input class="form__input" name="posterPath" id="posterPath" type="text" required>
+                <label class="form__label" for="editPosterPath">PosterPath</label>
+                <input class="form__input" name="editPosterPath" id="editPosterPath" type="text" required>
             </div>
 
             <div>
-                <label class="form__label" for="releaseDate">ReleaseDate</label>
-                <input class="form__input" name="releaseDate" id="releaseDate" type="text" required>
+                <label class="form__label" for="editReleaseDate">ReleaseDate</label>
+                <input class="form__input" name="editReleaseDate" id="editReleaseDate" type="date" required>
             </div>
 
             <div>
-                <label class="form__label" for="voteAverage">VoteAverage</label>
-                <input class="form__input" name="voteAverage" id="voteAverage" type="text">
+                <label class="form__label" for="editVoteAverage">VoteAverage</label>
+                <input class="form__input" name="editVoteAverage" id="editVoteAverage" type="text">
             </div>
 
             <button type="submit" class="modal__btn-submit modal__btn-submit--editFilm">Add film</button>

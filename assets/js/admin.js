@@ -9,16 +9,15 @@ const backBtn = document.querySelector('#goBack');
 const editCloseBtn = document.getElementById('editCloseBtn');
 const modalEditData = document.getElementById('editDataModal');
 const closeEdit = document.getElementById('closeModalEdit');
+let filmIdToChange;
 
 
 addFilm.addEventListener("click", showAddModal);
 closeBtn.addEventListener("click", closeAddModal);
 editBtn.addEventListener("click", showEditModal);
 editCloseBtn.addEventListener("click", closeEditModal);
-tableBody.addEventListener("click", editFilm);
+tableBody.addEventListener("click", handleEditFilm);
 closeEdit.addEventListener("click", closeModalEdit);
-
-
 
 function showAddModal() {
   modalAddFilm.show();
@@ -97,13 +96,75 @@ function searchEditFilms(res) {
       <tr>
           <th class="film-ID">${res[0][i]}</th>
           <th>${res[1][i]}</th>
-          <th class="film-actions"><i class="edit-btn fa-solid fa-pen-to-square"></i><i class="delete-btn fa-solid fa-trash-can"></i></th>
+          <th data-film="${res[0][i]}" class="film-actions"><i class="edit-btn fa-solid fa-pen-to-square"></i><i class="delete-btn fa-solid fa-trash-can"></i></th>
       </tr>`;
     }
 }
 
-function editFilm(e){
+function handleEditFilm(e){
   if(e.target.matches(".edit-btn")){
+    filmIdToChange = parseInt(e.target.parentElement.dataset.film);
+
     modalEditData.show();
+    getInfo(filmIdToChange);
   }
+}
+
+const editTitle = document.getElementById("editTitle");
+const editLanguage = document.getElementById("editLanguage");
+const editDescription = document.getElementById("editDescription");
+const editPosterPath = document.getElementById("editPosterPath");
+const editReleaseDate = document.getElementById("editReleaseDate");
+const editVoteAverage = document.getElementById("editVoteAverage");
+
+function getInfo(filmId) {
+
+  fetch("src/controllers/HandleInfoFilm.php?film=" + filmId, {
+    method: "GET",
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      const { title, language, description, imgPath, date, average} = data;
+      printModalData(title, language, description, imgPath, date, average);
+    });
+
+  modalEditData.addEventListener("submit", obtainNewData);
+}
+
+
+function printModalData(title, language, description, imgPath, date, average) {
+
+  editTitle.value = title;
+  editLanguage.value = language;
+  editDescription.value = description;
+  editPosterPath.value = imgPath;
+  editReleaseDate.value = date;
+  editVoteAverage.value = average;
+}
+
+function obtainNewData(e) {
+  e.preventDefault();
+
+  const filmFormData = Object.fromEntries(new FormData(e.target));
+  filmFormData.id = filmIdToChange;
+  // console.log(filmFormData);
+  editData(filmFormData);
+}
+
+function editData(editFilm) {
+  const filmEdit = new FormData();
+  
+  const json = JSON.stringify(editFilm)
+  filmEdit.append('film', json);
+  
+  fetch("src/controllers/EditFilm.php", {
+    'method': "POST",
+    'body': filmEdit
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+    customAlert('center', 'success', 'Edited', '<h4>Film edited successfully</h4>', false, 2000, '#232323', '#ff683f');
+    closeModalEdit();
+  })
 }

@@ -27,9 +27,11 @@ $filmId = $_GET['film'];
             <div>
                 <?php
                 if (isset($_SESSION['user'])) {
-                    echo "<i class='fa-solid fa-thumbs-up' data-userId ={$_SESSION['user']}></i>
-            <i class='fa-solid fa-circle-plus'></i>
-            <i class='fa-solid fa-comment'></i>";
+                    echo "
+                        <i class='fa-solid fa-thumbs-up' data-userId ={$_SESSION['user']}></i>
+                        <i class='fa-solid fa-circle-plus'></i>
+                        <i class='fa-solid fa-comment'></i>
+                        ";
                 }
                 ?>
             </div>
@@ -38,7 +40,7 @@ $filmId = $_GET['film'];
             <div>
                 <h2 id="titleFilm">Title</h2>
                 <h4 id="dateFilm">Año</h4>
-                <h3>Sipnosis</h3>
+                <h3>Synopsis</h3>
                 <p id="descriptionFilm">description</p>
             </div>
             <div>

@@ -163,7 +163,7 @@ class Repository extends Connection
 
   function getInfoFilm(string $filmId)
   {
-    $queryInfoFilm = 'SELECT id, title, description, poster_path, release_date, vote_count FROM movies 
+    $queryInfoFilm = 'SELECT id, title, language, description, poster_path, release_date, vote_average, vote_count FROM movies 
         WHERE id=?';
     $queryComments = 'SELECT text, username FROM comments 
         INNER JOIN users ON comments.id_user = users.id
@@ -179,9 +179,11 @@ class Repository extends Connection
       $idMovie = $row['id'];
       $info = (object) [
         "title" => $row["title"],
+        "language" => $row["language"],
         "description" => $row["description"],
         "imgPath" => $row["poster_path"],
         "date" => $row["release_date"],
+        "average" => $row["vote_average"],
         "rate" => $row["vote_count"],
         "comments" => []
       ];
@@ -320,5 +322,17 @@ class Repository extends Connection
     $pre->close();
     $this->con->close();
     return $comment;
+  }
+
+  function editInfoFilm(string $title, string $language, string $description, string $poster, string $date, float $average, int $id) {
+    $queryEdit = "UPDATE movies SET title=?, language=?, description=?, poster_path=?, release_date=?, vote_average=? WHERE movies.id=?";
+
+    $this->connect();
+    $pre = mysqli_prepare($this->con, $queryEdit);
+    $pre->bind_param("sssssdi", $title, $language, $description, $poster, $date, $average, $id);
+    $pre->execute();
+    $pre->close();
+
+    $this->con->close();
   }
 }

@@ -15,6 +15,7 @@ btnAddCommentFilm &&
   btnAddCommentFilm.addEventListener("click", openModalCommentFilm);
 btnSendComment && btnSendComment.addEventListener("click", addCommentFilm);
 
+
 function getDataInfoFilm() {
   idOpenedFilm = document.querySelector("img").dataset.id;
 
