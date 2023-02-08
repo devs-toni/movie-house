@@ -13,9 +13,9 @@
             <button role="button" id="rightArrow" class="right-arrow">&gt;</button>
           </div>
         </div>
-        <script src="assets/js/top10.js"></script>
+        <script src="assets/js/topFilms.js"></script>
         <script type="text/javascript">
-          printFilms(null, '.carousel');
+          printFilms(null, '.carousel', 'mark');
         </script>
     </div>
 </section>

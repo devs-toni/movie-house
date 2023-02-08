@@ -87,8 +87,9 @@ class Repository extends Connection
     $this->con->close();
   }
 
-  function existFilm($id) {
-        $this->connect();
+  function existFilm($id)
+  {
+    $this->connect();
     $pre = mysqli_prepare($this->con, 'SELECT title FROM movies WHERE id = ?');
     $pre->bind_param('i', $id);
     $pre->execute();
@@ -118,6 +119,30 @@ class Repository extends Connection
     }
     $this->con->close();
     return $allPosterMovies;
+  }
+
+  function getMostVotedMovies()
+  {
+    $ids = [];
+    $titles = [];
+    $posters = [];
+    $posterMovies = [];
+
+    $this->connect();
+    $allPosterMovies = [];
+    $result = mysqli_query($this->con, 'SELECT id, title, poster_path FROM movies ORDER BY vote_count DESC LIMIT 20');
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        array_push($ids, $row['id']);
+        array_push($titles, $row['title']);
+        array_push($posters, $row['poster_path']);
+      }
+    } else {
+      echo "0 results";
+    }
+    array_push($posterMovies, $ids, $titles, $posters);
+    $this->con->close();
+    return $posterMovies;
   }
 
   function getPaginationMovies($min, $size)

@@ -114,7 +114,7 @@ const setCurrentPage = async (pageNum, pageCount) => {
     });
 }
 
-async function printFilms(data, container) {
+async function printFilms(data, container, action) {
   let lazyLoadImages;
   let printContainer = document.querySelector(container);
 
@@ -123,10 +123,20 @@ async function printFilms(data, container) {
     printDbFilms(data, printContainer);
     lazyLoadImages = document.querySelectorAll(`${container} li img`);
   } else {
-    results = await fetchApi(trendingUrl);
-    fetchDb('src/controllers/TrendingFilms.php', results);
-    printApiFilms(results, printContainer, 20);
-    lazyLoadImages = document.querySelectorAll(`${container} div img`)
+    
+    if (action === 'mark') {
+      results = await fetchApi(trendingUrl);
+      const file = new FormData();
+      results = results.filter(f => f.poster_path !== null && f.release_date !== null);
+      const json = JSON.stringify(results);
+      file.append("films", json);
+      fetchDb('src/controllers/TrendingFilms.php', file);
+      printApiFilms(results, printContainer, 20);
+    } else if (action === 'vote') {
+      results = await fetchDb('src/controllers/MostVotedFilms.php', null);
+      printDbVotedFilms(results, printContainer);
+    }
+    lazyLoadImages = document.querySelectorAll(`${container} div img`);
   }
 
   lazyLoadImages.forEach((i) => {
@@ -149,6 +159,11 @@ async function printFilms(data, container) {
       container.innerHTML += `<li><img class="lazy" src="${results[2][i]}" alt="${results[1][i]}" data-id="${results[0][i]}"><div class="skeleton"></div></li>`
     }
   }
+  function printDbVotedFilms(results, container) {
+    for (let i = 0; i < results[0].length; i++) {
+      container.innerHTML += `<div class="carousel-votes__film"><img class="lazy" src="${url}${results[2][i]}" alt="${results[1][i]}" data-id="${results[0][i]}"><div class="skeleton"></div></div>`;
+    }
+  }
 }
 
 const fetchApi = async (url) => {
@@ -163,23 +178,24 @@ const fetchApi = async (url) => {
     });
   return results;
 }
-const fetchDb = async (url, data) => {
-
-  const file = new FormData();
-  data = data.filter(f => f.poster_path !== null && f.release_date !== null);
-  const json = JSON.stringify(data);
-  file.append("films", json);
-
-  const config = {
-    'method': 'POST',
-    'body': file,
+const fetchDb = async (url, body) => {
+  let config;
+  if (body) {
+    config = {
+      'method': 'POST',
+      'body': body,
+    }
   }
-  await fetch(url, config)
+  let response;
+  await fetch(url, config ? config : null)
     .then((res) => res.json())
     .then((res) => {
-      console.log((res));
+      if (res !== 'OK') {
+        response = res;
+      }
     })
     .catch((err) => {
       console.error(err);
     });
+    return response;
 }

@@ -26,6 +26,7 @@ Templates::addHeader('Neflis', ['pagination'], ['formValidation']);
 include_once(DIR_TEMPLATES . 'aside.php');
 Templates::addNav($isLogged, $isAdmin);
 include_once(DIR_TEMPLATES . 'trendingFilms.php');
+$isLogged && include_once(DIR_TEMPLATES . 'voteFilms.php');
 include_once(DIR_TEMPLATES . 'allFilms.php');
 include_once(DIR_TEMPLATES . 'modalLogin.php');
 include_once(DIR_TEMPLATES . 'modalSignUp.php');
