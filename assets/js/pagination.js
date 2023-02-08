@@ -60,8 +60,6 @@ const enableButton = (button) => {
 
 const setCurrentPage = async (pageNum, pageCount) => {
   currentPage = pageNum;
-
-  console.log(pageNum);
   handleActivePageNumber();
   handlePageButtonsStatus(pageCount);
 
@@ -71,7 +69,6 @@ const setCurrentPage = async (pageNum, pageCount) => {
     .then((res) => res.json())
     .then((res) => {
       printFilms(res);
-      console.log(res);
     })
     .catch((err) => {
       console.error(err);

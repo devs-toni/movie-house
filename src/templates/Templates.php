@@ -25,7 +25,7 @@ class Templates
       <title><?= $title ?></title>
     </head>
 
-    <body>
+    <body class="index-container">
       <div id="backgroundModalActive">
       <?php
     }
@@ -36,8 +36,8 @@ class Templates
         <?php foreach ($scripts as $s) { ?>
           <script src="assets/js/<?= $s ?>.js?v=<?= rand() ?>"></script>
         <?php } ?>
+      <p class="design">Designed by Lovelace team @ 2022</p>
     </body>
-
     </html>
   <?php
     }
@@ -65,8 +65,8 @@ class Templates
     {
       $dropdown =
         '<div class="dropdown">
-        <button onclick="openMenu()" class="navbar__button--user dropbtn">User</button>
-        <div id="myDropdown" class="dropdown-content">
+        <button onclick="openMenu()" class="navbar__button--user"><i class="fa-solid fa-user-group"></i></button>
+        <div id="myDropdown" class="dropdown__dropdown-content">
           <a href="#">My Lists</a>
           <a href="#">Configuration</a>';
 
@@ -76,7 +76,7 @@ class Templates
       </div>';
 
       $loginButton =
-        "<button class='navbar__button'>Login</button>";
+        "<button class='navbar__button'><i class='fa-solid fa-right-to-bracket'></i></button>";
       $userButton = $isAdmin
         ?
         $dropdown . '<a href="admin.php">Admin</a>' . $close

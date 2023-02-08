@@ -1,11 +1,17 @@
 @use '../abstracts/variables' as var;
 @import '../abstracts/animations';
 
+.index-container {
+  background-color: var.$bg-color;
+
+}
+
 .all-films {
   padding: 20px 50px;
 
   &__title {
-    margin-bottom: 10px;
+    color: var.$orange-color;
+    margin-bottom: 20px;
   }
 
   .container {
@@ -26,7 +32,7 @@
           cursor: progress;
           background:
             linear-gradient(0.25turn, transparent, #fff, transparent),
-            linear-gradient(#dfdede, #dfdede);
+            linear-gradient(#616161, #525252);
           background-repeat: no-repeat;
           background-size: 220px 330px, 220px 330px;
           background-position: -330px 0, 0 0;
@@ -37,6 +43,12 @@
         img {
           height: var.$film-height;
           width: var.$film-width;
+          transition: all 0.5s ease;
+
+          &:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+          }
         }
 
         .lazy {
@@ -52,26 +64,30 @@
       justify-content: center;
 
       .pg-num {
+        color: var.$orange-color;
         font-size: 1.1rem;
         background-color: transparent;
         border: none;
         margin: 0.25rem 0.25rem;
         cursor: pointer;
-        height: 2.5rem;
-        width: 2.5rem;
+        height: 2rem;
+        width: 2rem;
         border-radius: .2rem;
 
         &:hover {
-          background: #fff;
+          background: #ff693f49;
+          ;
         }
 
         &.active {
           color: #fff;
-          background: #0085b6;
+          background-color: var.$orange-color;
+
         }
       }
 
       button.pg-btn {
+        color: var.$orange-color;
         font-size: 1.1rem;
         background-color: transparent;
         border: none;
@@ -82,7 +98,8 @@
         border-radius: .2rem;
 
         &:not(.disabled):hover {
-          background: #fff;
+          transform: scale(1.6);
+          color: white;
         }
       }
     }
@@ -91,4 +108,11 @@
 
 .hidden {
   display: none !important;
+}
+
+.design {
+  color: var.$orange-color;
+  margin-bottom: 0px;
+  text-align: start;
+  margin-left: 20px;
 }

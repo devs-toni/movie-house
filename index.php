@@ -35,7 +35,7 @@ if (isset($_REQUEST['expire'])) {
 ?>
   <script>
     window.history.pushState('', '', 'index.php');
-    customAlert('center', 'info', '', '<h4>Session expired . . .</h4>', false, 4000);
+    customAlert('center', 'info', '', '<h4>Session expired . . .</h4>', false, 4000, '#232323', '#ff683f');
   </script>
 <?php
 }

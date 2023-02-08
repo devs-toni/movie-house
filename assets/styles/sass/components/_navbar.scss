@@ -1,20 +1,105 @@
 @use '../abstracts/variables' as var;
 
 .navbar {
-    display: flex;
-    // justify-content: space-between;
+  margin: 20px 20px;
+  display: flex;
+  justify-content: space-between;
 
-    &__button {
-        background-color: var.$bg-color;
-        color: var.$orange-color;
-        padding: 0.3rem;
+  &__button {
+    background-color: var.$orange-color;
+    color: var.$orange-color;
+    padding: 0.3rem;
+    margin-right: var.$aside-width;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+
+    &:hover {
+      opacity: 0.6;
     }
 
-    &__input {
-        background-color: var.$bg-color;
-    }
+    &--user {
+      background-color: var.$orange-color;
+      color: var.$orange-color;
+      padding: 0.3rem;
+      margin-right: var.$aside-width;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      border-radius: 50%;
 
-    &__input::placeholder{
-        color:var.$orange-color;
+      &:hover {
+        opacity: 0.6;
+      }
     }
+  }
+
+
+  &__input {
+    background-color: var.$bg-input-color;
+    color: var.$orange-color;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    font-size: 1.2rem;
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus {
+      -webkit-text-fill-color: var.$orange-color;
+      -webkit-box-shadow: var.$bg-input-color;
+      cursor: text;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+  }
+
+  &__input::placeholder {
+    color: #ff693f4b;
+  }
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+  &__dropdown-content {
+    text-align: right;
+    background-color: var.$bg-input-color;
+    display: block;
+    max-height: 0;
+    position: absolute;
+    min-width: 160px;
+    top: 60px;
+    right: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 1.5);
+    z-index: 1;
+    transition: ease 1s; 
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  a {
+    color: var.$orange-color;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-weight: 600;
+    cursor: pointer;
+    transition: ease 6s; 
+
+    &:hover {
+      background-color: #ff693f35;
+    }
+  }
+}
+
+.show {
+  max-height: 300px;
+  pointer-events: inherit;
 }
