@@ -10,6 +10,7 @@ const editCloseBtn = document.getElementById('editCloseBtn');
 const modalEditData = document.getElementById('editDataModal');
 const closeEdit = document.getElementById('closeModalEdit');
 let filmIdToChange;
+let filmIdToDelete;
 
 
 addFilm.addEventListener("click", showAddModal);
@@ -108,6 +109,12 @@ function handleEditFilm(e){
     modalEditData.show();
     getInfo(filmIdToChange);
   }
+  if(e.target.matches(".delete-btn")){
+    const rowToDelete = e.target.parentElement.parentElement
+    filmIdToDelete = parseInt(e.target.parentElement.dataset.film);
+    deleteFilm(filmIdToDelete);
+    rowToDelete.remove();
+  }
 }
 
 const editTitle = document.getElementById("editTitle");
@@ -163,8 +170,18 @@ function editData(editFilm) {
   })
   .then(res => res.json())
   .then(data => {
-    console.log(data);
+    // console.log(data);
     customAlert('center', 'success', 'Edited', '<h4>Film edited successfully</h4>', false, 2000, '#232323', '#ff683f');
     closeModalEdit();
+  })
+}
+
+function deleteFilm(id){
+  fetch("src/controllers/DeleteFilm.php?film=" + id, {
+    'method': "GET"
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
   })
 }

@@ -335,4 +335,16 @@ class Repository extends Connection
 
     $this->con->close();
   }
+
+
+  function deleteSelectFilm(int$id){
+    $queryDelete = 'DELETE FROM movies WHERE movies.id=?';
+    $this->connect();
+    $pre = mysqli_prepare($this->con, $queryDelete);
+    $pre->bind_param('i', $id);
+    $pre->execute();
+    $pre->close();
+    $this->con->close();
+  }
+
 }
