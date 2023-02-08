@@ -1,0 +1,157 @@
+@use '../abstracts/variables' as var;
+@import '../abstracts/animations';
+
+.top-10 {
+  width: 85%;
+  margin: 20px 0 20px 50px;
+
+  .top {
+
+    &__controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+
+      h3 {
+        color: var.$orange-color;
+      }
+    }
+
+    &__main {
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      .left-arrow,
+      .right-arrow {
+        position: absolute;
+        border: none;
+        background: rgba(0, 0, 0, 0.5);
+        font-size: 40px;
+        height: 50%;
+        top: calc(50% - 25%);
+        line-height: 40px;
+        width: 50px;
+        color: #fff;
+        cursor: pointer;
+        z-index: 500;
+        transition: .2s ease all;
+
+        &:hover {
+          background: rgba(84, 84, 84, 0.9);
+        }
+      }
+
+      .left-arrow {
+        left: 0;
+      }
+
+      .right-arrow {
+        right: 0;
+      }
+
+      .carousel-container {
+        width: 100%;
+        padding: 20px 0;
+        overflow: hidden;
+        scroll-behavior: smooth;
+
+        .carousel {
+          display: flex;
+          flex-wrap: nowrap;
+
+          &__film {
+            min-width: 20%;
+            transition: .3 ease all;
+            box-shadow: 5px, 5px 10px rgba(0, 0, 0, 0.3);
+            margin-right: 10px;
+
+            img {
+              width: 100%;
+              height: 100%;
+              height: auto;
+              vertical-align: top;
+              margin-right: 5px;
+              transition: .5s ease all;
+
+              &:hover {
+                transform: scale(1.1);
+                transform-origin: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1250px) {
+
+  .top-10 {
+    margin-right: 200px;
+
+    .top {
+
+      &__controls {
+
+
+        h3 {}
+      }
+
+      &__main {
+
+
+        .left-arrow,
+        .right-arrow {
+          display: none;
+
+          &:hover {}
+        }
+
+        .left-arrow {}
+
+        .right-arrow {}
+
+        .carousel-container {
+          overflow: visible;
+
+          .carousel {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+
+            &__film {
+
+
+              img {
+
+
+                &:hover {}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+
+  .top-10 {
+    .top {
+      &__main {
+        .carousel-container {
+          overflow: visible;
+
+          .carousel {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -129,6 +129,30 @@ class Repository extends Connection
     $this->con->close();
     return $posterMovies;
   }
+  function getTop10Movies()
+  {
+    $this->connect();
+
+    $ids = [];
+    $titles = [];
+    $posters = [];
+    $movies = [];
+
+    $result = mysqli_query($this->con, 'SELECT id, title, poster_path FROM movies ORDER BY vote_average DESC LIMIT 10 ');
+
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        array_push($ids, $row['id']);
+        array_push($titles, $row['title']);
+        array_push($posters, $row['poster_path']);
+      }
+    } else {
+      echo "0 results";
+    }
+    array_push($movies, $ids, $titles, $posters);
+    $this->con->close();
+    return $movies;
+  }
 
   function deleteFilms()
   {

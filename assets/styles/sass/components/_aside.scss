@@ -14,3 +14,9 @@
     writing-mode: vertical-lr;
     z-index: 2;
 }
+
+@media screen and (max-width: 1250px) {
+  .aside {
+    display: none;
+  }
+}

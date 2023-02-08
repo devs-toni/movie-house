@@ -68,7 +68,7 @@ const setCurrentPage = async (pageNum, pageCount) => {
   await fetch(`src/controllers/PaginationResults.php?min=${prevRange}`)
     .then((res) => res.json())
     .then((res) => {
-      printFilms(res);
+      printFilms(res, '#paginatedList');
     })
     .catch((err) => {
       console.error(err);
@@ -98,14 +98,30 @@ const appendPageNumber = (index) => {
   paginationNumbers.appendChild(pageNumber);
 };
 
-function printFilms(res) {
-  let paginatedList = document.querySelector("#paginatedList");
-  paginatedList.innerHTML = "";
-  for (let i = 0; i < res[0].length; i++) {
-    paginatedList.innerHTML += `<li><img class="lazy" src="${res[2][i]}" alt="${res[1][i]}" data-id="${res[0][i]}"><div class="skeleton"></div></li>`;
+async function printFilms(res, container) {
+  let results = res;
+  let printContainer = document.querySelector(container);
+  if (results) printContainer.innerHTML = "";
+  if (!results) {
+    await fetch(`src/controllers/Top10Results.php`)
+      .then((res) => res.json())
+      .then((r) => {
+        results = r;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
-  paginatedList.classList.remove("hidden");
-  let lazyLoadImages = document.querySelectorAll("#paginatedList li img");
+
+  for (let i = 0; i < results[0].length; i++) {
+    res ?
+      printContainer.innerHTML += `<li><img class="lazy" src="${results[2][i]}" alt="${results[1][i]}" data-id="${results[0][i]}"><div class="skeleton"></div></li>`
+      :
+      printContainer.innerHTML += `<div class="carousel__film"><img class="lazy" src="${results[2][i]}" alt="${results[1][i]}" data-id="${results[0][i]}"><div class="skeleton"></div></div>`;
+
+  }
+  printContainer.classList.remove("hidden");
+  let lazyLoadImages = document.querySelectorAll(`${container} li img`);
   lazyLoadImages.forEach((i) => {
     i.addEventListener("click", openInfoFilm);
     i.onload = () => {
@@ -126,3 +142,4 @@ function imageFound(image) {
 function openInfoFilm(e) {
   window.location.href = "infoFilm.php?film=" + e.target.dataset.id;
 }
+
