@@ -7,12 +7,14 @@ require_once(DIR_TEMPLATES . 'Templates.php');
 Templates::addHeader('Neflis', [], ['infoFilm']);
 
 $filmId = $_GET['film'];
+$lastPage = $_GET['page'];
+
+$_SESSION['lastPage'] = $lastPage;
+
 ?>
 <div class="info-film">
     <nav class="info-film__nav">
-        <div>
-            <i class="fa-solid fa-circle-arrow-left"></i>
-        </div>
+        <i class="fa-solid fa-circle-arrow-left" id="btnReturn"></i>
     </nav>
 
     <section class="info-film__section">
@@ -57,16 +59,20 @@ $filmId = $_GET['film'];
         </form>
     </div>
 </dialog>
-<dialog id="modalConfirmDelete" class="modal__delete-comment--confirm">
-    <h4>Are you sure to delete this comment?</h4>
-    <div>
-        <button id="btnConfirmDelete">Yes</button>
-        <button id="cancelDelete">No</button>
+<dialog id="modalConfirmDelete">
+    <div class="modal__delete-comment--confirm">
+        <h4>Are you sure to delete this comment?</h4>
+        <div>
+            <button id="btnConfirmDelete">Yes</button>
+            <button id="cancelDelete" class="modal__delete-comment--cancel">No</button>
+        </div>
     </div>
 </dialog>
-<dialog id="modalMessageDeleted" class="modal__delete-comment--deleted">
-    <h4><i class="fa-solid fa-circle-check"></i></h4>
-    <h4>Your comment has been deleted correctly</h4>
+<dialog id="modalMessageDeleted">
+    <div class="modal__delete-comment--confirm">
+        <h4><i class="fa-solid fa-circle-check"></i></h4>
+        <h4>Your comment has been deleted correctly</h4>
+    </div>
 </dialog>
 
 <?php

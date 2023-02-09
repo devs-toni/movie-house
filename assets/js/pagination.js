@@ -124,5 +124,6 @@ function imageFound(image) {
   image.classList.remove("lazy");
 }
 function openInfoFilm(e) {
-  window.location.href = "infoFilm.php?film=" + e.target.dataset.id;
+  window.location.href =
+    "infoFilm.php?film=" + e.target.dataset.id + "&page=" + currentPage;
 }
