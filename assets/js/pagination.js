@@ -1,7 +1,9 @@
 const url = "https://image.tmdb.org/t/p/w500";
 const trendingUrl = 'https://api.themoviedb.org/3/trending/movie/week?api_key=f97d6a2165e719275828bcd71a17fccc&language=en-US&page=1';
 let currentPage;
+let pageCount;
 const paginationLimit = 24;
+
 
 function doPagination(total) {
   window.addEventListener("load", () => {
@@ -12,7 +14,7 @@ function doPagination(total) {
 function loadFilms(total) {
   const nextButton = document.getElementById("nextButton");
   const prevButton = document.getElementById("prevButton");
-  let pageCount = Math.ceil(total / paginationLimit);
+  pageCount = Math.ceil(total / paginationLimit);
 
   getPaginationNumbers(pageCount);
   setCurrentPage(1, pageCount);

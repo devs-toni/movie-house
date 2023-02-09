@@ -21,7 +21,7 @@ if (isset($_SESSION['user'])) {
   $isAdmin = $db->isAdmin($_SESSION['user']);
 }
 
-Templates::addHeader('Neflis', ['pagination'], ['formValidation', 'returnIndex', 'configuration']);
+Templates::addHeader('Neflis', ['pagination'], ['formValidation', 'returnIndex', 'configuration', 'openLists']);
 
 include_once(DIR_TEMPLATES . 'aside.php');
 Templates::addNav($isLogged, $isAdmin);

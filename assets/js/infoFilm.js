@@ -19,7 +19,6 @@ btnSendComment && btnSendComment.addEventListener("click", addCommentFilm);
 
 closeAddComment &&
   closeAddComment.addEventListener("click", closeModalAddComment);
-cancelDelete && cancelDelete.addEventListener("click", closeModalDeleteComment);
 btnReturn && btnReturn.addEventListener("click", returnLastPage);
 
 

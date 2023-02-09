@@ -161,8 +161,6 @@ class Repository extends Connection
       while ($row = mysqli_fetch_assoc($result)) {
         $allPosterMovies[$row['title']] = $row["poster_path"];
       }
-    } else {
-      echo "0 results";
     }
     $this->con->close();
     return $allPosterMovies;
@@ -184,8 +182,6 @@ class Repository extends Connection
         array_push($titles, $row['title']);
         array_push($posters, $row['poster_path']);
       }
-    } else {
-      echo "0 results";
     }
     array_push($posterMovies, $ids, $titles, $posters);
     $this->con->close();
@@ -212,8 +208,6 @@ class Repository extends Connection
         array_push($titles, $row['title']);
         array_push($posters, $row['poster_path']);
       }
-    } else {
-      echo "0 results";
     }
     array_push($posterMovies, $ids, $titles, $posters);
     $this->con->close();
@@ -243,9 +237,7 @@ class Repository extends Connection
         array_push($titles, $row['title']);
         array_push($posters, $row['poster_path']);
       }
-    } else {
-      echo "0 results";
-    }
+    } 
     array_push($searchMovies, $ids, $titles, $posters);
     $this->con->close();
     return $searchMovies;
@@ -480,8 +472,6 @@ class Repository extends Connection
       while ($row = mysqli_fetch_assoc($result)) {
         $allLists[$row['id']] = $row['name'];
       }
-    } else {
-      echo "0 results";
     }
     $this->con->close();
     return $allLists;
@@ -504,8 +494,6 @@ class Repository extends Connection
         ];
         array_push($allMovies, $movie); 
       }
-    } else {
-      echo "0 results";
     }
     $this->con->close();
     return $allMovies;
