@@ -1,0 +1,260 @@
+@use '../abstracts/variables' as var;
+@import '../abstracts/animations';
+
+.top-trend,
+.top-votes {
+  width: 86%;
+  margin: 40px 0 120px 90px;
+
+  .top {
+
+    &__controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+
+      h3 {
+        color: var.$orange-color;
+        font-size: 1.3em;
+      }
+    }
+
+    &__main {
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      .left-arrow,
+      .right-arrow {
+        position: absolute;
+        border: none;
+        background: rgba(0, 0, 0, 0.5);
+        font-size: 40px;
+        height: 50%;
+        top: calc(50% - 25%);
+        line-height: 40px;
+        width: 50px;
+        color: #fff;
+        cursor: pointer;
+        z-index: 500;
+        transition: .2s ease all;
+
+        &:hover {
+          background: rgba(84, 84, 84, 0.9);
+        }
+      }
+
+      .left-arrow {
+        left: 0;
+      }
+
+      .right-arrow {
+        right: 0;
+      }
+
+      .carousel-container,
+      .carousel-votes-container {
+        width: 100%;
+        padding: 20px 0;
+        overflow: hidden;
+        scroll-behavior: smooth;
+
+        .carousel,
+        .carousel-votes {
+          display: flex;
+          flex-wrap: nowrap;
+
+          &__film {
+            min-height: 300px;
+            min-width: 12%;
+            transition: .3 ease all;
+            box-shadow: 5px, 5px 10px rgba(0, 0, 0, 0.3);
+            margin-right: 10px;
+            cursor: progress;
+            background:
+              linear-gradient(0.25turn, transparent, #bbb8b8, transparent),
+              linear-gradient(#e9e9e9, #767676);
+            background-repeat: no-repeat;
+            background-size: 220px 330px, 220px 330px;
+            background-position: -330px 0, 0 0;
+            border-radius: 10px !important;
+            @include gradient();
+
+            img {
+              width: 100%;
+              height: 100%;
+              vertical-align: top;
+              margin-right: 5px;
+              transition: .5s ease all;
+              cursor: pointer;
+
+              &:hover {
+                transform: scale(1.1);
+                transform-origin: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1900px) {
+
+  .top-trend,
+  .top-votes {
+    margin-left: 50px;
+    margin-bottom: 120px;
+  }
+}
+
+@media screen and (max-width: 1750px) {
+
+  .top-trend,
+  .top-votes {
+    .top {
+      &__main {
+
+        .carousel-container,
+        .carousel-votes-container {
+
+          .carousel,
+          .carousel-votes {
+            &__film {
+              min-height: 300px;
+              min-width: 200px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1250px) {
+
+  .top-trend,
+  .top-votes {
+    margin: 0 auto;
+    margin-bottom: 120px;
+
+    .top {
+      &__main {
+
+        .left-arrow,
+        .right-arrow {
+          display: none;
+        }
+
+        .carousel-container,
+        .carousel-votes-container {
+          overflow: visible;
+
+          .carousel,
+          .carousel-votes {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+
+            &__film {
+              margin-right: 0;
+              min-height: 220px;
+              min-width: 12%;
+
+              img {
+                margin: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 850px) {
+
+  .top-trend,
+  .top-votes {
+    .top {
+      &__main {
+
+        .carousel-container,
+        .carousel-votes-container {
+
+          .carousel,
+          .carousel-votes {
+            &__film {
+              min-height: 160px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 660px) {
+
+  .top-trend,
+  .top-votes {
+    .top {
+      &__main {
+
+        .carousel-container,
+        .carousel-votes-container {
+
+          .carousel,
+          .carousel-votes {
+            &__film {
+              min-height: 120px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+
+  .top-trend,
+  .top-votes {
+    margin: 0 auto;
+    margin-bottom: 120px;
+
+    .top {
+      &__controls {
+        h3 {
+          font-size: 0.9em;
+        }
+      }
+
+      &__main {
+
+        .carousel-container,
+        .carousel-votes-container {
+          overflow: visible;
+
+          .carousel,
+          .carousel-votes {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+
+            &__film {
+              margin-right: 0;
+              min-height: 80px;
+
+              img {
+                margin: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

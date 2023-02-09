@@ -2,6 +2,7 @@
 
 class Movie
 {
+  private int $id;
   private string $title;
   private string $language;
   private string $description;
@@ -10,8 +11,9 @@ class Movie
   private float $voteAverage;
   private int $voteCount;
 
-  function __construct(string $title, string $language, string $description, string $posterPath, $releaseDate, float $voteAverage)
+  function __construct(int $id, string $title, string $language, string $description, string $posterPath, $releaseDate, float $voteAverage)
   {
+    $this->id = $id;
     $this->title = $title;
     $this->language = $language;
     $this->description = $description;
@@ -21,6 +23,10 @@ class Movie
     $this->voteCount = 0;
   }
 
+  public function getId()
+  {
+    return $this->id;
+  }
 
   public function getTitle()
   {

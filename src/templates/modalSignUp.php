@@ -1,3 +1,4 @@
+</div>
 <dialog class="modal-sign-up modal">
     <div class="modal__container">
         <button id="closeSignUp" class="modal__btn-close">🗙</button>
