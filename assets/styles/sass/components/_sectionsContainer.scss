@@ -136,42 +136,6 @@
 
   .top-trend,
   .top-votes {
-    margin-left: 50px;
-    margin-bottom: 120px;
-
-    .top {
-      &__main {
-
-        .left-arrow,
-        .right-arrow {
-          display: none;
-        }
-
-        .carousel-container,
-        .carousel-votes-container {
-          overflow: visible;
-
-          .carousel,
-          .carousel-votes {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-
-            &__film {
-              min-height: auto;
-              min-width: 12%;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 1250px) {
-
-  .top-trend,
-  .top-votes {
     margin: 0 auto;
     margin-bottom: 120px;
 
@@ -195,10 +159,57 @@
 
             &__film {
               margin-right: 0;
+              min-height: 220px;
+              min-width: 12%;
 
               img {
                 margin: 0;
               }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 850px) {
+
+  .top-trend,
+  .top-votes {
+    .top {
+      &__main {
+
+        .carousel-container,
+        .carousel-votes-container {
+
+          .carousel,
+          .carousel-votes {
+            &__film {
+              min-height: 160px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 660px) {
+
+  .top-trend,
+  .top-votes {
+    .top {
+      &__main {
+
+        .carousel-container,
+        .carousel-votes-container {
+
+          .carousel,
+          .carousel-votes {
+            &__film {
+              min-height: 120px;
             }
           }
         }
@@ -235,6 +246,7 @@
 
             &__film {
               margin-right: 0;
+              min-height: 80px;
 
               img {
                 margin: 0;
