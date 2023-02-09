@@ -137,6 +137,12 @@
     &--signUp {
       margin-top: 1rem;
     }
+
+    &:hover {
+      background-color: var.$bg-color;
+      border: 1px solid var.$orange-color;
+      color: var.$orange-color;
+    }
   }
 
   &__p {

@@ -82,7 +82,8 @@ const appendPageNumber = (index) => {
 };
 
 function openInfoFilm(e) {
-  window.location.href = "infoFilm.php?film=" + e.target.dataset.id;
+  window.location.href =
+    "infoFilm.php?film=" + e.target.dataset.id + "&page=" + currentPage;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////// UTIL METHODS ////

@@ -9,6 +9,8 @@ const modalConfirmDelete = document.getElementById("modalConfirmDelete");
 const btnConfirmDelete = document.getElementById("btnConfirmDelete");
 const modalMessageDeleted = document.getElementById("modalMessageDeleted");
 const closeAddComment = document.getElementById("closeAddComment");
+const cancelDelete = document.getElementById("cancelDelete");
+const btnReturn = document.getElementById("btnReturn");
 
 let idOpenedFilm;
 let idUserRegistered;
@@ -22,6 +24,8 @@ btnSendComment && btnSendComment.addEventListener("click", addCommentFilm);
 btnConfirmDelete && btnConfirmDelete.addEventListener("click", deleteComment);
 closeAddComment &&
   closeAddComment.addEventListener("click", closeModalAddComment);
+cancelDelete && cancelDelete.addEventListener("click", closeModalDeleteComment);
+btnReturn && btnReturn.addEventListener("click", returnLastPage);
 
 function getDataInfoFilm() {
   idOpenedFilm = document.querySelector("img").dataset.id;
@@ -146,6 +150,7 @@ function addCommentFilm(e) {
     .catch((err) => console.error(err));
 
   modalAddComment.close();
+  document.querySelector(`[name="comment"]`).value = "";
 }
 
 function startDeleteComment(e) {
@@ -172,4 +177,12 @@ function deleteComment() {
       }
     })
     .catch((err) => console.error(err));
+}
+
+function closeModalDeleteComment() {
+  modalConfirmDelete.close();
+}
+
+function returnLastPage() {
+  window.location.href = "index.php";
 }
