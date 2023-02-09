@@ -22,6 +22,7 @@ closeAddComment &&
 cancelDelete && cancelDelete.addEventListener("click", closeModalDeleteComment);
 btnReturn && btnReturn.addEventListener("click", returnLastPage);
 
+
 function getDataInfoFilm() {
   idOpenedFilm = document.querySelector("img").dataset.id;
 
