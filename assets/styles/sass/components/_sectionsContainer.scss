@@ -65,10 +65,20 @@
           flex-wrap: nowrap;
 
           &__film {
+            min-height: 300px;
             min-width: 12%;
             transition: .3 ease all;
             box-shadow: 5px, 5px 10px rgba(0, 0, 0, 0.3);
             margin-right: 10px;
+            cursor: progress;
+            background:
+              linear-gradient(0.25turn, transparent, #bbb8b8, transparent),
+              linear-gradient(#e9e9e9, #767676);
+            background-repeat: no-repeat;
+            background-size: 220px 330px, 220px 330px;
+            background-position: -330px 0, 0 0;
+            border-radius: 10px !important;
+            @include gradient();
 
             img {
               width: 100%;
@@ -99,6 +109,29 @@
   }
 }
 
+@media screen and (max-width: 1750px) {
+
+  .top-trend,
+  .top-votes {
+    .top {
+      &__main {
+
+        .carousel-container,
+        .carousel-votes-container {
+
+          .carousel,
+          .carousel-votes {
+            &__film {
+              min-height: 300px;
+              min-width: 200px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 1250px) {
 
   .top-trend,
@@ -123,6 +156,11 @@
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 10px;
+
+            &__film {
+              min-height: auto;
+              min-width: 12%;
+            }
           }
         }
       }
