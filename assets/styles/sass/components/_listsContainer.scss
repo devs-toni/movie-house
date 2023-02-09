@@ -1,5 +1,4 @@
 @use '../abstracts/variables' as var;
-@import '../abstracts/animations';
 
 .lists-container {
   margin: 50px auto;
@@ -66,7 +65,7 @@
       }
 
       .lists {
-        width: 45%;
+        width: 100%;
         margin-top: 6rem;
 
         .one-list {
@@ -74,14 +73,15 @@
           justify-content: space-between;
           margin-bottom: 20px;
           font-weight: 700;
+          width: 100%;
 
           i {
             cursor: pointer;
-            width: fit-content;
+            width: 10%
           }
 
           p {
-            width: fit-content;
+            width: 90%;
             cursor: pointer;
 
           }
@@ -95,24 +95,15 @@
 
       &__films {
         display: grid;
-        grid-template-columns: repeat(8, 1fr);
+        grid-template-columns: repeat(6, 1fr);
         gap: 10px;
 
         .film {
           min-height: 280px;
-          min-width: 25%;
+          min-width: 35%;
           transition: .3 ease all;
           box-shadow: 5px, 5px 10px rgba(0, 0, 0, 0.3);
           margin-bottom: 40px;
-          cursor: progress;
-          background:
-            linear-gradient(0.25turn, transparent, #bbb8b8, transparent),
-            linear-gradient(#e9e9e9, #767676);
-          background-repeat: no-repeat;
-          background-size: 220px 330px, 220px 330px;
-          background-position: -330px 0, 0 0;
-          border-radius: 10px !important;
-          @include gradient();
 
           img {
             width: 100%;

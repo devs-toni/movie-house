@@ -39,7 +39,13 @@ const getLists = (data) => {
 const getMovies = (data) => {
   for (const movie of data) {
     console.log(movie);
-    filmsContainer.innerHTML += `<div class="film"><img src="${movie.img}" alt="${movie.name}" data-id="${movie.id}"></div>`
+    filmsContainer.innerHTML += `<div class="film" onclick="openInfoFilm(event)"><img src="${movie.img}" alt="${movie.name}" data-id="${movie.id}"></div>`
   }
 }
 formList.addEventListener('submit', addList);
+
+
+function openInfoFilm(e) {
+  window.location.href =
+    "infoFilm.php?film=" + e.target.dataset.id;
+}
