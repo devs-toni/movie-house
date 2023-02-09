@@ -83,7 +83,7 @@ async function saveData(films, limit) {
       console.log(res);
     })
     .catch((err) => console.error(err));
-  // window.location = 'index.php';
+  window.location = "index.php";
 }
 
 loadDb.addEventListener("click", mainFetch);
