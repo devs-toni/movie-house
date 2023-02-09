@@ -9,6 +9,13 @@ const backBtn = document.querySelector('#goBack');
 const editCloseBtn = document.getElementById('editCloseBtn');
 const modalEditData = document.getElementById('editDataModal');
 const closeEdit = document.getElementById('closeModalEdit');
+const uploadPosterPath = document.getElementById("uploadPosterPath");
+const editTitle = document.getElementById("editTitle");
+const editLanguage = document.getElementById("editLanguage");
+const editDescription = document.getElementById("editDescription");
+const editPosterPath = document.getElementById("editPosterPath");
+const editReleaseDate = document.getElementById("editReleaseDate");
+const editVoteAverage = document.getElementById("editVoteAverage");
 let filmIdToChange;
 let filmIdToDelete;
 
@@ -19,6 +26,7 @@ editBtn.addEventListener("click", showEditModal);
 editCloseBtn.addEventListener("click", closeEditModal);
 tableBody.addEventListener("click", handleEditFilm);
 closeEdit.addEventListener("click", closeModalEdit);
+uploadPosterPath.addEventListener("change", cleanUrlInput);
 
 function showAddModal() {
   modalAddFilm.show();
@@ -117,12 +125,7 @@ function handleEditFilm(e){
   }
 }
 
-const editTitle = document.getElementById("editTitle");
-const editLanguage = document.getElementById("editLanguage");
-const editDescription = document.getElementById("editDescription");
-const editPosterPath = document.getElementById("editPosterPath");
-const editReleaseDate = document.getElementById("editReleaseDate");
-const editVoteAverage = document.getElementById("editVoteAverage");
+
 
 function getInfo(filmId) {
 
@@ -152,25 +155,20 @@ function printModalData(title, language, description, imgPath, date, average) {
 function obtainNewData(e) {
   e.preventDefault();
 
-  const filmFormData = Object.fromEntries(new FormData(e.target));
-  filmFormData.id = filmIdToChange;
-  // console.log(filmFormData);
+  const filmFormData = new FormData(e.target);
+  filmFormData.append("id", filmIdToChange);
   editData(filmFormData);
 }
 
 function editData(editFilm) {
-  const filmEdit = new FormData();
-  
-  const json = JSON.stringify(editFilm)
-  filmEdit.append('film', json);
   
   fetch("src/controllers/EditFilm.php", {
     'method': "POST",
-    'body': filmEdit
+    'body': editFilm
   })
   .then(res => res.json())
   .then(data => {
-    // console.log(data);
+    console.log(data);
     customAlert('center', 'success', 'Edited', '<h4>Film edited successfully</h4>', false, 2000, '#232323', '#ff683f');
     closeModalEdit();
   })
@@ -185,3 +183,9 @@ function deleteFilm(id){
     console.log(data);
   })
 }
+
+function cleanUrlInput() {
+  editPosterPath.value = "";
+}
+
+

@@ -18,9 +18,10 @@
                 <input class="form__input" name="editDescription" id="editDescription" type="text" required>
             </div>
 
-            <div>
-                <label class="form__label" for="editPosterPath">PosterPath</label>
-                <input class="form__input" name="editPosterPath" id="editPosterPath" type="text" required>
+            <div id="posterDiv">
+                <label class="form__label" for="editPosterPath">PosterPath, upload an img file:</label>
+                <input class="form__input" name="editPosterPath" id="editPosterPath" type="text">
+                <input class="form__input" type="file" name="uploadPosterPath" id="uploadPosterPath">
             </div>
 
             <div>
@@ -30,7 +31,7 @@
 
             <div>
                 <label class="form__label" for="editVoteAverage">VoteAverage</label>
-                <input class="form__input" name="editVoteAverage" id="editVoteAverage" type="text">
+                <input class="form__input" name="editVoteAverage" id="editVoteAverage" type="text" required>
             </div>
 
             <button type="submit" class="modal__btn-submit modal__btn-submit--editFilm">Add film</button>
