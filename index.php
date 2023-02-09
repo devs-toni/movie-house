@@ -40,11 +40,3 @@ if (isset($_REQUEST['expire'])) {
   </script>
 <?php
 }
-
-if (isset($_SESSION['lastPage'])) {
-  ?>
-  <script>
-    setCurrentPage(<?=$_SESSION['lastPage']?>)
-  </script>
-  <?php
-}
