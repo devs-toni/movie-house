@@ -4,22 +4,26 @@ formLogin.addEventListener('submit', login);
 const formRegister = document.querySelector('#registerForm');
 formRegister.addEventListener('submit', register);
 
+function loginFetch(mail, pass) {
+  fetch(`src/controllers/Login.php?email=${mail}&pass=${pass}`)
+  .then(res => res.json())
+  .then(res => {
+    if (res === 'Ok') {
+      window.location.reload();
+    } else {
+      customAlert('center', 'warning', 'Error', '<h4>Email/Password wrong!</h4>', false, 2000, '#232323', '#ff683f');
+    }
+  })
+  .catch(err => {
+    console.error(err);
+  });
+}
+
 function login(e) {
   e.preventDefault();
   const mail = email.value;
   const pass = password.value;
-  fetch(`src/controllers/Login.php?email=${mail}&pass=${pass}`)
-    .then(res => res.json())
-    .then(res => {
-      if (res === 'Ok') {
-        window.location.reload();
-      } else {
-        customAlert('center', 'warning', 'Error', '<h4>Email/Password wrong!</h4>', false, 2000, '#232323', '#ff683f');
-      }
-    })
-    .catch(err => {
-      console.error(err);
-    });
+  loginFetch(mail, pass);
 }
 
 function register(e) {
@@ -30,7 +34,19 @@ function register(e) {
   const rPass = rPasswordSignUp.value;
   const errors = validate(mail, pass, rPass, username);
   if (errors.length === 0) {
-    window.location = `src/controllers/Register.php?name=${username}&mail=${mail}&pass=${pass}`;
+    // window.location = `src/controllers/Register.php?name=${username}&mail=${mail}&pass=${pass}`;
+    fetch(`src/controllers/Register.php?name=${username}&mail=${mail}&pass=${pass}`)
+    .then(res => res.json())
+    .then(res => {
+      if (res === 'Ok') {
+        loginFetch(mail, pass);
+      } else {
+        customAlert('center', 'warning', 'Error', '<h4>Email/Password wrong!</h4>', false, 2000, '#232323', '#ff683f');
+      }
+    })
+    .catch(err => {
+      console.error(err);
+    });
   } else {
     const error = getErrorMsg(errors);
     customAlert('center', 'warning', 'Error', error, true, 0, '#232323', '#ff683f', '#ff683f');
