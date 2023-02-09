@@ -19,7 +19,7 @@ btnSendComment && btnSendComment.addEventListener("click", addCommentFilm);
 
 closeAddComment &&
   closeAddComment.addEventListener("click", closeModalAddComment);
-cancelDelete && cancelDelete.addEventListener("click", closeModalDeleteComment);
+
 btnReturn && btnReturn.addEventListener("click", returnLastPage);
 
 function getDataInfoFilm() {
@@ -39,9 +39,9 @@ function getDataInfoFilm() {
     idUserRegistered = btnAddLikeFilm.dataset.userid;
     fetch(
       "src/controllers/CheckRated.php?film=" +
-      idOpenedFilm +
-      "&user=" +
-      idUserRegistered,
+        idOpenedFilm +
+        "&user=" +
+        idUserRegistered,
       {
         method: "GET",
       }
@@ -90,9 +90,9 @@ function addLikeFilm() {
 
   fetch(
     "src/controllers/AddLikeFilm.php?film=" +
-    idOpenedFilm +
-    "&user=" +
-    idUserRegistered,
+      idOpenedFilm +
+      "&user=" +
+      idUserRegistered,
     {
       method: "GET",
     }
@@ -151,30 +151,29 @@ function addCommentFilm(e) {
 function startDeleteComment(e) {
   const idCommentToDelete = e.target.dataset.idcomment;
   Swal.fire({
-    title: 'Are you sure?',
+    title: "Are you sure?",
     text: "You won't be able to revert this!",
-    icon: 'warning',
+    icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!',
-    background: '#232323',
-    color: '#ff683f',
-    confirmButtonColor: '#ff683f'
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+    background: "#232323",
+    color: "#ff683f",
+    confirmButtonColor: "#ff683f",
   }).then((result) => {
     if (result.isConfirmed) {
       deleteComment(idCommentToDelete);
       Swal.fire({
-        title: 'Deleted!',
-        text: 'Your file has been deleted.',
-        icon: 'success',
-        background: '#232323',
-        color: '#ff683f',
-        confirmButtonColor: '#ff683f'
-    });
-
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success",
+        background: "#232323",
+        color: "#ff683f",
+        confirmButtonColor: "#ff683f",
+      });
     }
-  })
+  });
 }
 
 function deleteComment(idCommentToDelete) {
