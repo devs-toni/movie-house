@@ -11,7 +11,7 @@ function loginFetch(mail, pass) {
     if (res === 'Ok') {
       window.location.reload();
     } else {
-      customAlert('center', 'warning', 'Error', '<h4>Email/Password wrong!</h4>', false, 2000, '#232323', '#ff683f');
+      customAlert('center', 'warning', 'Error', '<h4>Email/Password wrong!</h4>', false, 2000, '#232323', 'white');
     }
   })
   .catch(err => {
@@ -41,7 +41,7 @@ function register(e) {
       if (res === 'Ok') {
         loginFetch(mail, pass);
       } else {
-        customAlert('center', 'warning', 'Error', '<h4>Email/Password wrong!</h4>', false, 2000, '#232323', '#ff683f');
+        customAlert('center', 'warning', 'Error', '<h4>Email/Password wrong!</h4>', false, 2000, '#232323', 'white');
       }
     })
     .catch(err => {
@@ -49,7 +49,7 @@ function register(e) {
     });
   } else {
     const error = getErrorMsg(errors);
-    customAlert('center', 'warning', 'Error', error, true, 0, '#232323', '#ff683f', '#ff683f');
+    customAlert('center', 'warning', 'Error', error, true, 0, '#232323', 'white', 'green');
   }
 }
 

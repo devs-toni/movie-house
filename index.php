@@ -1,7 +1,6 @@
 <?php
 session_start();
 set_include_path(str_replace('\\', '/', __DIR__ . '/'));
-
 require_once('config.php');
 require_once(DIR_MODELS . 'User.php');
 require_once(DIR_MODELS . 'Movie.php');
@@ -40,4 +39,12 @@ if (isset($_REQUEST['expire'])) {
     customAlert('center', 'info', '', '<h4>Session expired . . .</h4>', false, 4000, '#232323', '#ff683f');
   </script>
 <?php
+}
+
+if (isset($_SESSION['lastPage'])) {
+  ?>
+  <script>
+    setCurrentPage(<?=$_SESSION['lastPage']?>)
+  </script>
+  <?php
 }

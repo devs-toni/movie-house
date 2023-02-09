@@ -21,12 +21,12 @@ if (isset($_SESSION['user'])) {
   $isAdmin = $db->isAdmin($_SESSION['user']);
 }
 
-$lastPage = $_REQUEST['page'];
-$_SESSION['lastPage'] = $lastPage;
+if (isset($_REQUEST['page'])) 
+  $_SESSION['lastPage'] = $_REQUEST['page'];
 
-Templates::addHeader('Lists', [], ['manageLists']);
+
+Templates::addHeader('Lists', ['alerts'], ['manageLists']);
 include_once(DIR_TEMPLATES . 'aside.php');
-Templates::addNav($isLogged, $isAdmin);
 include_once(DIR_TEMPLATES . 'manageLists.php');
 
 Templates::addFooter([]);
