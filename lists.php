@@ -21,9 +21,17 @@ if (isset($_SESSION['user'])) {
   $isAdmin = $db->isAdmin($_SESSION['user']);
 }
 
+$lastPage = $_REQUEST['page'];
+$_SESSION['lastPage'] = $lastPage;
+
 Templates::addHeader('Lists', [], ['manageLists']);
 include_once(DIR_TEMPLATES . 'aside.php');
 Templates::addNav($isLogged, $isAdmin);
 include_once(DIR_TEMPLATES . 'manageLists.php');
 
 Templates::addFooter([]);
+?>
+<script>
+  const listsReturn = document.querySelector('#listsReturn');
+  listsReturn.addEventListener('click', () =>   window.location.href = "index.php");
+</script>

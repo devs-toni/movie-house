@@ -26,4 +26,4 @@ include(DIR_TEMPLATES . 'admin/modalAddFilm.php');
 include(DIR_TEMPLATES . 'admin/modalEditFilm.php');
 include(DIR_TEMPLATES . 'admin/editDataModal.php');
 
-Templates::addFooter([]);
+Templates::addFooter(['alerts']);

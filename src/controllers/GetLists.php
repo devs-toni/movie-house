@@ -5,5 +5,8 @@ $db = new Repository();
 $user = $_SESSION['user'];
 
 $lists = $db->getAllListUser($user);
-$movies = $db->getMoviesList(array_key_first($lists));
-echo json_encode(["lists" => $lists, "movies" => $movies]);
+if (count($lists) > 0) {
+  $movies = $db->getMoviesList(array_key_first($lists));
+  echo json_encode(["lists" => $lists, "movies" => $movies]);
+} else
+  echo json_encode('N');

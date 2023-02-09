@@ -23,9 +23,11 @@ $_SESSION['lastPage'] = $lastPage;
             <div>
                 <?php
                 if (isset($_SESSION['user'])) {
-                    echo "<i class='fa-solid fa-thumbs-up' data-userId ={$_SESSION['user']}></i>
-            <i class='fa-solid fa-circle-plus' id='addFilmList'></i>
-            <i class='fa-solid fa-comment'></i>";
+                    echo "
+                        <i class='fa-solid fa-thumbs-up' data-userId ={$_SESSION['user']}></i>
+                        <i class='fa-solid fa-circle-plus' id='addFilmList'></i>
+                        <i class='fa-solid fa-comment'></i>
+                        ";
                 }
                 ?>
             </div>
