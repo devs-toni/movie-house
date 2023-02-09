@@ -206,7 +206,7 @@ function chooseListToAdd() {
   })
     .then((res) => res.json())
     .then((data) => {
-      if (data.length > 0) {
+      if (data) {
         containerLists.textContent = "";
         for (const name in data) {
           const h4 = document.createElement("h4");
