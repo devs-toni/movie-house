@@ -78,8 +78,8 @@
     top: 60px;
     right: 100px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 1.5);
-    z-index: 1;
-    transition: ease 1s; 
+    z-index: 600;
+    transition: ease 1s;
     overflow: hidden;
     pointer-events: none;
   }
@@ -91,7 +91,7 @@
     display: block;
     font-weight: 600;
     cursor: pointer;
-    transition: ease 6s; 
+    transition: ease .4s;
 
     &:hover {
       background-color: #ff693f35;
@@ -102,4 +102,74 @@
 .show {
   max-height: 300px;
   pointer-events: inherit;
+}
+
+@media screen and (max-width: 1250px) {
+  .navbar {
+    margin-bottom: 60px;
+    justify-content: end;
+
+    &__button {
+      margin-right: 60px;
+
+      &:hover {
+        opacity: 0.6;
+      }
+
+      &--user {
+        margin-right: 60px;
+
+
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+    }
+
+    &__input {
+      margin-left: 60px;
+      margin-right: 30px;
+    }
+  }
+
+  .dropdown {
+    &__dropdown-content {
+      right: 60px;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .navbar {
+
+    &__button {
+      margin-right: 0;
+
+      &:hover {
+        opacity: 0.6;
+      }
+
+      &--user {
+        margin-right: 0;
+
+
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+    }
+
+    &__input {
+      margin-left: 0;
+      margin-right: 10px;
+      width: 150px;
+      font-size: 0.9em;
+    }
+  }
+    .dropdown {
+    &__dropdown-content {
+      right: 0px;
+      font-size: 0.8em;
+    }
+  }
 }

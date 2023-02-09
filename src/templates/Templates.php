@@ -36,7 +36,6 @@ class Templates
         <?php foreach ($scripts as $s) { ?>
           <script src="assets/js/<?= $s ?>.js?v=<?= rand() ?>"></script>
         <?php } ?>
-        <p class="design">Designed by Lovelace team @ 2022</p>
     </body>
 
     </html>
@@ -69,7 +68,7 @@ class Templates
         <button onclick="openMenu()" class="navbar__button--user"><i class="fa-solid fa-user-group"></i></button>
         <div id="myDropdown" class="dropdown__dropdown-content">
           <a href="#">My Lists</a>
-          <a href="#">Configuration</a>';
+          <a onclick="openConfig();" href="#">Configuration</a>';
 
       $close =
         '   <a href="src/controllers/Logout.php">Logout</a> 

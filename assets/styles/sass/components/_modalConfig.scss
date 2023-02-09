@@ -7,7 +7,7 @@
   box-sizing: border-box;
 }
 
-.modal {
+.modalc {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -30,29 +30,6 @@
     height: 100%;
     width: 100%;
     padding: 7vh;
-
-    //admin page styles
-    .list-container {
-      width: 100%;
-      min-height: 10rem;
-      background-color: var.$bg-input-color;
-      margin-top: 1rem;
-
-      &__table {
-        width: 100%;
-        text-align: left;
-
-        .film-ID {
-          width: 10%;
-        }
-
-        .film-actions {
-          width: 10%;
-        }
-      }
-    }
-
-    //---------------------------
   }
 
 
@@ -65,6 +42,24 @@
     font-size: 2rem;
     border: none;
     cursor: pointer;
+  }
+
+    &__btn-back {
+    position: absolute;
+    top: 2.5rem;
+    left: 2.5rem;
+    background-color: var.$orange-color;
+    color: white;
+    font-size: 2rem;
+    border: none;
+    cursor: pointer;
+    padding: .7rem 1.2rem;
+    border-radius: 50%;
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 
   &__title {
@@ -110,7 +105,6 @@
   }
 
   &__form {
-    height: 30rem;
     width: 30rem;
     display: flex;
     flex-direction: column;
@@ -137,12 +131,6 @@
     &--signUp {
       margin-top: 1rem;
     }
-
-    &:hover {
-      background-color: var.$bg-color;
-      border: 1px solid var.$orange-color;
-      color: var.$orange-color;
-    }
   }
 
   &__p {
@@ -164,88 +152,41 @@
     top: 0;
     left: 0;
   }
-}
 
-@media screen and (max-width: 1150px) {
-  .modal-sign-up {
-    height: 90% !important;
-    padding: 50px 0;
-  }
+  &__main {
+    display: flex;
 
-  .modal {
-    width: 60%;
-    height: 80vh;
+    div {
+      margin-top: 30px;
+      width: 200px;
+      height: 200px;
 
-    &__btn-close {
-      font-size: 1.5rem;
-    }
+      button {
+        background-color: transparent;
+        border: none;
+        i {
+          font-size: 2em;
+          padding: 1.2em;
+          color: white;
+          background-color: var.$orange-color;
+          border: 1px solid rgba(255, 255, 255, 0.41);
+          cursor: pointer;
+          border-radius: 20px;
+          opacity: .6;
 
-    &__title {
-      font-size: 3rem;
-    }
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
 
-    .form__input {
-      width: 100%;
-      margin-bottom: 20px;
-    }
-
-    &__form {
-      width: 100%;
-    }
-
-    &__btn-submit {
-      width: 50%;
-    }
-
-    &__p {
-      font-size: 0.9rem;
-    }
-  }
-}
-
-@media screen and (max-width: 450px) {
-
-  .modal-sign-up {
-    height: 80% !important;
-    padding: 50px 0;
-  }
-
-  .modal {
-    width: 60%;
-    height: 50vh;
-
-    &__btn-close {
-      font-size: 1.2rem;
-    }
-
-    &__title {
-      font-size: 1.6rem;
-    }
-
-    .form__label {
-      font-size: 0.7rem;
-
-    }
-
-    .form__input {
-      width: 100%;
-      margin-bottom: 20px;
-      padding: 0.2rem .6rem;
-      font-size: 0.7em;
-      height: 1.5rem;
-    }
-
-    &__form {
-      width: 100%;
-    }
-
-    &__btn-submit {
-      width: 50%;
-      font-size: 0.8em;
-    }
-
-    &__p {
-      font-size: 0.6rem;
+      p {
+        color: var.$orange-color;
+        margin-top: 20px;
+        font-size: 1.2em;
+        font-weight: 400;
+      }
     }
   }
+
 }
