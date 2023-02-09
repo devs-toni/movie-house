@@ -454,14 +454,12 @@ class Repository extends Connection
       while ($row = mysqli_fetch_assoc($result)) {
         $allLists[$row['id']] = $row['name'];
       }
-    } else {
-      echo "0 results";
     }
     $this->con->close();
     return $allLists;
   }
 
-    function getMoviesList($list)
+  function getMoviesList($list)
   {
     $this->connect();
     $allMovies = [];
@@ -476,14 +474,23 @@ class Repository extends Connection
           "img" => $row["poster_path"],
           "name" => $row["title"],
         ];
-        array_push($allMovies, $movie); 
+        array_push($allMovies, $movie);
       }
-    } else {
-      echo "0 results";
     }
     $this->con->close();
     return $allMovies;
   }
 
-  
+  function addMovieToList(int $filmId, int $listId)
+  {
+    $query = "INSERT INTO movies_in_list (id_list, id_movie) VALUES (?,?)";
+
+    $this->connect();
+    $pre = mysqli_prepare($this->con, $query);
+    $pre->bind_param("ss", $listId, $filmId);
+    $pre->execute();
+
+    $pre->close();
+    $this->con->close();
+  }
 }

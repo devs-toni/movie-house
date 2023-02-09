@@ -24,7 +24,7 @@ $_SESSION['lastPage'] = $lastPage;
                 <?php
                 if (isset($_SESSION['user'])) {
                     echo "<i class='fa-solid fa-thumbs-up' data-userId ={$_SESSION['user']}></i>
-            <i class='fa-solid fa-circle-plus'></i>
+            <i class='fa-solid fa-circle-plus' id='addFilmList'></i>
             <i class='fa-solid fa-comment'></i>";
                 }
                 ?>
@@ -60,6 +60,29 @@ $_SESSION['lastPage'] = $lastPage;
     </div>
 </dialog>
 
+<dialog class="modal">
+    <div class="modal__container">
+        <button class="modal__btn-close">🗙</button>
+        <h2 class="modal__title">Add to list</h2>
+        <button id="btnNewList">New List</button>
+        <div id="containerLists">
+
+        </div>
+    </div>
+</dialog>
+
+<dialog class="modal" id="modalNewList">
+    <div class="modal__container">
+        <button class="modal__btn-close">🗙</button>
+        <div>
+            <h2>Put a name to the list</h2>
+            <form id="formCreateNewList">
+                <input name="nameList" id="nameList" type="text">
+                <button>Create</button>
+            </form>
+        </div>
+    </div>
+</dialog>
 
 <?php
 Templates::addFooter([]);

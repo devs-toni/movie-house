@@ -7,20 +7,24 @@ const modalAddComment = document.getElementById("modalAddComment");
 const formComments = document.getElementById("formComments");
 const closeAddComment = document.getElementById("closeAddComment");
 const btnReturn = document.getElementById("btnReturn");
+const addFilmList = document.getElementById("addFilmList");
+const containerLists = document.getElementById("containerLists");
+const btnNewList = document.getElementById("btnNewList");
+const modalNewList = document.getElementById("modalNewList");
+const formCreateNewList = document.getElementById("formCreateNewList");
 
 let idOpenedFilm;
 let idUserRegistered;
 
 window.addEventListener("load", getDataInfoFilm());
-btnAddLikeFilm && btnAddLikeFilm.addEventListener("click", addLikeFilm);
-btnAddCommentFilm &&
-  btnAddCommentFilm.addEventListener("click", openModalCommentFilm);
-btnSendComment && btnSendComment.addEventListener("click", addCommentFilm);
-
-closeAddComment &&
-  closeAddComment.addEventListener("click", closeModalAddComment);
-
-btnReturn && btnReturn.addEventListener("click", returnLastPage);
+btnAddLikeFilm.addEventListener("click", addLikeFilm);
+btnAddCommentFilm.addEventListener("click", openModalCommentFilm);
+btnSendComment.addEventListener("click", addCommentFilm);
+closeAddComment.addEventListener("click", closeModalAddComment);
+btnReturn.addEventListener("click", returnLastPage);
+addFilmList.addEventListener("click", chooseListToAdd);
+btnNewList.addEventListener("click", openModalCreateNewList);
+formCreateNewList.addEventListener("submit", createNewList);
 
 function getDataInfoFilm() {
   idOpenedFilm = document.querySelector("img").dataset.id;
@@ -194,4 +198,62 @@ function deleteComment(idCommentToDelete) {
 
 function returnLastPage() {
   window.location.href = "index.php";
+}
+
+function chooseListToAdd() {
+  fetch("src/controllers/ChooseListToAdd.php?idUser=" + idUserRegistered, {
+    method: "GET",
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.length > 0) {
+        containerLists.textContent = "";
+        for (const name in data) {
+          const h4 = document.createElement("h4");
+          h4.textContent = data[name];
+          h4.setAttribute("data-id", name);
+          containerLists.appendChild(h4);
+          document
+            .querySelector(`[data-id="${name}"]`)
+            .addEventListener("click", addFilmToList);
+        }
+      }
+    })
+    .catch((err) => console.error(err));
+}
+
+function addFilmToList(e) {
+  const idList = e.target.dataset.id;
+
+  fetch(
+    "src/controllers/AddFilmToList.php?film=" +
+      idOpenedFilm +
+      "&list=" +
+      idList,
+    {
+      method: "GET",
+    }
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => console.error(err));
+}
+
+function openModalCreateNewList() {
+  modalNewList.show();
+}
+
+function createNewList(e) {
+  e.preventDefault();
+  const name = nameList.value;
+  fetch(`src/controllers/addList.php?name=${name}`)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data === "OK") {
+        console.log(data);
+      }
+    })
+    .catch((err) => console.error(err));
 }
