@@ -1,5 +1,7 @@
 <?php
 session_start();
+$lastPage = $_GET['page'];
+$_SESSION['lastPage'] = $lastPage;
 
 require_once('config.php');
 require_once(DIR_TEMPLATES . 'Templates.php');
@@ -7,9 +9,7 @@ require_once(DIR_TEMPLATES . 'Templates.php');
 Templates::addHeader('Neflis', [], ['infoFilm']);
 
 $filmId = $_GET['film'];
-$lastPage = $_GET['page'];
 
-$_SESSION['lastPage'] = $lastPage;
 
 ?>
 <div class="info-film">

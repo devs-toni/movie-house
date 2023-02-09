@@ -2,7 +2,6 @@
 
 session_start();
 
-
 if (isset($_SESSION['lastPage'])) {
     $data = $_SESSION['lastPage'];
     unset($_SESSION['lastPage']);
