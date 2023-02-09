@@ -67,7 +67,7 @@ class Templates
         '<div class="dropdown">
         <button onclick="openMenu()" class="navbar__button--user"><i class="fa-solid fa-user-group"></i></button>
         <div id="myDropdown" class="dropdown__dropdown-content">
-          <a href="#">My Lists</a>
+          <a href="lists.php">My Lists</a>
           <a onclick="openConfig();" href="#">Configuration</a>';
 
       $close =

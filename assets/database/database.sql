@@ -25,21 +25,19 @@ CREATE TABLE users (
 
 CREATE TABLE list_user_movies (
     id INT NOT NULL AUTO_INCREMENT,
-    id_user INT NOT NULL, 
+    id_user INT NOT NULL,
+    name VARCHAR(30) NOT NULL, 
     PRIMARY KEY (id),
-    FOREIGN KEY (id_user) REFERENCES users (id) ON DELETE CASCADE
+    FOREIGN KEY (id_user) REFERENCES users (id)
 );
 
 CREATE TABLE movies_in_list (
     id INT NOT NULL AUTO_INCREMENT,
     id_list INT NOT NULL,
-    id_movie INT NOT NULL,
-    username VARCHAR(50) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    password VARCHAR(255) NOT NULL,  
+    id_movie INT NOT NULL, 
     PRIMARY KEY (id),
-    FOREIGN KEY (id_list) REFERENCES list_user_movies (id) ON DELETE CASCADE,
-    FOREIGN KEY (id_movie) REFERENCES movies (id) ON DELETE CASCADE
+    FOREIGN KEY (id_list) REFERENCES list_user_movies (id),
+    FOREIGN KEY (id_movie) REFERENCES movies (id)
 );
 
 CREATE TABLE comments (
@@ -48,8 +46,8 @@ CREATE TABLE comments (
     id_movie INT NOT NULL,
     text text(500) NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_user) REFERENCES users (id) ON DELETE CASCADE,
-    FOREIGN KEY (id_movie) REFERENCES movies (id) ON DELETE CASCADE
+    FOREIGN KEY (id_user) REFERENCES users (id),
+    FOREIGN KEY (id_movie) REFERENCES movies (id)
 );
 
 CREATE TABLE likes (
@@ -57,8 +55,8 @@ CREATE TABLE likes (
     id_user INT NOT NULL,
     id_movie INT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_user) REFERENCES users (id) ON DELETE CASCADE,
-    FOREIGN KEY (id_movie) REFERENCES movies (id) ON DELETE CASCADE
+    FOREIGN KEY (id_user) REFERENCES users (id),
+    FOREIGN KEY (id_movie) REFERENCES movies (id)
 );
 
 
