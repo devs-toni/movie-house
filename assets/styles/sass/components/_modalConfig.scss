@@ -1,0 +1,192 @@
+@use '../abstracts/variables' as var;
+
+* {
+  font-family: var.$primary-font;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.modalc {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 50px 0;
+  margin: auto auto;
+  text-align: center;
+  justify-content: space-between;
+  background-color: var.$bg-color;
+  height: fit-content;
+  width: 60%;
+  max-width: 800px;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding: 7vh;
+  }
+
+
+  &__btn-close {
+    position: absolute;
+    top: 0.2rem;
+    right: 0.7rem;
+    background-color: var.$bg-color;
+    color: var.$orange-color;
+    font-size: 2rem;
+    border: none;
+    cursor: pointer;
+  }
+
+    &__btn-back {
+    position: absolute;
+    top: 2.5rem;
+    left: 2.5rem;
+    background-color: var.$orange-color;
+    color: white;
+    font-size: 2rem;
+    border: none;
+    cursor: pointer;
+    padding: .7rem 1.2rem;
+    border-radius: 50%;
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__title {
+    font-size: 3.2rem;
+    margin-bottom: 2rem;
+  }
+
+  &__title,
+  .form__label {
+    color: var.$orange-color;
+  }
+
+  .form__label {
+    display: flex;
+    margin: 5px 0;
+    font-size: 1.1rem;
+    margin-top: 0;
+  }
+
+  .form__input {
+    background-color: var.$bg-input-color;
+    width: 30rem;
+    height: 2.5rem;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    padding: 8px 12px;
+
+    &:focus {
+      outline: 1px solid rgb(155, 155, 155);
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      -webkit-text-fill-color: white !important;
+      -webkit-box-shadow: 0 0 0 30px var.$bg-input-color inset !important;
+      cursor: text;
+      transition: background-color 5000s ease-in-out 0s;
+
+    }
+  }
+
+  &__form {
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    &--login {
+      height: 18rem;
+    }
+
+    div {
+      border-radius: 5px;
+    }
+  }
+
+  &__btn-submit {
+    height: 2.5rem;
+    width: 100%;
+    background-color: var.$orange-color;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+
+    &--signUp {
+      margin-top: 1rem;
+    }
+  }
+
+  &__p {
+    font-size: 1.1rem;
+    color: var.$white-color;
+    margin-top: 2.5rem;
+
+    span {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  &__background--active {
+    filter: blur(20px) contrast(0.8) brightness(0.8);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &__main {
+    display: flex;
+
+    div {
+      margin-top: 30px;
+      width: 200px;
+      height: 200px;
+
+      button {
+        background-color: transparent;
+        border: none;
+        i {
+          font-size: 2em;
+          padding: 1.2em;
+          color: white;
+          background-color: var.$orange-color;
+          border: 1px solid rgba(255, 255, 255, 0.41);
+          cursor: pointer;
+          border-radius: 20px;
+          opacity: .6;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+
+      p {
+        color: var.$orange-color;
+        margin-top: 20px;
+        font-size: 1.2em;
+        font-weight: 400;
+      }
+    }
+  }
+
+}

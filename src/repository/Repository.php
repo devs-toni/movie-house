@@ -44,7 +44,29 @@ class Repository extends Connection
     return false;
   }
 
-  function getUserByEmail($mail)
+  function getUserById($id)
+  {
+    $this->connect();
+    $pre = mysqli_prepare($this->con, 'SELECT email, username, rol FROM users WHERE id=?');
+    $pre->bind_param('i', $id);
+    $pre->execute();
+    $result = $pre->get_result();
+
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        $res['email'] = $row['email'];
+        $res['rol'] = $row['rol'];
+        $res['username'] = $row['username'];
+      }
+    } else {
+      $res = [];
+    }
+    $pre->close();
+    $this->con->close();
+    return $res;
+  }
+
+    function getUserByEmail($mail)
   {
     $this->connect();
     $pre = mysqli_prepare($this->con, 'SELECT id, password FROM users WHERE email=?');
@@ -63,6 +85,31 @@ class Repository extends Connection
     $pre->close();
     $this->con->close();
     return $res;
+  }
+  
+  function updateUserField($username, $email, $password, $id)
+  {
+
+    if ($username) {
+      $field = $username;
+      $val = 'username';
+    }
+    if ($email) {
+      $field = $email;
+      $val = 'email';
+    }
+    if ($password) {
+      $field = password_hash($password, PASSWORD_DEFAULT);
+      $val = 'password';
+    }
+    $this->connect();
+    $pre = mysqli_prepare($this->con, "UPDATE users SET $val=? WHERE id=?");
+    $pre->bind_param('si', $field, $id);
+    $pre->execute();
+    $result = $pre->get_result();
+    $pre->close();
+    $this->con->close();
+    return $result;
   }
 
   // FILMS
