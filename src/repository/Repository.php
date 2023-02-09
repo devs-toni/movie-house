@@ -70,8 +70,9 @@ class Repository extends Connection
   function addFilm(Movie $film): void
   {
     $this->connect();
-    $pre = mysqli_prepare($this->con, 'INSERT INTO movies (title, language, description, poster_path, release_date, vote_average, vote_count) VALUES (?,?,?,?,?,?,?)');
+    $pre = mysqli_prepare($this->con, 'INSERT INTO movies (ID, title, language, description, poster_path, release_date, vote_average, vote_count) VALUES (?,?,?,?,?,?,?)');
 
+    $ID = $film->getID();
     $title = $film->getTitle();
     $lang = $film->getLanguage();
     $desc = $film->getDescription();
@@ -80,7 +81,7 @@ class Repository extends Connection
     $vote_average = $film->getVoteAverage();
     $vote_count = $film->getVoteCount();
 
-    $pre->bind_param('sssssdi', $title, $lang, $desc, $poster, $date, $vote_average, $vote_count);
+    $pre->bind_param('isssssdi',$ID, $title, $lang, $desc, $poster, $date, $vote_average, $vote_count);
     $pre->execute();
     $pre->close();
     $this->con->close();
@@ -346,5 +347,17 @@ class Repository extends Connection
     $pre->close();
     $this->con->close();
   }
+
+
+  function extractId(int$ID){
+    $queryExtract = 'SELECT count(id) FROM movies;';
+    $this->connect();
+    $pre = mysqli_prepare($this->con, $queryExtract);
+    $pre->bind_param('i', $ID);
+    $pre->execute();
+    $pre->close();
+    $this->con->close();
+
+}
 
 }

@@ -9,6 +9,10 @@ const backBtn = document.querySelector('#goBack');
 const editCloseBtn = document.getElementById('editCloseBtn');
 const modalEditData = document.getElementById('editDataModal');
 const closeEdit = document.getElementById('closeModalEdit');
+const addModal = document.getElementById('addModal');
+const addSubmit = document.getElementById('addSubmit');
+const idInput = document.querySelector('.form__input');
+
 let filmIdToChange;
 let filmIdToDelete;
 
@@ -19,6 +23,8 @@ editBtn.addEventListener("click", showEditModal);
 editCloseBtn.addEventListener("click", closeEditModal);
 tableBody.addEventListener("click", handleEditFilm);
 closeEdit.addEventListener("click", closeModalEdit);
+addSubmit.addEventListener("click", addNewFilm);
+idInput.addEventListener('click', obtainID);
 
 function showAddModal() {
   modalAddFilm.show();
@@ -42,14 +48,18 @@ function closeModalEdit(){
 modalEditData.close();
 }
 
-//esto te lo has dejao a medias
-const data = new FormData(addModal);
+function addNewFilm(e){
+  e.preventDefault();
+const addData = new FormData(addModal);
 const config = {
   'method': 'POST',
-  'body': data,
+  'body': addData,
 }
-fetch("src/controllers/AddFilm.php", config);
-
+fetch("src/controllers/AddFilm.php", config)
+.then(res => res.json())
+.then(data => {
+})
+}
 
 async function mainFetch() {
   document.body.innerHTML = "<div class='lds-facebook center'><div></div><div></div><div></div></div>";
@@ -80,7 +90,6 @@ async function saveData(films, limit) {
   await fetch('src/repository/LoadDatabase.php', config)
     .then(res => res.json())
     .then(res => {
-      console.log(res);
     })
     .catch(err => console.error(err));
   window.location = 'index.php';
@@ -154,7 +163,6 @@ function obtainNewData(e) {
 
   const filmFormData = Object.fromEntries(new FormData(e.target));
   filmFormData.id = filmIdToChange;
-  // console.log(filmFormData);
   editData(filmFormData);
 }
 
@@ -170,7 +178,6 @@ function editData(editFilm) {
   })
   .then(res => res.json())
   .then(data => {
-    // console.log(data);
     customAlert('center', 'success', 'Edited', '<h4>Film edited successfully</h4>', false, 2000, '#232323', '#ff683f');
     closeModalEdit();
   })
@@ -182,6 +189,14 @@ function deleteFilm(id){
   })
   .then(res => res.json())
   .then(data => {
-    console.log(data);
+  })
+}
+
+function obtainID(){
+  fetch("src/controllers/DeleteFilm.php?id=", {
+    'method': "GET"
+  })
+  .then(res => res.json())
+  .then(data => {
   })
 }
