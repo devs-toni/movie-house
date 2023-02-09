@@ -429,4 +429,61 @@ class Repository extends Connection
     $this->con->close();
     return "deleted";
   }
+
+  // LISTS
+
+  function addList(string $name, int $user): void
+  {
+    $this->connect();
+    $pre = mysqli_prepare($this->con, 'INSERT INTO list_user_movies (name, id_user) VALUES (?,?)');
+    $pre->bind_param('si', $name, $user);
+    $pre->execute();
+    $pre->close();
+    $this->con->close();
+  }
+
+  function getAllListUser($user)
+  {
+    $this->connect();
+    $allLists = [];
+    $pre = mysqli_prepare($this->con, 'SELECT id, name FROM list_user_movies WHERE id_user = ?');
+    $pre->bind_param('i', $user);
+    $pre->execute();
+    $result = $pre->get_result();
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        $allLists[$row['id']] = $row['name'];
+      }
+    } else {
+      echo "0 results";
+    }
+    $this->con->close();
+    return $allLists;
+  }
+
+    function getMoviesList($list)
+  {
+    $this->connect();
+    $allMovies = [];
+    $pre = mysqli_prepare($this->con, 'SELECT id_movie, poster_path, title FROM movies_in_list ml INNER JOIN movies m ON m.id = ml.id_movie WHERE id_list = ?');
+    $pre->bind_param('i', $list);
+    $pre->execute();
+    $result = $pre->get_result();
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        $movie = (object) [
+          "id" => $row["id_movie"],
+          "img" => $row["poster_path"],
+          "name" => $row["title"],
+        ];
+        array_push($allMovies, $movie); 
+      }
+    } else {
+      echo "0 results";
+    }
+    $this->con->close();
+    return $allMovies;
+  }
+
+  
 }

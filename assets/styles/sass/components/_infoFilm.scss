@@ -43,6 +43,10 @@ dialog {
 
             img {
                 width: 18rem;
+
+                @media (max-width: 700px) {
+                    width: 13rem ;
+                }
             }
             
             div {
@@ -53,6 +57,18 @@ dialog {
                 font-size: 1.5rem;
                 margin-top: 1rem;
                 width: 70%;
+
+                @media (max-width: 500px){
+                    width: 100%;
+                }
+            }
+
+            @media (max-width: 1200px) {
+                width: 40%;
+            }
+
+            @media (max-width: 900px){
+                width: 45%;
             }
         }
 
@@ -80,6 +96,11 @@ dialog {
                 h4, h3, p {
                     color: var.$white-color;
                 }
+
+                @media (max-width: 700px) {
+                    min-height: 50%;
+                }
+
             }
 
             &--info-comments{
@@ -116,6 +137,7 @@ dialog {
                                 font-size: 0.7rem;
                                 color: var.$orange-color;
                                 cursor: pointer;
+
                             }
 
                             .comment__delete {
@@ -130,6 +152,11 @@ dialog {
                     p {
                         font-size: 0.9rem;
                         padding-bottom: 0.5rem;
+
+                        @media (max-width: 700px) {
+                            font-size: 0.8rem;
+                            padding-bottom: 0.4rem;
+                        }
                     }
 
                     &::-webkit-scrollbar {
@@ -142,14 +169,36 @@ dialog {
                 }
 
             }
+            
+            @media (max-width: 1200px) {
+                width: 60%;
+            }
+
+            @media (max-width: 900px){
+                width: 55%;
+            }
+
+            @media (max-width: 700px) {
+                padding-right: 2rem ;
+                font-size: 0.8rem;
+                justify-content: flex-start;
+            }
+
+            @media (max-width: 500px) {
+                padding: 2rem;
+                width: 100vw;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+            flex-direction: column;
+            align-items: center;
+
         }
     }
     &__btn-like--active {
         color: var.$white-color;
-        
-    }
-
-    @media (max-width: 1200px) {
         
     }
 
@@ -195,6 +244,7 @@ dialog {
             background-color: var.$bg-color;
             border: none;
             border-radius: 50%;
+            cursor: pointer;
         }
     }
     textarea {
@@ -209,65 +259,5 @@ dialog {
     }
 }
 
-.modal__delete-comment--confirm {
-    position: absolute;
-    display: flex;
-    bottom: 0;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 40vw;
-    height: 40vh;
-    background-color: var.$white-color;
-    font-size: 1.2rem;
-    margin-left: 30vw;
-    margin-bottom: 30vh;
-    box-shadow: 1px 1px 3px var.$orange-color;
-    color: var.$grey-color;
-
-    i {
-        font-size: 3.5rem;
-        margin-bottom: 2rem;
-    }
-
-    div {
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        margin-top: 1rem;
-        width: 40%;
-
-               
-        button {
-            width: 4rem;
-            height: 2.5rem;
-            border: none;
-            background-color: var.$orange-color;
-            outline: none;
-            font-weight: bolder;
-            font-size: 1.2rem;
-            box-shadow: 2px 2px 2px var.$grey-color;
-            color: rgb(66, 66, 66);
-            cursor: pointer;
-            border: 1px solid var.$grey-color;
-            
-            &:hover {
-                background-color: var.$grey-color;
-                box-shadow: 2px 2px 2px var.$orange-color;
-                font-size: 1.3rem;
-                
-            }
-        }
-
-        .modal__delete-comment--cancel {
-            background-color: var.$white-color;
-            box-shadow: 2px 2px 2px var.$orange-color;
-            
-        }
-        
-
-    }
-    
-}
 
 

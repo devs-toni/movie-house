@@ -5,26 +5,21 @@ const btnSendComment = document.getElementById("btnSendComment");
 const rateFilm = document.getElementById("rateFilm");
 const modalAddComment = document.getElementById("modalAddComment");
 const formComments = document.getElementById("formComments");
-const modalConfirmDelete = document.getElementById("modalConfirmDelete");
-const btnConfirmDelete = document.getElementById("btnConfirmDelete");
-const modalMessageDeleted = document.getElementById("modalMessageDeleted");
 const closeAddComment = document.getElementById("closeAddComment");
-const cancelDelete = document.getElementById("cancelDelete");
 const btnReturn = document.getElementById("btnReturn");
 
 let idOpenedFilm;
 let idUserRegistered;
-let idCommentToDelete;
 
 window.addEventListener("load", getDataInfoFilm());
 btnAddLikeFilm && btnAddLikeFilm.addEventListener("click", addLikeFilm);
 btnAddCommentFilm &&
   btnAddCommentFilm.addEventListener("click", openModalCommentFilm);
 btnSendComment && btnSendComment.addEventListener("click", addCommentFilm);
-btnConfirmDelete && btnConfirmDelete.addEventListener("click", deleteComment);
+
 closeAddComment &&
   closeAddComment.addEventListener("click", closeModalAddComment);
-cancelDelete && cancelDelete.addEventListener("click", closeModalDeleteComment);
+
 btnReturn && btnReturn.addEventListener("click", returnLastPage);
 
 function getDataInfoFilm() {
@@ -154,33 +149,47 @@ function addCommentFilm(e) {
 }
 
 function startDeleteComment(e) {
-  idCommentToDelete = e.target.dataset.idcomment;
-  modalConfirmDelete.show();
+  const idCommentToDelete = e.target.dataset.idcomment;
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+    background: "#232323",
+    color: "#ff683f",
+    confirmButtonColor: "#ff683f",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      deleteComment(idCommentToDelete);
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success",
+        background: "#232323",
+        color: "#ff683f",
+        confirmButtonColor: "#ff683f",
+      });
+    }
+  });
 }
 
-function deleteComment() {
+function deleteComment(idCommentToDelete) {
   fetch("src/controllers/DeleteComment.php?idComment=" + idCommentToDelete, {
     method: "GET",
   })
     .then((res) => res.json())
     .then((data) => {
       if (data === "deleted") {
-        modalConfirmDelete.close();
         let divToDelete = document.querySelector(
           `[data-idcomment="${idCommentToDelete}"]`
         ).parentElement.parentElement;
         divToDelete.remove();
-        modalMessageDeleted.show();
-        setTimeout(() => {
-          modalMessageDeleted.close();
-        }, 2000);
       }
     })
     .catch((err) => console.error(err));
-}
-
-function closeModalDeleteComment() {
-  modalConfirmDelete.close();
 }
 
 function returnLastPage() {

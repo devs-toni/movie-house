@@ -59,21 +59,7 @@ $_SESSION['lastPage'] = $lastPage;
         </form>
     </div>
 </dialog>
-<dialog id="modalConfirmDelete">
-    <div class="modal__delete-comment--confirm">
-        <h4>Are you sure to delete this comment?</h4>
-        <div>
-            <button id="btnConfirmDelete">Yes</button>
-            <button id="cancelDelete" class="modal__delete-comment--cancel">No</button>
-        </div>
-    </div>
-</dialog>
-<dialog id="modalMessageDeleted">
-    <div class="modal__delete-comment--confirm">
-        <h4><i class="fa-solid fa-circle-check"></i></h4>
-        <h4>Your comment has been deleted correctly</h4>
-    </div>
-</dialog>
+
 
 <?php
 Templates::addFooter([]);

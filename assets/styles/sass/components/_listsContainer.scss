@@ -1,0 +1,29 @@
+@use '../abstracts/variables' as var;
+
+.lists-container {
+
+  .title {
+
+    h2 {}
+
+    button {
+
+      i {}
+    }
+  }
+
+  .main {
+
+    &__lists {
+      li {}
+    }
+
+    &__films {
+      .film {
+
+        img {}
+      }
+    }
+  }
+
+}
