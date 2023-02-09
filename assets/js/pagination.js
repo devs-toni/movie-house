@@ -139,7 +139,7 @@ async function printFilms(data, container, action) {
 
   function printDbVotedFilms(results, container) {
     for (let i = 0; i < results[0].length; i++) {
-      container.innerHTML += `<div class="carousel-votes__film"><img src="${url}${results[2][i]}" alt="${results[1][i]}" data-id="${results[0][i]}"></div>`;
+      container.innerHTML += `<div class="carousel-votes__film"><img src="${results[2][i]}" alt="${results[1][i]}" data-id="${results[0][i]}"></div>`;
     }
   }
 
