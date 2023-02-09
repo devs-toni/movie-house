@@ -12,4 +12,6 @@ $pass = $_REQUEST['pass'];
 $db->addUser(new User($username, $mail, $pass));
 $data = $db->getUserByEmail($mail);
 $_SESSION['user'] = $data['id'];
-header('Location: ../../index.php');
+
+echo json_encode("Ok");
+// header('Location: ../../index.php');
