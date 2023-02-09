@@ -4,8 +4,6 @@ require_once('../repository/Repository.php');
 
 $db = new Repository();
 
-$idFilm = $_GET['id'];
+$id = $db->extractId();
 
-$db->extractId($idFilm);
-
-echo json_encode("vamos");
+echo json_encode($id);

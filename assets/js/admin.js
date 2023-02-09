@@ -24,10 +24,10 @@ editCloseBtn.addEventListener("click", closeEditModal);
 tableBody.addEventListener("click", handleEditFilm);
 closeEdit.addEventListener("click", closeModalEdit);
 addSubmit.addEventListener("click", addNewFilm);
-idInput.addEventListener('click', obtainID);
 
 function showAddModal() {
   modalAddFilm.show();
+  obtainID();
 }
 
 function closeAddModal(){
@@ -51,6 +51,7 @@ modalEditData.close();
 function addNewFilm(e){
   e.preventDefault();
 const addData = new FormData(addModal);
+console.log(addModal);
 const config = {
   'method': 'POST',
   'body': addData,
@@ -92,7 +93,7 @@ async function saveData(films, limit) {
     .then(res => {
     })
     .catch(err => console.error(err));
-  window.location = 'index.php';
+  // window.location = 'index.php';
 }
 
 loadDb.addEventListener('click', mainFetch);
@@ -193,10 +194,11 @@ function deleteFilm(id){
 }
 
 function obtainID(){
-  fetch("src/controllers/DeleteFilm.php?id=", {
+  fetch("src/controllers/InfoID.php", {
     'method': "GET"
   })
   .then(res => res.json())
   .then(data => {
+    idInput.value= parseInt(data)+1;
   })
 }
