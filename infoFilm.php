@@ -56,7 +56,7 @@ if (isset($_GET['lists'])) {
 </div>
 </div>
 <dialog id="modalAddComment">
-    <div class="modal__add-comment">
+    <div class="modal__lists__container">
         <button id="closeAddComment" class="modal__add-comment--close">🗙</button>
         <form id="formComments">
             <textarea type="text" name="comment" placeholder="Leave your comment..."></textarea>
@@ -65,19 +65,19 @@ if (isset($_GET['lists'])) {
     </div>
 </dialog>
 
-<dialog class="modal" id="modalAddFilmToList">
-    <div class="modal__container modal-add-film">
+<dialog class="modal-lists" id="modalAddFilmToList">
+    <div class="modal-lists__container ">
         <button class="modal__btn-close" id="btnCloseAddFilmToList">🗙</button>
         <h2 class="modal-add-film__title">Add to list</h2>
         <button id="btnNewList" class="modal-add-film__new-list">New List</button>
-        <div id="containerLists" class="modal-add-film__container-lists">
+        <div id="containerLists" class="modal-lists__container-lists">
 
         </div>
     </div>
 </dialog>
 
-<dialog class="modal" id="modalNewList">
-    <div class="modal__container modal-new-list">
+<dialog class="modal-lists" id="modalNewList">
+    <div class="modal-lists__container modal-new-list">
         <button class="modal__btn-close" id="btnCloseNewList">🗙</button>
 
         <h2>Name of your list</h2>
