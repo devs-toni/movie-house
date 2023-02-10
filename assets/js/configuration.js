@@ -33,7 +33,7 @@ async function showConfigModal() {
     .then((data) => {
       user = data;
       if (user.rol === 'A') {
-        customAlert('center', 'warning', 'Be careful!', '<h3>You are administrator, take care when you change your profile data</h3>', true, 0, '#232323', '#ff683f', '#ff683f');
+        customAlert('center', 'warning', 'Be careful!', '<h3>You are administrator, take care when you change your profile data</h3>', true, 0, '#232323', 'white', 'green');
       }
     }).catch(err => console.error(err));
 }
@@ -83,11 +83,11 @@ function changeUsername(e) {
         btnBack.classList.add('hidden');
         main.classList.remove('hidden');
         configUsername.classList.add('hidden');
-        customAlert('center', 'success', '', '<h3>Username updated succesfully!</h3>', false, 2000, '#232323', '#ff683f');
+        customAlert('center', 'success', '', '<h3>Username updated succesfully!</h3>', false, 2000, '#232323', 'white');
       }).catch(err => console.error(err));
   } else {
     const error = getErrorMsg(errors);
-    customAlert('center', 'warning', 'Error', error, true, 0, '#232323', '#ff683f', '#ff683f');
+    customAlert('center', 'warning', 'Error', error, true, 0, '#232323', 'white', 'green');
     return;
   }
 }
@@ -108,11 +108,11 @@ function changeEmail(e) {
         main.classList.remove('hidden');
         configEmail.classList.add('hidden');
         (position, icon, title, html, showConfirmButton, timer, background, color, confirmButtonColor)
-        customAlert('center', 'success', '', '<h3>Email updated succesfully!</h3>', false, 2000, '#232323', '#ff683f');
+        customAlert('center', 'success', '', '<h3>Email updated succesfully!</h3>', false, 2000, '#232323', 'white');
       }).catch(err => console.error(err));
   } else {
     const error = getErrorMsg(errors);
-    customAlert('center', 'warning', 'Error', error, true, 0, '#232323', '#ff683f', '#ff683f');
+    customAlert('center', 'warning', 'Error', error, true, 0, '#232323', 'white', 'green');
     return;
   }
 }
@@ -145,11 +145,11 @@ function changePassword(e) {
         btnBack.classList.add('hidden');
         main.classList.remove('hidden');
         configPassword.classList.add('hidden');
-        customAlert('center', 'success', '', '<h3>Password updated succesfully!</h3>', false, 2000, '#232323', '#ff683f');
+        customAlert('center', 'success', '', '<h3>Password updated succesfully!</h3>', false, 2000, '#232323', 'white');
       }).catch(err => console.error(err));
   } else {
     const error = getErrorMsg(errors);
-    customAlert('center', 'warning', 'Error', error, true, 0, '#232323', '#ff683f', '#ff683f');
+    customAlert('center', 'warning', 'Error', error, true, 0, '#232323', 'white', 'green');
     return;
   }
 }

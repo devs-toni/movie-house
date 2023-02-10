@@ -9,19 +9,14 @@
 
         <div class="list-container">
             <table id="editList" class="list-container__table">
-                <thead>
+                <thead class="table-head">
                     <tr>
                         <th class="film-ID">ID</th>
                         <th>Name</th>
                         <th class="film-actions">Actions</th>
                     </tr>
                 </thead>
-                <tbody id="tableBody">
-                    <tr>
-                        <th class="film-ID">1873</th>
-                        <th>Wakanda</th>
-                        <th class="film-actions"><i class="fa-solid fa-pen-to-square"></i><i class="fa-solid fa-trash-can"></i></th>
-                    </tr>
+                <tbody id="tableBody" class="table-body">
                 </tbody>
             </table>
         </div>

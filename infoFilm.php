@@ -9,12 +9,17 @@ require_once(DIR_TEMPLATES . 'Templates.php');
 Templates::addHeader('Neflis', [], ['infoFilm']);
 
 $filmId = $_GET['film'];
-
-
+if (isset($_GET['page'])) {
+    $_SESSION['lastPage'] = $_GET['page'];
+    $url = 'index.php';
+}
+if (isset($_GET['lists'])) {
+    $url = 'lists.php';
+}
 ?>
 <div class="info-film">
     <nav class="info-film__nav">
-        <i class="fa-solid fa-circle-arrow-left" id="btnReturn"></i>
+        <i class="fa-solid fa-circle-arrow-left" id="btnReturn" data-url="<?= $url ?>"></i>
     </nav>
 
     <section class="info-film__section">

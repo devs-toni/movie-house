@@ -197,7 +197,8 @@ function deleteComment(idCommentToDelete) {
 }
 
 function returnLastPage() {
-  window.location.href = "index.php";
+  let url = document.getElementById('btnReturn').getAttribute('data-url');
+  window.location.href = url;
 }
 
 function chooseListToAdd() {
