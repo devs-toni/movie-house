@@ -1,3 +1,4 @@
 config.php
 src/repository/dbConfig.php
+assets/styles/css/index.min.css
 node_modules
