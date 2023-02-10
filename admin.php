@@ -12,12 +12,12 @@ Templates::addHeader('Administrator', [], ['admin']);
   <input class="navbar__input" type="text" placeholder="Search">
 </nav>  -->
 <body class="containerAdmin">
-  <button id="goBack"><img src="assets/images/back.png">.<br>back</button><br>
+  <button id="goBack"><img src="assets/images/back.png"><br>back</button><br>
   <h1 class="containerAdmin__title">ADMIN</h1>
 <div class="containerAdmin__btns">
-<button id="addFilm" class="addFilms"><img src="assets/images/add.png">.<br>Add Film</button>
-<button id="loadDatabase" class="loadDB"><img src="assets/images/refresh.png">.<br>Restart Database</button>
-<button id="editFilm" class="editFilms"><i class="admin-icons fa-solid fa-pencil"></i>.<br>Edit Film</button>
+<button id="addFilm" class="addFilms"><img src="assets/images/add.png"><br><br>Add Film</button>
+<button id="loadDatabase" class="loadDB"><img src="assets/images/refresh.png"><br><br>Restart Database</button>
+<button id="editFilm" class="editFilms"><i class="admin-icons fa-solid fa-pencil"></i><br><br>Edit Film</button>
 </div>
 </body>
 

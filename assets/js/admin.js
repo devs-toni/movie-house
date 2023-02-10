@@ -133,7 +133,7 @@ function searchEditFilms(res) {
       <tr>
           <th class="film-ID">${res[0][i]}</th>
           <th>${res[1][i]}</th>
-          <th data-film="${res[0][i]}" class="film-actions"><i class="edit-btn fa-solid fa-pen-to-square"></i><i class="delete-btn fa-solid fa-trash-can"></i></th>
+          <th data-film="${res[0][i]}" class="film-actions"><i class="edit-btn fa-solid fa-pen-to-square"></i>    <i class="delete-btn fa-solid fa-trash-can"></i></th>
       </tr>`;
   }
 }
