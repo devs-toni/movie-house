@@ -1,5 +1,3 @@
-const api =
-  "https://api.themoviedb.org/3/movie/popular?api_key=f97d6a2165e719275828bcd71a17fccc&language=en-US";
 const addFilm = document.querySelector("#addFilm");
 const modalAddFilm = document.querySelector(".modal__addFilm");
 const closeBtn = document.querySelector(".modal__btn-close");
@@ -56,20 +54,20 @@ function closeModalEdit() {
   modalEditData.close();
 }
 
-function addNewFilm(e){
+function addNewFilm(e) {
   e.preventDefault();
-const addData = new FormData(addModal);
-console.log(addModal);
-const config = {
-  'method': 'POST',
-  'body': addData,
-}
-fetch("src/controllers/AddFilm.php", config)
-.then(res => res.json())
-.then(data => {
-  customAlert('center', 'success', 'Added', '<h4>Film added successfully</h4>', false, 2000, '#232323', '#ff683f');
-  closeAddModal();
-})
+  const addData = new FormData(addModal);
+  console.log(addModal);
+  const config = {
+    'method': 'POST',
+    'body': addData,
+  }
+  fetch("src/controllers/AddFilm.php", config)
+    .then(res => res.json())
+    .then(data => {
+      customAlert('center', 'success', 'Added', '<h4>Film added successfully</h4>', false, 2000, '#232323', '#ff683f');
+      closeAddModal();
+    })
 }
 
 async function mainFetch() {
@@ -103,6 +101,12 @@ async function mainFetch() {
       "<div class='lds-facebook center'><div></div><div></div><div></div></div>";
     let twentyElementsPages = 30;
     let films = [];
+    let api = '';
+    await fetch('src/controllers/GetApi.php?type=general')
+      .then(res => res.json())
+      .then(res => {
+        api = res;
+      });
     for (let i = 1; i <= twentyElementsPages; i++) {
       await fetch(`${api}&page=${i}`)
         .then((res) => res.json())
@@ -202,11 +206,11 @@ function editData(editFilm) {
     method: "POST",
     body: editFilm,
   })
-  .then(res => res.json())
-  .then(data => {
-    customAlert('center', 'success', 'Edited', '<h4>Film edited successfully</h4>', false, 2000, '#232323', '#ff683f');
-    closeModalEdit();
-  })
+    .then(res => res.json())
+    .then(data => {
+      customAlert('center', 'success', 'Edited', '<h4>Film edited successfully</h4>', false, 2000, '#232323', '#ff683f');
+      closeModalEdit();
+    })
 }
 
 function deleteFilm(id) {
@@ -215,16 +219,16 @@ function deleteFilm(id) {
   })
     .then((res) => res.json())
     .then((data) => {
-  })
+    })
 }
 
-function obtainID(){
+function obtainID() {
   fetch("src/controllers/InfoID.php", {
-      'method': "GET"
+    'method': "GET"
   })
-  .then(res => res.json())
-  .then(data => {
-    idInput.value= parseInt(data)+1;
+    .then(res => res.json())
+    .then(data => {
+      idInput.value = parseInt(data) + 1;
     });
 }
 

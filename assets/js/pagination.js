@@ -1,5 +1,3 @@
-const url = "https://image.tmdb.org/t/p/w500";
-const trendingUrl = 'https://api.themoviedb.org/3/trending/movie/week?api_key=f97d6a2165e719275828bcd71a17fccc&language=en-US&page=1';
 let currentPage;
 let pageCount;
 const paginationLimit = 24;
@@ -105,67 +103,6 @@ const setCurrentPage = async (pageNum, pageCount) => {
       console.error(err);
     });
 }
-async function printFilms(data, container, action) {
-  let printContainer = document.querySelector(container);
-
-  if (data) {
-    printContainer.innerHTML = "";
-    printDbFilms(data, printContainer);
-  } else {
-    if (action === 'mark') {
-      results = await fetchApi(trendingUrl);
-      const file = new FormData();
-      results = results.filter(f => f.poster_path !== null && f.release_date !== null);
-      const json = JSON.stringify(results);
-      file.append("films", json);
-      fetchDb('src/controllers/TrendingFilms.php', file);
-      printApiFilms(results, printContainer, 20, false);
-    } else if (action === 'vote') {
-      results = await fetchDb('src/controllers/MostVotedFilms.php', null);
-      printDbVotedFilms(results, printContainer);
-    } else if (action === 'spa') {
-      results = await fetchDb('src/controllers/SpanishFilms.php', null);
-      printDbVotedFilms(results, printContainer);
-    } else {
-      let films = [];
-      for (let i = 1; i <= 12; i++) {
-        await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=f97d6a2165e719275828bcd71a17fccc&language=en-US&page=${i}&include_adult=true`)
-          .then((res) => res.json())
-          .then((res) => {
-            films.push(res.results);
-          })
-          .catch((err) => console.error(err));
-      }
-      let results = films.flat();
-      results = results.filter(f => f.adult);
-      printApiFilms(results, printContainer, 20, true);
-    }
-  }
-  printContainer.classList.remove("hidden");
-
-  function printApiFilms(results, container, files, p) {
-
-    for (let i = 0; i < files; i++) {
-      container.innerHTML += `<div class="carousel__film"><img class="${p ? "porn" : ""}" src="${url}${results[i].poster_path}" alt="${results[i].title}" ${!p ? 'data-id=' : ''}${results[i].id}"></div>`;
-    }
-  }
-
-  function printDbFilms(results, container) {
-    for (let i = 0; i < results[0].length; i++) {
-      container.innerHTML += `<div class="list__film"><img src="${results[2][i]}" alt="${results[1][i]}" data-id="${results[0][i]}"></div>`
-    }
-  }
-
-  function printDbVotedFilms(results, container) {
-    for (let i = 0; i < results[0].length; i++) {
-      container.innerHTML += `<div class="carousel-votes__film"><img src="${results[2][i]}" alt="${results[1][i]}" data-id="${results[0][i]}"></div>`;
-    }
-  }
-
-  document.querySelectorAll('img[data-id]').forEach(img => {
-    img.onclick = openInfoFilm;
-  });
-}
 
 const fetchApi = async (url) => {
   let results;
@@ -199,4 +136,91 @@ const fetchDb = async (url, body) => {
       console.error(err);
     });
   return response;
+}
+
+async function printFilms(data, container, action) {
+  const { url, trendingUrl, general } = await getApiUrls();
+  let printContainer = document.querySelector(container);
+
+  if (data) {
+    printContainer.innerHTML = "";
+    printDbFilms(data, printContainer);
+  } else {
+    if (action === 'mark') {
+      results = await fetchApi(trendingUrl);
+      const file = new FormData();
+      results = results.filter(f => f.poster_path !== null && f.release_date !== null);
+      const json = JSON.stringify(results);
+      file.append("films", json);
+      fetchDb('src/controllers/TrendingFilms.php', file);
+      printApiFilms(results, printContainer, 20, false);
+    } else if (action === 'vote') {
+      results = await fetchDb('src/controllers/MostVotedFilms.php', null);
+      printDbVotedFilms(results, printContainer);
+    } else if (action === 'spa') {
+      results = await fetchDb('src/controllers/SpanishFilms.php', null);
+      printDbVotedFilms(results, printContainer);
+    } else {
+      let films = [];
+      for (let i = 1; i <= 12; i++) {
+        await fetch(`${general}&page=${i}&include_adult=true`)
+          .then((res) => res.json())
+          .then((res) => {
+            films.push(res.results);
+          })
+          .catch((err) => console.error(err));
+      }
+      let results = films.flat();
+      results = results.filter(f => f.adult);
+      printApiFilms(results, printContainer, 20, true);
+    }
+  }
+  printContainer.classList.remove("hidden");
+
+  async function getApiUrls() {
+    let url = '';
+    let trendingUrl = '';
+    let general = '';
+
+    await fetch('src/controllers/GetApi.php?type=img')
+      .then(res => res.json())
+      .then((res) => {
+        url = res;
+      });
+    await fetch('src/controllers/GetApi.php?type=trend')
+      .then(res => res.json())
+      .then((res) => {
+        trendingUrl = res;
+      });
+    await fetch('src/controllers/GetApi.php?type=general')
+      .then(res => res.json())
+      .then((res) => {
+        general = res;
+      });
+
+    return { url, trendingUrl, general };
+  }
+
+  function printApiFilms(results, container, files, p) {
+
+    for (let i = 0; i < files; i++) {
+      container.innerHTML += `<div class="carousel__film"><img class="${p ? "porn" : ""}" src="${url}${results[i].poster_path}" alt="${results[i].title}" ${!p ? 'data-id=' : ''}${results[i].id}"></div>`;
+    }
+  }
+
+  function printDbFilms(results, container) {
+    for (let i = 0; i < results[0].length; i++) {
+      container.innerHTML += `<div class="list__film"><img src="${results[2][i]}" alt="${results[1][i]}" data-id="${results[0][i]}"></div>`
+    }
+  }
+
+  function printDbVotedFilms(results, container) {
+    for (let i = 0; i < results[0].length; i++) {
+      container.innerHTML += `<div class="carousel-votes__film"><img src="${results[2][i]}" alt="${results[1][i]}" data-id="${results[0][i]}"></div>`;
+    }
+  }
+
+  document.querySelectorAll('img[data-id]').forEach(img => {
+    img.onclick = openInfoFilm;
+  });
 }
