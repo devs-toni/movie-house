@@ -2,7 +2,9 @@
 @import '../abstracts/animations';
 
 .top-trend,
-.top-votes {
+.top-votes,
+.top-spanish,
+.top-p {
   width: 86%;
   margin: 40px 0 120px 90px;
 
@@ -53,14 +55,18 @@
       }
 
       .carousel-container,
-      .carousel-votes-container {
+      .carousel-votes-container,
+      .carousel-spa-container,
+      .carousel-p-container {
         width: 100%;
         padding: 20px 0;
         overflow: hidden;
         scroll-behavior: smooth;
 
         .carousel,
-        .carousel-votes {
+        .carousel-votes,
+        .carousel-spa,
+        .carousel-p {
           display: flex;
           flex-wrap: nowrap;
 
@@ -100,6 +106,15 @@
   }
 }
 
+.porn {
+/*  -webkit-filter: blur(10px);
+   -moz-filter: blur(10px);
+   -o-filter: blur(10px);
+   -ms-filter: blur(10px); */
+   filter: blur(15px);
+   cursor: auto !important;
+}
+
 @media screen and (max-width: 1900px) {
 
   .top-trend,
@@ -112,7 +127,8 @@
 @media screen and (max-width: 1750px) {
 
   .top-trend,
-  .top-votes {
+  .top-votes,
+  .top-p {
     .top {
       &__main {
 

@@ -107,7 +107,7 @@ const setCurrentPage = async (pageNum, pageCount) => {
 }
 async function printFilms(data, container, action) {
   let printContainer = document.querySelector(container);
-  
+
   if (data) {
     printContainer.innerHTML = "";
     printDbFilms(data, printContainer);
@@ -119,17 +119,34 @@ async function printFilms(data, container, action) {
       const json = JSON.stringify(results);
       file.append("films", json);
       fetchDb('src/controllers/TrendingFilms.php', file);
-      printApiFilms(results, printContainer, 20);
+      printApiFilms(results, printContainer, 20, false);
     } else if (action === 'vote') {
       results = await fetchDb('src/controllers/MostVotedFilms.php', null);
       printDbVotedFilms(results, printContainer);
+    } else if (action === 'spa') {
+      results = await fetchDb('src/controllers/SpanishFilms.php', null);
+      printDbVotedFilms(results, printContainer);
+    } else {
+      let films = [];
+      for (let i = 1; i <= 12; i++) {
+        await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=f97d6a2165e719275828bcd71a17fccc&language=en-US&page=${i}&include_adult=true`)
+          .then((res) => res.json())
+          .then((res) => {
+            films.push(res.results);
+          })
+          .catch((err) => console.error(err));
+      }
+      let results = films.flat();
+      results = results.filter(f => f.adult);
+      printApiFilms(results, printContainer, 20, true);
     }
   }
   printContainer.classList.remove("hidden");
 
-  function printApiFilms(results, container, files) {
+  function printApiFilms(results, container, files, p) {
+
     for (let i = 0; i < files; i++) {
-      container.innerHTML += `<div class="carousel__film"><img src="${url}${results[i].poster_path}" alt="${results[i].title}" data-id="${results[i].id}"></div>`;
+      container.innerHTML += `<div class="carousel__film"><img class="${p ? "porn" : ""}" src="${url}${results[i].poster_path}" alt="${results[i].title}" ${!p ? 'data-id=' : ''}${results[i].id}"></div>`;
     }
   }
 

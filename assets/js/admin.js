@@ -59,19 +59,46 @@ const config = {
 fetch("src/controllers/AddFilm.php", config);
 
 async function mainFetch() {
-  document.body.innerHTML =
-    "<div class='lds-facebook center'><div></div><div></div><div></div></div>";
-  let twentyElementsPages = 30;
-  let films = [];
-  for (let i = 1; i <= twentyElementsPages; i++) {
-    await fetch(`${api}&page=${i}`)
-      .then((res) => res.json())
-      .then((res) => {
-        films.push(res.results);
-      })
-      .catch((err) => console.error(err));
+  let deleteAll = false;
+  await Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, restart DB!",
+    background: "#232323",
+    color: "white",
+    confirmButtonColor: "green",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      deleteAll = true;
+      Swal.fire({
+        title: "Reset!",
+        text: "DB reset completed.",
+        icon: "success",
+        background: "#232323",
+        color: "white",
+        confirmButtonColor: "green",
+      });
+    }
+  });
+  if (deleteAll) {
+    document.body.innerHTML =
+      "<div class='lds-facebook center'><div></div><div></div><div></div></div>";
+    let twentyElementsPages = 30;
+    let films = [];
+    for (let i = 1; i <= twentyElementsPages; i++) {
+      await fetch(`${api}&page=${i}`)
+        .then((res) => res.json())
+        .then((res) => {
+          films.push(res.results);
+        })
+        .catch((err) => console.error(err));
+    }
+    saveData(films, twentyElementsPages);
   }
-  saveData(films, twentyElementsPages);
 }
 
 async function saveData(films, limit) {
