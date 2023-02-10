@@ -7,8 +7,12 @@
   .nav {
     margin-left: -4rem;
 
+    @media (max-width: 1200px) {
+      margin-left: 0; ;
+    }
+
     i {
-      font-size: 3.5em;
+      font-size: 1.8em;
       color: var.$orange-color;
       cursor: pointer;
 
@@ -20,8 +24,13 @@
     color: var.$orange-color;
     display: flex;
 
+    @media (max-width: 460px) {
+      flex-direction: column;
+      margin: 30px 0;
+    }
+
     .title {
-      width: 45%;
+      max-width: 420px;
 
       h2 {
         font-size: 3rem;
@@ -35,6 +44,7 @@
 
         input {
           background-color: var.$bg-input-color;
+          color: var.$white-color;
           outline: none;
           border: none;
           padding: .6rem .8rem;
@@ -54,11 +64,12 @@
         button {
           background-color: transparent;
           border: none;
+          margin-left: 7px;
 
           i {
             color: var.$orange-color;
             font-weight: 800;
-            font-size: 2.4rem;
+            font-size: 1.8rem;
             cursor: pointer;
           }
         }
@@ -97,6 +108,13 @@
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         gap: 10px;
+
+        @media (max-width: 950px) {
+          grid-template-columns: repeat(4, 1fr); ;
+        }
+        @media (max-width: 700px) {
+          grid-template-columns: repeat(2, 1fr); ;
+        }
 
         .film {
           height: 80%;
