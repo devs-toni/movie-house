@@ -6,6 +6,7 @@ require_once(str_replace('\\', '/', __DIR__) . '/../../config.php');
 $db = new Repository();
 $films = json_decode($_POST['films']);
 
+$db->deleteMoviesLinks();
 $db->deleteFilms();
 
 for ($i = 0; $i < count($films); $i++) {

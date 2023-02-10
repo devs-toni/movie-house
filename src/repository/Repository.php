@@ -611,7 +611,12 @@ class Repository extends Connection
     $pre = mysqli_prepare($this->con, 'DELETE FROM movies_in_list WHERE id_list=?');
     $pre->bind_param("i", $listId);
     $pre->execute();
-    $pre->close();
+    $this->con->close();
+  }
+    function deleteMoviesLinks()
+  {
+    $this->connect();
+    mysqli_query($this->con, 'DELETE FROM movies_in_list');
     $this->con->close();
   }
 }
