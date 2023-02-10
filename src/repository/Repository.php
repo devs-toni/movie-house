@@ -43,6 +43,27 @@ class Repository extends Connection
     $this->con->close();
     return false;
   }
+  function isAdult(int $id)
+  {
+    $this->connect();
+    $pre = mysqli_prepare($this->con, 'SELECT rol FROM users WHERE id=?');
+    $pre->bind_param('i', $id);
+    $pre->execute();
+    $result = $pre->get_result();
+
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        if ($row['rol'] === 'P') {
+          $pre->close();
+          $this->con->close();
+          return true;
+        }
+      }
+    }
+    $pre->close();
+    $this->con->close();
+    return false;
+  }
 
   function getUserById($id)
   {
@@ -174,8 +195,29 @@ class Repository extends Connection
     $posterMovies = [];
 
     $this->connect();
-    $allPosterMovies = [];
+
     $result = mysqli_query($this->con, 'SELECT id, title, poster_path FROM movies ORDER BY vote_count DESC LIMIT 20');
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        array_push($ids, $row['id']);
+        array_push($titles, $row['title']);
+        array_push($posters, $row['poster_path']);
+      }
+    }
+    array_push($posterMovies, $ids, $titles, $posters);
+    $this->con->close();
+    return $posterMovies;
+  }
+
+  function getSpanishTopMovies()
+  {
+    $ids = [];
+    $titles = [];
+    $posters = [];
+    $posterMovies = [];
+
+    $this->connect();
+    $result = mysqli_query($this->con, 'SELECT id, title, poster_path FROM movies WHERE language="es" ORDER BY vote_count DESC LIMIT 20');
     if (mysqli_num_rows($result) > 0) {
       while ($row = mysqli_fetch_assoc($result)) {
         array_push($ids, $row['id']);

@@ -14,10 +14,12 @@ if (isset($_SESSION['user']))
 $db = new Repository();
 $isLogged = false;
 $isAdmin = false;
+$isAdult = false;
 
 if (isset($_SESSION['user'])) {
   $isLogged = true;
   $isAdmin = $db->isAdmin($_SESSION['user']);
+  $isAdult = $db->isAdult($_SESSION['user']);
 }
 
 Templates::addHeader('Neflis', ['pagination'], ['formValidation', 'returnIndex', 'configuration', 'openLists']);
@@ -25,7 +27,9 @@ Templates::addHeader('Neflis', ['pagination'], ['formValidation', 'returnIndex',
 include_once(DIR_TEMPLATES . 'aside.php');
 Templates::addNav($isLogged, $isAdmin);
 include_once(DIR_TEMPLATES . 'trendingFilms.php');
+include_once(DIR_TEMPLATES . 'spanishFilms.php');
 $isLogged && include_once(DIR_TEMPLATES . 'voteFilms.php');
+$isAdult && include_once(DIR_TEMPLATES . 'pFilms.php');
 include_once(DIR_TEMPLATES . 'allFilms.php');
 include_once(DIR_TEMPLATES . 'modalLogin.php');
 include_once(DIR_TEMPLATES . 'modalSignUp.php');
