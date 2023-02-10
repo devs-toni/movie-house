@@ -6,7 +6,7 @@ $_SESSION['lastPage'] = $lastPage;
 require_once('config.php');
 require_once(DIR_TEMPLATES . 'Templates.php');
 
-Templates::addHeader('Neflis', [], ['infoFilm']);
+Templates::addHeader('Neflis', [], ['infoFilm', 'alerts']);
 
 $filmId = $_GET['film'];
 if (isset($_GET['page'])) {

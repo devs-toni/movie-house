@@ -263,9 +263,20 @@ function createNewList(e) {
   fetch(`src/controllers/addList.php?name=${name}`)
     .then((res) => res.json())
     .then((data) => {
-      if (data === "OK") {
+      if (data !== "N") {
         modalNewList.close();
         chooseListToAdd();
+      } else {
+        customAlert(
+          "center",
+          "error",
+          "",
+          "<h3>This list name already exists</h3>",
+          false,
+          2000,
+          "#232323",
+          "#fff"
+        );
       }
     })
     .catch((err) => console.error(err));
@@ -273,6 +284,7 @@ function createNewList(e) {
 
 function closeModalNewList() {
   modalNewList.close();
+  nameList.value = "";
 }
 
 function closeAddFilmToList() {
