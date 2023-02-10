@@ -260,7 +260,7 @@ function openModalCreateNewList() {
 function createNewList(e) {
   e.preventDefault();
   const name = nameList.value;
-  fetch(`src/controllers/addList.php?name=${name}`)
+  fetch(`src/controllers/AddList.php?name=${name}`)
     .then((res) => res.json())
     .then((data) => {
       if (data !== "N") {

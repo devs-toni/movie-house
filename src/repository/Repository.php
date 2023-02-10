@@ -581,7 +581,7 @@ class Repository extends Connection
     return $allMovies;
   }
 
-  function addMovieToList(int $filmId, int $listId)
+  function addMovieToList($filmId, $listId)
   {
     $query = "INSERT INTO movies_in_list (id_list, id_movie) VALUES (?,?)";
 
