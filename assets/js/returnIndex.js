@@ -1,4 +1,4 @@
-window.addEventListener("load", checkPageToReturn());
+window.addEventListener("load", checkPageToReturn);
 
 function checkPageToReturn() {
   fetch("src/controllers/CheckPageToReturn.php", { method: "GET" })
