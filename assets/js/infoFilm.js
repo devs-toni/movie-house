@@ -215,6 +215,7 @@ function chooseListToAdd() {
   })
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
       if (data) {
         containerLists.textContent = "";
         for (const name in data) {

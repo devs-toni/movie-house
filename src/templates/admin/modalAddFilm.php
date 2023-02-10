@@ -4,6 +4,11 @@
         <h2 class="modal__title">ADD</h2>
         <form id="addModal" class="modal__form modal__form--addFilm">
             <div>
+                <label class="form__label" for="ID">ID</label>
+                <input class="form__input" name="ID" id="ID" type="text" required>
+            </div>
+
+            <div>
                 <label class="form__label" for="title">Title</label>
                 <input class="form__input" name="title" id="title" type="text" required>
             </div>
@@ -33,7 +38,12 @@
                 <input class="form__input" name="voteAverage" id="voteAverage" type="text">
             </div>
 
-            <button type="submit" class="modal__btn-submit modal__btn-submit--addFilm">Add film</button>
+            <div>
+                <label class="form__label" for="voteCount">VoteCount</label>
+                <input class="form__input" name="voteCount" id="voteCount" type="text">
+            </div>
+
+            <button type="submit" id="addSubmit" class="modal__btn-submit modal__btn-submit--addFilm">Add film</button>
         </form>
 
     </div>

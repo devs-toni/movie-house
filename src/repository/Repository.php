@@ -139,6 +139,7 @@ class Repository extends Connection
   {
     $this->connect();
     $pre = mysqli_prepare($this->con, 'INSERT INTO movies (id, title, language, description, poster_path, release_date, vote_average, vote_count) VALUES (?,?,?,?,?,?,?,?)');
+    $pre = mysqli_prepare($this->con, 'INSERT INTO movies (id, title, language, description, poster_path, release_date, vote_average, vote_count) VALUES (?,?,?,?,?,?,?,?)');
 
     $id = $film->getId();
     $title = $film->getTitle();
@@ -633,4 +634,20 @@ class Repository extends Connection
     mysqli_query($this->con, 'DELETE FROM likes');
     $this->con->close();
   }
+
+  function extractId(){
+    $queryExtract = 'SELECT MAX(id) id FROM movies';
+    $this->connect();
+    $res = mysqli_query($this->con, $queryExtract);
+    if (mysqli_num_rows($res) > 0) {
+      while ($row = $res->fetch_assoc()) {
+        $id = $row['id'];
+      }
+    } else {
+      $id = "";
+    }
+    $this->con->close();
+      return $id;
+}
+
 }

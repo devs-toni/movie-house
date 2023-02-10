@@ -17,6 +17,10 @@ const editDescription = document.getElementById("editDescription");
 const editPosterPath = document.getElementById("editPosterPath");
 const editReleaseDate = document.getElementById("editReleaseDate");
 const editVoteAverage = document.getElementById("editVoteAverage");
+const addModal = document.getElementById('addModal');
+const addSubmit = document.getElementById('addSubmit');
+const idInput = document.querySelector('.form__input');
+
 let filmIdToChange;
 let filmIdToDelete;
 
@@ -26,10 +30,12 @@ editBtn.addEventListener("click", showEditModal);
 editCloseBtn.addEventListener("click", closeEditModal);
 tableBody.addEventListener("click", handleEditFilm);
 closeEdit.addEventListener("click", closeModalEdit);
+addSubmit.addEventListener("click", addNewFilm);
 uploadPosterPath.addEventListener("change", cleanUrlInput);
 
 function showAddModal() {
   modalAddFilm.show();
+  obtainID();
 }
 
 function closeAddModal() {
@@ -50,13 +56,19 @@ function closeModalEdit() {
   modalEditData.close();
 }
 
-//esto te lo has dejao a medias
-const data = new FormData(addModal);
+function addNewFilm(e){
+  e.preventDefault();
+const addData = new FormData(addModal);
+console.log(addModal);
 const config = {
-  method: "POST",
-  body: data,
-};
-fetch("src/controllers/AddFilm.php", config);
+  'method': 'POST',
+  'body': addData,
+}
+fetch("src/controllers/AddFilm.php", config)
+.then(res => res.json())
+.then(data => {
+})
+}
 
 async function mainFetch() {
   let deleteAll = false;
@@ -188,21 +200,11 @@ function editData(editFilm) {
     method: "POST",
     body: editFilm,
   })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      customAlert(
-        "center",
-        "success",
-        "Edited",
-        "<h4>Film edited successfully</h4>",
-        false,
-        2000,
-        "#232323",
-        "#ff683f"
-      );
-      closeModalEdit();
-    });
+  .then(res => res.json())
+  .then(data => {
+    customAlert('center', 'success', 'Edited', '<h4>Film edited successfully</h4>', false, 2000, '#232323', '#ff683f');
+    closeModalEdit();
+  })
 }
 
 function deleteFilm(id) {
@@ -211,7 +213,16 @@ function deleteFilm(id) {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+  })
+}
+
+function obtainID(){
+  fetch("src/controllers/InfoID.php", {
+      'method': "GET"
+  })
+  .then(res => res.json())
+  .then(data => {
+    idInput.value= parseInt(data)+1;
     });
 }
 
