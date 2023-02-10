@@ -1,7 +1,5 @@
 <?php
 session_start();
-$lastPage = $_GET['page'];
-$_SESSION['lastPage'] = $lastPage;
 
 require_once('config.php');
 require_once(DIR_TEMPLATES . 'Templates.php');
