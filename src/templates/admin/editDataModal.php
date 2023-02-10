@@ -34,7 +34,7 @@
                 <input class="form__input" name="editVoteAverage" id="editVoteAverage" type="text" required>
             </div>
 
-            <button type="submit" class="modal__btn-submit modal__btn-submit--editFilm">Add film</button>
+            <button type="submit" class="modal__btn-submit modal__btn-submit--editFilm">Edit film</button>
         </form>
 
     </div>
