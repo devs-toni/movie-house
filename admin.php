@@ -8,9 +8,6 @@ require_once(DIR_SESSION . 'Session.php');
 Templates::addHeader('Administrator', [], ['admin']);
 
 ?> 
-<!-- <nav class="navbar">
-  <input class="navbar__input" type="text" placeholder="Search">
-</nav>  -->
 <body class="containerAdmin">
   <button id="goBack"><img src="assets/images/back.png">.<br>back</button><br>
   <h1 class="containerAdmin__title">ADMIN</h1>
