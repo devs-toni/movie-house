@@ -56,7 +56,7 @@ if (isset($_GET['lists'])) {
 </div>
 </div>
 <dialog id="modalAddComment">
-    <div class="modal__lists__container">
+    <div class="modal__add-comment">
         <button id="closeAddComment" class="modal__add-comment--close">🗙</button>
         <form id="formComments">
             <textarea type="text" name="comment" placeholder="Leave your comment..."></textarea>
