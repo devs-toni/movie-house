@@ -604,8 +604,8 @@ class Repository extends Connection
     $pre->close();
     $this->con->close();
   }
-  
-    function deleteMoviesListLinks($listId)
+
+  function deleteMoviesListLinks($listId)
   {
     $this->connect();
     $pre = mysqli_prepare($this->con, 'DELETE FROM movies_in_list WHERE id_list=?');
@@ -613,10 +613,24 @@ class Repository extends Connection
     $pre->execute();
     $this->con->close();
   }
-    function deleteMoviesLinks()
+  function deleteMoviesLinks()
   {
     $this->connect();
     mysqli_query($this->con, 'DELETE FROM movies_in_list');
+    $this->con->close();
+  }
+
+  function deleteCommentLinks()
+  {
+    $this->connect();
+    mysqli_query($this->con, 'DELETE FROM comments');
+    $this->con->close();
+  }
+
+  function deleteLikesLinks()
+  {
+    $this->connect();
+    mysqli_query($this->con, 'DELETE FROM likes');
     $this->con->close();
   }
 }

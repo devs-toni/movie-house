@@ -12,19 +12,25 @@ const containerLists = document.getElementById("containerLists");
 const btnNewList = document.getElementById("btnNewList");
 const modalNewList = document.getElementById("modalNewList");
 const formCreateNewList = document.getElementById("formCreateNewList");
+const modalAddFilmToList = document.getElementById("modalAddFilmToList");
+const btnCloseNewList = document.getElementById("btnCloseNewList");
+const btnCloseAddFilmToList = document.getElementById("btnCloseAddFilmToList");
 
 let idOpenedFilm;
 let idUserRegistered;
 
-window.addEventListener("load", getDataInfoFilm());
-btnAddLikeFilm.addEventListener("click", addLikeFilm);
-btnAddCommentFilm.addEventListener("click", openModalCommentFilm);
+window.addEventListener("load", getDataInfoFilm);
+btnAddLikeFilm && btnAddLikeFilm.addEventListener("click", addLikeFilm);
+btnAddCommentFilm &&
+  btnAddCommentFilm.addEventListener("click", openModalCommentFilm);
 btnSendComment.addEventListener("click", addCommentFilm);
 closeAddComment.addEventListener("click", closeModalAddComment);
 btnReturn.addEventListener("click", returnLastPage);
-addFilmList.addEventListener("click", chooseListToAdd);
+addFilmList && addFilmList.addEventListener("click", chooseListToAdd);
 btnNewList.addEventListener("click", openModalCreateNewList);
 formCreateNewList.addEventListener("submit", createNewList);
+btnCloseNewList.addEventListener("click", closeModalNewList);
+btnCloseAddFilmToList.addEventListener("click", closeAddFilmToList);
 
 function getDataInfoFilm() {
   idOpenedFilm = document.querySelector("img").dataset.id;
@@ -158,9 +164,10 @@ function startDeleteComment(e) {
     title: "Are you sure?",
     text: "You won't be able to revert this!",
     icon: "warning",
+    iconColor: "#ff683f",
     showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
+    confirmButtonColor: "#ff683f",
+    cancelButtonColor: "#435c75",
     confirmButtonText: "Yes, delete it!",
     background: "#232323",
     color: "#ff683f",
@@ -172,6 +179,7 @@ function startDeleteComment(e) {
         title: "Deleted!",
         text: "Your file has been deleted.",
         icon: "success",
+        iconColor: "#ff683f",
         background: "#232323",
         color: "#ff683f",
         confirmButtonColor: "#ff683f",
@@ -197,7 +205,7 @@ function deleteComment(idCommentToDelete) {
 }
 
 function returnLastPage() {
-  let url = document.getElementById('btnReturn').getAttribute('data-url');
+  let url = document.getElementById("btnReturn").getAttribute("data-url");
   window.location.href = url;
 }
 
@@ -210,15 +218,16 @@ function chooseListToAdd() {
       if (data) {
         containerLists.textContent = "";
         for (const name in data) {
-          const h4 = document.createElement("h4");
-          h4.textContent = data[name];
-          h4.setAttribute("data-id", name);
-          containerLists.appendChild(h4);
+          const p = document.createElement("p");
+          p.textContent = data[name];
+          p.setAttribute("data-id", name);
+          containerLists.appendChild(p);
           document
             .querySelector(`[data-id="${name}"]`)
             .addEventListener("click", addFilmToList);
         }
       }
+      modalAddFilmToList.show();
     })
     .catch((err) => console.error(err));
 }
@@ -237,7 +246,9 @@ function addFilmToList(e) {
   )
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      if (data === "done") {
+        modalAddFilmToList.close();
+      }
     })
     .catch((err) => console.error(err));
 }
@@ -253,8 +264,17 @@ function createNewList(e) {
     .then((res) => res.json())
     .then((data) => {
       if (data === "OK") {
-        console.log(data);
+        modalNewList.close();
+        chooseListToAdd();
       }
     })
     .catch((err) => console.error(err));
+}
+
+function closeModalNewList() {
+  modalNewList.close();
+}
+
+function closeAddFilmToList() {
+  modalAddFilmToList.close();
 }

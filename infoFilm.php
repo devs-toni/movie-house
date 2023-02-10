@@ -67,27 +67,27 @@ if (isset($_GET['lists'])) {
     </div>
 </dialog>
 
-<dialog class="modal">
-    <div class="modal__container">
-        <button class="modal__btn-close">🗙</button>
-        <h2 class="modal__title">Add to list</h2>
-        <button id="btnNewList">New List</button>
-        <div id="containerLists">
+<dialog class="modal" id="modalAddFilmToList">
+    <div class="modal__container modal-add-film">
+        <button class="modal__btn-close" id="btnCloseAddFilmToList">🗙</button>
+        <h2 class="modal-add-film__title">Add to list</h2>
+        <button id="btnNewList" class="modal-add-film__new-list">New List</button>
+        <div id="containerLists" class="modal-add-film__container-lists">
 
         </div>
     </div>
 </dialog>
 
 <dialog class="modal" id="modalNewList">
-    <div class="modal__container">
-        <button class="modal__btn-close">🗙</button>
-        <div>
-            <h2>Put a name to the list</h2>
-            <form id="formCreateNewList">
-                <input name="nameList" id="nameList" type="text">
-                <button>Create</button>
-            </form>
-        </div>
+    <div class="modal__container modal-new-list">
+        <button class="modal__btn-close" id="btnCloseNewList">🗙</button>
+
+        <h2>Name of your list</h2>
+        <form id="formCreateNewList">
+            <input name="nameList" id="nameList" type="text">
+            <button class="modal-add-film__new-list">Create</button>
+        </form>
+
     </div>
 </dialog>
 

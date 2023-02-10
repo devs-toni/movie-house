@@ -7,6 +7,8 @@ $db = new Repository();
 $films = json_decode($_POST['films']);
 
 $db->deleteMoviesLinks();
+$db->deleteCommentLinks();
+$db->deleteLikesLinks();
 $db->deleteFilms();
 
 for ($i = 0; $i < count($films); $i++) {
