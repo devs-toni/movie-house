@@ -67,6 +67,8 @@ const config = {
 fetch("src/controllers/AddFilm.php", config)
 .then(res => res.json())
 .then(data => {
+  customAlert('center', 'success', 'Added', '<h4>Film added successfully</h4>', false, 2000, '#232323', '#ff683f');
+  closeAddModal();
 })
 }
 
