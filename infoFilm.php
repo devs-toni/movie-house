@@ -4,20 +4,20 @@ session_start();
 require_once('config.php');
 require_once(DIR_TEMPLATES . 'Templates.php');
 
-Templates::addHeader('Neflis', [], ['infoFilm']);
+Templates::addHeader('Neflis', [], ['infoFilm', 'alerts']);
 
 $filmId = $_GET['film'];
 if (isset($_GET['page'])) {
-  $_SESSION['lastPage'] = $_GET['page'];
-  $url = 'index.php';
+    $_SESSION['lastPage'] = $_GET['page'];
+    $url = 'index.php';
 }
 if (isset($_GET['lists'])) {
-  $url = 'lists.php';
+    $url = 'lists.php';
 }
 ?>
 <div class="info-film">
     <nav class="info-film__nav">
-        <i class="fa-solid fa-circle-arrow-left" id="btnReturn" data-url="<?=$url?>"></i>
+        <i class="fa-solid fa-circle-arrow-left" id="btnReturn" data-url="<?= $url ?>"></i>
     </nav>
 
     <section class="info-film__section">
@@ -26,7 +26,7 @@ if (isset($_GET['lists'])) {
             <div>
                 <?php
                 if (isset($_SESSION['user'])) {
-                  echo "
+                    echo "
                         <i class='fa-solid fa-thumbs-up' data-userId ={$_SESSION['user']}></i>
                         <i class='fa-solid fa-circle-plus' id='addFilmList'></i>
                         <i class='fa-solid fa-comment'></i>
@@ -65,27 +65,27 @@ if (isset($_GET['lists'])) {
     </div>
 </dialog>
 
-<dialog class="modal">
-    <div class="modal__container">
-        <button class="modal__btn-close">🗙</button>
-        <h2 class="modal__title">Add to list</h2>
-        <button id="btnNewList">New List</button>
-        <div id="containerLists">
+<dialog class="modal" id="modalAddFilmToList">
+    <div class="modal__container modal-add-film">
+        <button class="modal__btn-close" id="btnCloseAddFilmToList">🗙</button>
+        <h2 class="modal-add-film__title">Add to list</h2>
+        <button id="btnNewList" class="modal-add-film__new-list">New List</button>
+        <div id="containerLists" class="modal-add-film__container-lists">
 
         </div>
     </div>
 </dialog>
 
 <dialog class="modal" id="modalNewList">
-    <div class="modal__container">
-        <button class="modal__btn-close">🗙</button>
-        <div>
-            <h2>Put a name to the list</h2>
-            <form id="formCreateNewList">
-                <input name="nameList" id="nameList" type="text">
-                <button>Create</button>
-            </form>
-        </div>
+    <div class="modal__container modal-new-list">
+        <button class="modal__btn-close" id="btnCloseNewList">🗙</button>
+
+        <h2>Name of your list</h2>
+        <form id="formCreateNewList">
+            <input name="nameList" id="nameList" type="text">
+            <button class="modal-add-film__new-list">Create</button>
+        </form>
+
     </div>
 </dialog>
 
