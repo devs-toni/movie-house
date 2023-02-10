@@ -107,18 +107,20 @@
 }
 
 .porn {
-/*  -webkit-filter: blur(10px);
+  /*  -webkit-filter: blur(10px);
    -moz-filter: blur(10px);
    -o-filter: blur(10px);
    -ms-filter: blur(10px); */
-   filter: blur(15px);
-   cursor: auto !important;
+  filter: blur(15px);
+  cursor: auto !important;
 }
 
 @media screen and (max-width: 1900px) {
 
   .top-trend,
-  .top-votes {
+  .top-votes,
+  .top-spanish,
+  .top-p {
     margin-left: 50px;
     margin-bottom: 120px;
   }
@@ -128,15 +130,20 @@
 
   .top-trend,
   .top-votes,
+  .top-spanish,
   .top-p {
     .top {
       &__main {
 
         .carousel-container,
-        .carousel-votes-container {
+        .carousel-votes-container,
+        .carousel-p-container,
+        .carousel-spa-container {
 
           .carousel,
-          .carousel-votes {
+          .carousel-votes,
+          .carousel-p,
+          .carousel-spa {
             &__film {
               min-height: 300px;
               min-width: 200px;
@@ -151,7 +158,9 @@
 @media screen and (max-width: 1250px) {
 
   .top-trend,
-  .top-votes {
+  .top-votes,
+  .top-spanish,
+  .top-p {
     margin: 0 auto;
     margin-bottom: 120px;
 
@@ -164,11 +173,15 @@
         }
 
         .carousel-container,
-        .carousel-votes-container {
+        .carousel-votes-container,
+        .carousel-p-container,
+        .carousel-spa-container {
           overflow: visible;
 
           .carousel,
-          .carousel-votes {
+          .carousel-votes,
+          .carousel-p,
+          .carousel-spa {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 5px;
@@ -193,15 +206,21 @@
 @media screen and (max-width: 850px) {
 
   .top-trend,
-  .top-votes {
+  .top-votes,
+  .top-spanish,
+  .top-p {
     .top {
       &__main {
 
         .carousel-container,
-        .carousel-votes-container {
+        .carousel-votes-container,
+        .carousel-p-container,
+        .carousel-spa-container {
 
           .carousel,
-          .carousel-votes {
+          .carousel-votes,
+          .carousel-p,
+          .carousel-spa {
             &__film {
               min-height: 160px;
             }
@@ -215,15 +234,21 @@
 @media screen and (max-width: 660px) {
 
   .top-trend,
-  .top-votes {
+  .top-votes,
+  .top-spanish,
+  .top-p {
     .top {
       &__main {
 
         .carousel-container,
-        .carousel-votes-container {
+        .carousel-votes-container,
+        .carousel-p-container,
+        .carousel-spa-container {
 
           .carousel,
-          .carousel-votes {
+          .carousel-votes,
+          .carousel-p,
+          .carousel-spa {
             &__film {
               min-height: 120px;
             }
@@ -237,7 +262,9 @@
 @media screen and (max-width: 500px) {
 
   .top-trend,
-  .top-votes {
+  .top-votes,
+  .top-spanish,
+  .top-p {
     margin: 0 auto;
     margin-bottom: 120px;
 
@@ -251,11 +278,15 @@
       &__main {
 
         .carousel-container,
-        .carousel-votes-container {
+        .carousel-votes-container,
+        .carousel-p-container,
+        .carousel-spa-container {
           overflow: visible;
 
           .carousel,
-          .carousel-votes {
+          .carousel-votes,
+          .carousel-p,
+          .carousel-spa {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 5px;
