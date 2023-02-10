@@ -16,7 +16,7 @@ CREATE TABLE  movies (
 
 CREATE TABLE users (
     id INT NOT NULL AUTO_INCREMENT,
-    rol ENUM('A','U')  NOT NULL,  
+    rol ENUM('A','U','P')  NOT NULL,  
     username VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,  
