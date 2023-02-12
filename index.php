@@ -25,13 +25,13 @@ if (isset($_SESSION['user'])) {
 }
 
 // TEMPLATES
-Templates::addHeader('Neflis', ['pagination'], ['formValidation', 'returnIndex', 'configuration', 'openLists']);
+Templates::addHeader('Neflis', ['loadApi', 'printFilms'], ['formValidation', 'configuration', 'script']);
 include_once(DIR_TEMPLATES . 'aside.php');
 Templates::addNav($isLogged, $isAdmin);
 include_once(DIR_TEMPLATES . 'trendingFilms.php');
 include_once(DIR_TEMPLATES . 'spanishFilms.php');
 $isLogged && include_once(DIR_TEMPLATES . 'voteFilms.php');
-$isAdult && include_once(DIR_TEMPLATES . 'pFilms.php');
+$isAdult && include_once(DIR_TEMPLATES . 'adultFilms.php');
 include_once(DIR_TEMPLATES . 'allFilms.php');
 include_once(DIR_TEMPLATES . 'modalLogin.php');
 include_once(DIR_TEMPLATES . 'modalSignUp.php');
@@ -40,10 +40,10 @@ Templates::addFooter(['modals', 'alerts']);
 
 //ALERT EXPIRATION
 if (isset($_REQUEST['expire'])) {
-?>
-  <script>
-    window.history.pushState('', '', 'index.php');
-    customAlert('center', 'info', '', '<h4>Session expired . . .</h4>', false, 4000, '#232323', '#ff683f');
-  </script>
-<?php
+  ?>
+        <script>
+          window.history.pushState('', '', 'index.php');
+          customAlert('center', 'info', '', '<h4>Session expired . . .</h4>', false, 4000, '#232323', '#ff683f');
+        </script>
+      <?php
 }

@@ -4,11 +4,6 @@
         <h2 class="modal__title">ADD</h2>
         <form id="addModal" class="modal__form modal__form--addFilm">
             <div>
-                <label class="form__label" for="ID">ID</label>
-                <input class="form__input" name="ID" id="ID" type="text" required>
-            </div>
-
-            <div>
                 <label class="form__label" for="title">Title</label>
                 <input class="form__input" name="title" id="title" type="text" required>
             </div>

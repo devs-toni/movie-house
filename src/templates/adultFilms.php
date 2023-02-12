@@ -14,8 +14,8 @@
       <button role="button" id="rightArrowP" class="right-arrow">&gt;</button>
     </div>
   </div>
-  <script src="assets/js/pFilms.js"></script>
+  <script src="assets/js/adultFilms.js"></script>
   <script type="text/javascript">
-    printFilms(null, '.carousel-p', 'p');
+    printFilms(null, '.carousel-p', 'adult');
   </script>
 </section>

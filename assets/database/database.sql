@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS Neflis;
 USE Neflis;
 
 CREATE TABLE  movies (
-    id int NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
     language CHAR(2) NOT NULL,
     description TEXT NOT NULL,

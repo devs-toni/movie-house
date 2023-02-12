@@ -8,10 +8,10 @@ const btnRedirectLogin = document.querySelector("#redirectLogin");
 const backgroundModalActive = document.getElementById("backgroundModalActive");
 
 btnOpenModal && btnOpenModal.addEventListener("click", showLoginModal);
-btnCloseSignUp.addEventListener("click", closeSignUp);
-btnCloseLogin.addEventListener("click", closeLogin);
-btnRedirectRegister.addEventListener("click", showRegisterModal);
-btnRedirectLogin.addEventListener("click", redirectLogin);
+btnCloseSignUp && btnCloseSignUp.addEventListener("click", closeSignUp);
+btnCloseLogin && btnCloseLogin.addEventListener("click", closeLogin);
+btnRedirectRegister && btnRedirectRegister.addEventListener("click", showRegisterModal);
+btnRedirectLogin && btnRedirectLogin.addEventListener("click", redirectLogin);
 
 function showLoginModal() {
   modalLogin.show();
@@ -51,7 +51,3 @@ function closeSignUp() {
   document.body.style.overflow = 'inherit';
 }
 
-//DROPDOWN
-function openMenu() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}

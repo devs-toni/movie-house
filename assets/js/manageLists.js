@@ -25,12 +25,12 @@ const addList = (e) => {
       .catch((err) => console.error(err));
   }
 }
+formList.addEventListener('submit', addList);
 
 window.addEventListener('load', () => {
   fetch(`src/controllers/GetLists.php`)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       if (data !== 'N') {
         getLists(data.lists);
         getMovies(data.movies);
@@ -58,15 +58,12 @@ const getMovies = (data) => {
   filmsContainer.innerHTML = '';
   if (data.length > 0) {
     for (const movie of data) {
-      console.log(movie);
-      filmsContainer.innerHTML += `<div class="film" onclick="openInfoFilm(event)"><img src="${movie.img}" alt="${movie.name}" data-id="${movie.id}"></div>`
+      filmsContainer.innerHTML += `<div class="film" onclick="openInfoFilmLists(event)"><img src="${movie.img}" alt="${movie.name}" data-id="${movie.id}"></div>`
     }
   }
 }
-formList.addEventListener('submit', addList);
 
-
-function openInfoFilm(e) {
+function openInfoFilmLists(e) {
   window.location.href =
     "infoFilm.php?film=" + e.target.dataset.id + "&lists";
 }
@@ -79,6 +76,7 @@ function prepareListLink(link) {
     })
     .catch((err) => console.error(err));
 }
+
 function prepareDeleteLink(link) {
   fetch(`src/controllers/DeleteList.php?list=${link.dataset.id}`)
     .then((res) => res.json())

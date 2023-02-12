@@ -57,14 +57,13 @@ function closeModalEdit() {
 function addNewFilm(e) {
   e.preventDefault();
   const addData = new FormData(addModal);
-  console.log(addModal);
   const config = {
     'method': 'POST',
     'body': addData,
   }
   fetch("src/controllers/AddFilm.php", config)
     .then(res => res.json())
-    .then(data => {
+    .then(() => {
       customAlert('center', 'success', 'Added', '<h4>Film added successfully</h4>', false, 2000, '#232323', '#ff683f');
       closeAddModal();
     })
@@ -99,7 +98,7 @@ async function mainFetch() {
   if (deleteAll) {
     document.body.innerHTML =
       "<div class='lds-facebook center'><div></div><div></div><div></div></div>";
-    let twentyElementsPages = 30;
+    let twentyElementsPages = 500;
     let films = [];
     let api = '';
     await fetch('src/controllers/GetApi.php?type=general')
@@ -216,20 +215,7 @@ function editData(editFilm) {
 function deleteFilm(id) {
   fetch("src/controllers/DeleteFilm.php?film=" + id, {
     method: "GET",
-  })
-    .then((res) => res.json())
-    .then((data) => {
-    })
-}
-
-function obtainID() {
-  fetch("src/controllers/InfoID.php", {
-    'method': "GET"
-  })
-    .then(res => res.json())
-    .then(data => {
-      idInput.value = parseInt(data) + 1;
-    });
+  });
 }
 
 function cleanUrlInput() {

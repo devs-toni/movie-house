@@ -5,19 +5,15 @@ require_once('config.php');
 require_once(DIR_TEMPLATES . 'Templates.php');
 
 Templates::addHeader('Neflis', [], ['infoFilm', 'alerts']);
-
+$url = 'index.php';
 $filmId = $_GET['film'];
-if (isset($_GET['page'])) {
-    $_SESSION['lastPage'] = $_GET['page'];
-    $url = 'index.php';
-}
 if (isset($_GET['lists'])) {
     $url = 'lists.php';
 }
 ?>
 <div class="info-film">
     <nav class="info-film__nav">
-        <i class="fa-solid fa-circle-arrow-left" id="btnReturn" data-url="<?= $url ?>"></i>
+        <i class="fa-solid fa-circle-arrow-left" id="btnReturnInfo" data-url="<?= $url ?>"></i>
     </nav>
 
     <section class="info-film__section">
@@ -26,7 +22,7 @@ if (isset($_GET['lists'])) {
             <div>
                 <?php
                 if (isset($_SESSION['user'])) {
-                    echo "
+                  echo "
                         <i class='fa-solid fa-thumbs-up' data-userId ={$_SESSION['user']}></i>
                         <i class='fa-solid fa-circle-plus' id='addFilmList'></i>
                         <i class='fa-solid fa-comment'></i>
@@ -91,3 +87,9 @@ if (isset($_GET['lists'])) {
 
 <?php
 Templates::addFooter([]);
+
+?>
+<script>
+  const listsReturn = document.querySelector('#btnReturnInfo');
+  listsReturn.addEventListener('click', () =>   window.location.href = "<?=$url?>");
+</script>

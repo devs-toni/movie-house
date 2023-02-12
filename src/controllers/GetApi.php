@@ -5,7 +5,7 @@ $type = $_REQUEST['type'];
 
 switch ($type) {
 
-  case 'general':
+  case 'api':
     echo json_encode(API);
     break;
   case 'img':

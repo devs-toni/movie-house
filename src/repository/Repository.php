@@ -138,10 +138,8 @@ class Repository extends Connection
   function addFilm(Movie $film): void
   {
     $this->connect();
-    $pre = mysqli_prepare($this->con, 'INSERT INTO movies (id, title, language, description, poster_path, release_date, vote_average, vote_count) VALUES (?,?,?,?,?,?,?,?)');
-    $pre = mysqli_prepare($this->con, 'INSERT INTO movies (id, title, language, description, poster_path, release_date, vote_average, vote_count) VALUES (?,?,?,?,?,?,?,?)');
+    $pre = mysqli_prepare($this->con, 'INSERT INTO movies (title, language, description, poster_path, release_date, vote_average, vote_count) VALUES (?,?,?,?,?,?,?)');
 
-    $id = $film->getId();
     $title = $film->getTitle();
     $lang = $film->getLanguage();
     $desc = $film->getDescription();
@@ -150,10 +148,29 @@ class Repository extends Connection
     $vote_average = $film->getVoteAverage();
     $vote_count = $film->getVoteCount();
 
-    $pre->bind_param('isssssdi', $id, $title, $lang, $desc, $poster, $date, $vote_average, $vote_count);
+    $pre->bind_param('sssssdi', $title, $lang, $desc, $poster, $date, $vote_average, $vote_count);
     $pre->execute();
     $pre->close();
     $this->con->close();
+  }
+
+  function getFilmId($title, $overview)
+  {
+    $this->connect();
+    $pre = mysqli_prepare($this->con, 'SELECT id FROM movies WHERE title = ? AND description = ?');
+
+    $pre->bind_param('ss', $title, $overview);
+    $pre->execute();
+    $result = $pre->get_result();
+    $resp = null;
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        $resp = $row['id'];
+      }
+    }
+    $pre->close();
+    $this->con->close();
+    return strlen($resp) > 0 ? $resp : null;
   }
 
   function existFilm($id)
@@ -256,7 +273,6 @@ class Repository extends Connection
     $this->con->close();
     return $posterMovies;
   }
-
   function deleteFilms()
   {
     $this->connect();
@@ -299,7 +315,8 @@ class Repository extends Connection
     $pre->bind_param("i", $filmId);
     $pre->execute();
     $res = $pre->get_result();
-
+    $info = (object) [];
+    
     while ($row = $res->fetch_assoc()) {
       $idMovie = $row['id'];
       $info = (object) [
@@ -333,7 +350,7 @@ class Repository extends Connection
       }
     }
 
-    $info->comments = $comments;
+    count($comments) > 0 && $info->comments = $comments;
 
     $pre->close();
     $this->con->close();
@@ -635,7 +652,8 @@ class Repository extends Connection
     $this->con->close();
   }
 
-  function extractId(){
+  function extractId()
+  {
     $queryExtract = 'SELECT MAX(id) id FROM movies';
     $this->connect();
     $res = mysqli_query($this->con, $queryExtract);
@@ -647,7 +665,7 @@ class Repository extends Connection
       $id = "";
     }
     $this->con->close();
-      return $id;
-}
+    return $id;
+  }
 
 }

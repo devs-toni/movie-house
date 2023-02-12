@@ -21,14 +21,9 @@ if (isset($_SESSION['user'])) {
   $isAdmin = $db->isAdmin($_SESSION['user']);
 }
 
-if (isset($_REQUEST['page'])) 
-  $_SESSION['lastPage'] = $_REQUEST['page'];
-
-
 Templates::addHeader('Lists', ['alerts'], ['manageLists']);
 include_once(DIR_TEMPLATES . 'aside.php');
 include_once(DIR_TEMPLATES . 'manageLists.php');
-
 Templates::addFooter([]);
 ?>
 <script>

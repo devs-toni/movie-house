@@ -6,7 +6,6 @@ const rateFilm = document.getElementById("rateFilm");
 const modalAddComment = document.getElementById("modalAddComment");
 const formComments = document.getElementById("formComments");
 const closeAddComment = document.getElementById("closeAddComment");
-const btnReturn = document.getElementById("btnReturn");
 const addFilmList = document.getElementById("addFilmList");
 const containerLists = document.getElementById("containerLists");
 const btnNewList = document.getElementById("btnNewList");
@@ -25,7 +24,6 @@ btnAddCommentFilm &&
   btnAddCommentFilm.addEventListener("click", openModalCommentFilm);
 btnSendComment.addEventListener("click", addCommentFilm);
 closeAddComment.addEventListener("click", closeModalAddComment);
-btnReturn.addEventListener("click", returnLastPage);
 addFilmList && addFilmList.addEventListener("click", chooseListToAdd);
 btnNewList.addEventListener("click", openModalCreateNewList);
 formCreateNewList.addEventListener("submit", createNewList);
@@ -202,11 +200,6 @@ function deleteComment(idCommentToDelete) {
       }
     })
     .catch((err) => console.error(err));
-}
-
-function returnLastPage() {
-  let url = document.getElementById("btnReturn").getAttribute("data-url");
-  window.location.href = url;
 }
 
 function chooseListToAdd() {
