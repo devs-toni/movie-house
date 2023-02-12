@@ -296,7 +296,7 @@ class Repository extends Connection
 
     $this->connect();
     $pre = mysqli_prepare($this->con, $queryInfoFilm);
-    $pre->bind_param("s", $filmId);
+    $pre->bind_param("i", $filmId);
     $pre->execute();
     $res = $pre->get_result();
 
@@ -316,7 +316,7 @@ class Repository extends Connection
     $pre->close();
 
     $pre = mysqli_prepare($this->con, $queryComments);
-    $pre->bind_param("s", $idMovie);
+    $pre->bind_param("i", $idMovie);
     $pre->execute();
     $res2 = $pre->get_result();
 
@@ -349,7 +349,7 @@ class Repository extends Connection
 
     $this->connect();
     $pre = mysqli_prepare($this->con, $querySelect);
-    $pre->bind_param("ss", $filmId, $userId);
+    $pre->bind_param("ii", $filmId, $userId);
     $pre->execute();
     $res = $pre->get_result();
 
@@ -371,7 +371,7 @@ class Repository extends Connection
     $queryDelete = "DELETE FROM likes WHERE id=?";
     $this->connect();
     $pre = mysqli_prepare($this->con, $queryDelete);
-    $pre->bind_param("s", $likeId);
+    $pre->bind_param("i", $likeId);
     $pre->execute();
 
     $pre->close();
@@ -384,7 +384,7 @@ class Repository extends Connection
 
     $this->connect();
     $pre = mysqli_prepare($this->con, $queryInsert);
-    $pre->bind_param("ss", $userId, $filmId);
+    $pre->bind_param("ii", $userId, $filmId);
     $pre->execute();
 
     $pre->close();
@@ -397,7 +397,7 @@ class Repository extends Connection
 
     $this->connect();
     $pre = mysqli_prepare($this->con, $queryUpdateRateAdd);
-    $pre->bind_param("s", $filmId);
+    $pre->bind_param("i", $filmId);
     $pre->execute();
 
     $pre->close();
@@ -410,7 +410,7 @@ class Repository extends Connection
 
     $this->connect();
     $pre = mysqli_prepare($this->con, $queryUpdateRateSub);
-    $pre->bind_param("s", $filmId);
+    $pre->bind_param("i", $filmId);
     $pre->execute();
 
     $pre->close();
@@ -428,12 +428,12 @@ class Repository extends Connection
 
     $this->connect();
     $pre = mysqli_prepare($this->con, $query);
-    $pre->bind_param("sss", $userId, $filmId, $comment);
+    $pre->bind_param("iis", $userId, $filmId, $comment);
     $pre->execute();
     $pre->close();
 
     $pre = mysqli_prepare($this->con, $queryComments);
-    $pre->bind_param("sss", $filmId, $userId, $comment);
+    $pre->bind_param("iis", $filmId, $userId, $comment);
     $pre->execute();
     $res = $pre->get_result();
 
@@ -485,7 +485,7 @@ class Repository extends Connection
 
     $this->connect();
     $pre = mysqli_prepare($this->con, $query);
-    $pre->bind_param("s", $idComment);
+    $pre->bind_param("i", $idComment);
     $pre->execute();
 
     $pre->close();
@@ -588,7 +588,7 @@ class Repository extends Connection
 
     $this->connect();
     $pre = mysqli_prepare($this->con, $query);
-    $pre->bind_param("ss", $listId, $filmId);
+    $pre->bind_param("ii", $listId, $filmId);
     $pre->execute();
 
     $pre->close();
