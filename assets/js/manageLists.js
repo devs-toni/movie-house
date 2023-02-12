@@ -6,7 +6,7 @@ const addList = (e) => {
   e.preventDefault();
   const name = listName.value;
   if (name) {
-    fetch(`src/controllers/addList.php?name=${name}`)
+    fetch(`src/controllers/AddList.php?name=${name}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -27,7 +27,7 @@ const addList = (e) => {
 }
 
 window.addEventListener('load', () => {
-  fetch(`src/controllers/getLists.php`)
+  fetch(`src/controllers/GetLists.php`)
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
@@ -72,7 +72,7 @@ function openInfoFilm(e) {
 }
 
 function prepareListLink(link) {
-  fetch(`src/controllers/getMoviesList.php?list=${link.dataset.id}`)
+  fetch(`src/controllers/GetMoviesList.php?list=${link.dataset.id}`)
     .then((res) => res.json())
     .then((data) => {
       link.addEventListener('click', () => getMovies(data));

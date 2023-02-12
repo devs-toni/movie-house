@@ -22,7 +22,7 @@ class Repository extends Connection
     $this->con->close();
   }
 
-  function isAdmin(int $id)
+  function isAdmin($id)
   {
     $this->connect();
     $pre = mysqli_prepare($this->con, 'SELECT rol FROM users WHERE id=?');
@@ -43,7 +43,7 @@ class Repository extends Connection
     $this->con->close();
     return false;
   }
-  function isAdult(int $id)
+  function isAdult($id)
   {
     $this->connect();
     $pre = mysqli_prepare($this->con, 'SELECT rol FROM users WHERE id=?');
@@ -286,7 +286,7 @@ class Repository extends Connection
     return $searchMovies;
   }
 
-  function getInfoFilm(string $filmId)
+  function getInfoFilm($filmId)
   {
     $queryInfoFilm = 'SELECT id, title, language, description, poster_path, release_date, vote_average, vote_count FROM movies 
         WHERE id=?';
@@ -342,7 +342,7 @@ class Repository extends Connection
 
   //LIKES
 
-  function checkIfisAlreadyRated(string $filmId, string $userId)
+  function checkIfisAlreadyRated($filmId, $userId)
   {
 
     $querySelect = "SELECT id FROM likes WHERE id_movie=? && id_user=?";
@@ -366,7 +366,7 @@ class Repository extends Connection
     return $idLike;
   }
 
-  function deleteLike(string $likeId)
+  function deleteLike($likeId)
   {
     $queryDelete = "DELETE FROM likes WHERE id=?";
     $this->connect();
@@ -378,7 +378,7 @@ class Repository extends Connection
     $this->con->close();
   }
 
-  function insertLike(string $filmId, string $userId)
+  function insertLike($filmId, $userId)
   {
     $queryInsert = "INSERT INTO likes (id_user, id_movie) VALUES (?, ?)";
 
@@ -391,7 +391,7 @@ class Repository extends Connection
     $this->con->close();
   }
 
-  function addLikeRate(string $filmId)
+  function addLikeRate($filmId)
   {
     $queryUpdateRateAdd = "UPDATE movies SET vote_count = (@cur_value := vote_count) + 1 WHERE id=?";
 
@@ -404,7 +404,7 @@ class Repository extends Connection
     $this->con->close();
   }
 
-  function substrLikeRate(string $filmId)
+  function substrLikeRate($filmId)
   {
     $queryUpdateRateSub = "UPDATE movies SET vote_count = (@cur_value := vote_count) - 1 WHERE id=?";
 
@@ -419,7 +419,7 @@ class Repository extends Connection
 
   //COMMENTS
 
-  function addCommentFilm(string $userId, string $filmId, string $comment)
+  function addCommentFilm($userId, $filmId, $comment)
   {
     $query = "INSERT INTO comments (id_user, id_movie, text) VALUES (?,?,?)";
     $queryComments = 'SELECT comments.id, text, id_user, username FROM comments 
@@ -453,7 +453,7 @@ class Repository extends Connection
     return $comment;
   }
 
-  function editInfoFilm(string $title, string $language, string $description, string $poster, string $date, float $average, int $id)
+  function editInfoFilm($title, $language, $description, $poster, $date, $average, $id)
   {
     $queryEdit = "UPDATE movies SET title=?, language=?, description=?, poster_path=?, release_date=?, vote_average=? WHERE movies.id=?";
 
@@ -467,7 +467,7 @@ class Repository extends Connection
   }
 
 
-  function deleteSelectFilm(int $id)
+  function deleteSelectFilm($id)
   {
     $queryDelete = 'DELETE FROM movies WHERE movies.id=?';
     $this->connect();
@@ -479,7 +479,7 @@ class Repository extends Connection
   }
 
 
-  function deleteComment(string $idComment)
+  function deleteComment($idComment)
   {
     $query = "DELETE FROM comments WHERE id=?";
 
@@ -495,7 +495,7 @@ class Repository extends Connection
 
   // LISTS
 
-  function addList(string $name, int $user): void
+  function addList($name, $user): void
   {
     $this->connect();
     $pre = mysqli_prepare($this->con, 'INSERT INTO list_user_movies (name, id_user) VALUES (?,?)');
