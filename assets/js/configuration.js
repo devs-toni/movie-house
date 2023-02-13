@@ -28,7 +28,7 @@ async function showConfigModal() {
   }, 1);
   document.body.style.overflow = 'hidden';
   document.getElementById("myDropdown").classList.toggle("show");
-  await fetch('src/controllers/GetUser.php')
+  await fetch('src/controllers/Users.php?type=get')
     .then((res) => res.json())
     .then((data) => {
       user = data;
@@ -77,7 +77,7 @@ function changeUsername(e) {
       errors.push(`<b>Username</b> should contain at least ${usernameLength} characters.`);
   }
   if (errors.length === 0) {
-    fetch(`src/controllers/UpdateUser.php?field=username&value=${username}`)
+    fetch(`src/controllers/Users.php?type=update&field=username&value=${username}`)
       .then(res => res.json())
       .then(res => {
         btnBack.classList.add('hidden');

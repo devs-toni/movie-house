@@ -33,7 +33,7 @@ btnCloseAddFilmToList.addEventListener("click", closeAddFilmToList);
 function getDataInfoFilm() {
   idOpenedFilm = document.querySelector("img").dataset.id;
 
-  fetch("src/controllers/HandleInfoFilm.php?film=" + idOpenedFilm, {
+  fetch("src/controllers/Movies.php?type=info&film=" + idOpenedFilm, {
     method: "GET",
   })
     .then((res) => res.json())
@@ -46,7 +46,7 @@ function getDataInfoFilm() {
   if (btnAddLikeFilm) {
     idUserRegistered = btnAddLikeFilm.dataset.userid;
     fetch(
-      "src/controllers/CheckRated.php?film=" +
+      "src/controllers/Movies.php?type=check&film=" +
         idOpenedFilm +
         "&user=" +
         idUserRegistered,
@@ -97,7 +97,7 @@ function addLikeFilm() {
   let rate = Number(rateFilm.innerText);
 
   fetch(
-    "src/controllers/AddLikeFilm.php?film=" +
+    "src/controllers/Movies.php?type=like&film=" +
       idOpenedFilm +
       "&user=" +
       idUserRegistered,
@@ -134,7 +134,7 @@ function addCommentFilm(e) {
   formData.append("idUserRegistered", idUserRegistered);
   formData.append("idOpenedFilm", idOpenedFilm);
 
-  fetch("src/controllers/AddComment.php", {
+  fetch("src/controllers/Movies.php?type=addComment", {
     method: "POST",
     body: formData,
   })
@@ -187,7 +187,7 @@ function startDeleteComment(e) {
 }
 
 function deleteComment(idCommentToDelete) {
-  fetch("src/controllers/DeleteComment.php?idComment=" + idCommentToDelete, {
+  fetch("src/controllers/Movies.php?type=delComment&idComment=" + idCommentToDelete, {
     method: "GET",
   })
     .then((res) => res.json())
@@ -203,7 +203,7 @@ function deleteComment(idCommentToDelete) {
 }
 
 function chooseListToAdd() {
-  fetch("src/controllers/ChooseListToAdd.php?idUser=" + idUserRegistered, {
+  fetch("src/controllers/Lists.php?type=choose&idUser=" + idUserRegistered, {
     method: "GET",
   })
     .then((res) => res.json())
@@ -230,7 +230,7 @@ function addFilmToList(e) {
   const idList = e.target.dataset.id;
 
   fetch(
-    "src/controllers/AddFilmToList.php?film=" +
+    "src/controllers/Lists.php?type=addFilmToList&film=" +
       idOpenedFilm +
       "&list=" +
       idList,
@@ -254,7 +254,7 @@ function openModalCreateNewList() {
 function createNewList(e) {
   e.preventDefault();
   const name = nameList.value;
-  fetch(`src/controllers/AddList.php?name=${name}`)
+  fetch(`src/controllers/Lists.php?type=add&name=${name}`)
     .then((res) => res.json())
     .then((data) => {
       if (data !== "N") {

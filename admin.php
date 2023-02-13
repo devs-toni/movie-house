@@ -5,9 +5,10 @@ session_start();
 require_once('config.php');
 require_once(DIR_TEMPLATES . 'Templates.php');
 require_once(DIR_SESSION . 'Session.php');
+require_once(DIR_REPO . 'AdminRepository.php');
 
 // TEMPLATES
-Templates::addHeader('Administrator', [], ['admin']);
+Templates::addHeader('Administrator', [], []);
 ?> 
 <body class="containerAdmin">
   <button id="goBack"><img src="assets/images/back.png"><br>back</button><br>
@@ -22,4 +23,4 @@ Templates::addHeader('Administrator', [], ['admin']);
 include(DIR_TEMPLATES . 'admin/modalAddFilm.php');
 include(DIR_TEMPLATES . 'admin/modalEditFilm.php');
 include(DIR_TEMPLATES . 'admin/editDataModal.php');
-Templates::addFooter(['alerts']);
+Templates::addFooter(['alerts', 'admin']);

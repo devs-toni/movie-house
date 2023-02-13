@@ -61,7 +61,7 @@ function addNewFilm(e) {
     'method': 'POST',
     'body': addData,
   }
-  fetch("src/controllers/AddFilm.php", config)
+  fetch("src/controllers/Movies.php?type=add", config)
     .then(res => res.json())
     .then(() => {
       customAlert('center', 'success', 'Added', '<h4>Film added successfully</h4>', false, 2000, '#232323', '#ff683f');
@@ -70,6 +70,7 @@ function addNewFilm(e) {
 }
 
 async function mainFetch() {
+  saveGenres();
   let deleteAll = false;
   await Swal.fire({
     title: "Are you sure?",
@@ -101,7 +102,7 @@ async function mainFetch() {
     let twentyElementsPages = 500;
     let films = [];
     let api = '';
-    await fetch('src/controllers/GetApi.php?type=general')
+    await fetch('src/controllers/GetApi.php?type=api')
       .then(res => res.json())
       .then(res => {
         api = res;
@@ -138,6 +139,26 @@ async function saveData(films, limit) {
     })
     .catch((err) => console.error(err));
   window.location = "index.php";
+}
+
+async function saveGenres() {
+  const genresUrl = await getApiUrlFetch();
+  let genres = [];
+  await fetch(genresUrl)
+    .then((res) => res.json())
+    .then((res) => {
+      genres = res;
+    })
+    .catch((err) => console.error(err));
+
+  const json = JSON.stringify(genres);
+  const file = new FormData();
+  file.append("genres", json);
+  const config = {
+    method: "POST",
+    body: file,
+  };
+  fetch('src/controllers/Genres.php?action=add', config);
 }
 
 loadDb.addEventListener("click", mainFetch);
@@ -201,7 +222,7 @@ function obtainNewData(e) {
 }
 
 function editData(editFilm) {
-  fetch("src/controllers/EditFilm.php", {
+  fetch("src/controllers/Movies.php?type=update", {
     method: "POST",
     body: editFilm,
   })
@@ -213,11 +234,22 @@ function editData(editFilm) {
 }
 
 function deleteFilm(id) {
-  fetch("src/controllers/DeleteFilm.php?film=" + id, {
+  fetch("src/controllers/Movies.php?type=delMovie&film=" + id, {
     method: "GET",
   });
 }
 
 function cleanUrlInput() {
   editPosterPath.value = "";
+}
+
+async function getApiUrlFetch() {
+  let genresUrl = '';
+  await fetch(`src/controllers/GetApi.php?type=genres`)
+    .then(res => res.json())
+    .then((res) => {
+      genresUrl = res;
+    })
+    .catch(err => console.error(err));
+  return genresUrl;
 }

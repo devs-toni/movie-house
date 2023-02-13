@@ -14,4 +14,7 @@ switch ($type) {
   case 'trend':
     echo json_encode(API_TRENDING);
     break;
+  case 'genres':
+    echo json_encode(API_GENRES);
+    break;
 }

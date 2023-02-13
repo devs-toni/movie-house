@@ -1,1 +1,0 @@
-<input class="navbar__input" id="searchInput" type="text" placeholder="Search">

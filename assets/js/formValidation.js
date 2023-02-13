@@ -5,7 +5,7 @@ const formRegister = document.querySelector('#registerForm');
 formRegister.addEventListener('submit', register);
 
 function loginFetch(mail, pass) {
-  fetch(`src/controllers/Login.php?email=${mail}&pass=${pass}`)
+  fetch(`src/controllers/Users.php?type=login&email=${mail}&pass=${pass}`)
   .then(res => res.json())
   .then(res => {
     if (res === 'Ok') {
@@ -35,7 +35,7 @@ function register(e) {
   const errors = validate(mail, pass, rPass, username);
   if (errors.length === 0) {
     // window.location = `src/controllers/Register.php?name=${username}&mail=${mail}&pass=${pass}`;
-    fetch(`src/controllers/Register.php?name=${username}&mail=${mail}&pass=${pass}`)
+    fetch(`src/controllers/Users.php?type=register&name=${username}&mail=${mail}&pass=${pass}`)
     .then(res => res.json())
     .then(res => {
       if (res === 'Ok') {

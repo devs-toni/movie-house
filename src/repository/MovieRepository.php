@@ -1,136 +1,27 @@
 <?php
 require_once('Connection.php');
 
-class Repository extends Connection
+class MovieRepository extends Connection
 {
 
-  // USERS
-
-  function addUser(User $user): void
+  function addGenre($id, $name)
   {
     $this->connect();
-    $pre = mysqli_prepare($this->con, 'INSERT INTO users (rol, username, email, password) VALUES (?,?,?,?)');
-
-    $userRol = $user->getRol();
-    $userName = $user->getUserName();
-    $userEmail = $user->getEmail();
-    $userPass = $user->getPassword();
-
-    $pre->bind_param('ssss', $userRol, $userName, $userEmail, $userPass);
+    $pre = mysqli_prepare($this->con, 'INSERT INTO genres (id, name) VALUES (?,?)');
+    $pre->bind_param('is', $id, $name);
     $pre->execute();
     $pre->close();
     $this->con->close();
   }
 
-  function isAdmin($id)
+    function addMovieGenres($idFilm, $genre)
   {
     $this->connect();
-    $pre = mysqli_prepare($this->con, 'SELECT rol FROM users WHERE id=?');
-    $pre->bind_param('i', $id);
+    $pre = mysqli_prepare($this->con, 'INSERT INTO movies_genres (id_movie, id_genre) VALUES (?,?)');
+    $pre->bind_param('ii', $idFilm, $genre);
     $pre->execute();
-    $result = $pre->get_result();
-
-    if (mysqli_num_rows($result) > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
-        if ($row['rol'] === 'A') {
-          $pre->close();
-          $this->con->close();
-          return true;
-        }
-      }
-    }
     $pre->close();
     $this->con->close();
-    return false;
-  }
-  function isAdult($id)
-  {
-    $this->connect();
-    $pre = mysqli_prepare($this->con, 'SELECT rol FROM users WHERE id=?');
-    $pre->bind_param('i', $id);
-    $pre->execute();
-    $result = $pre->get_result();
-
-    if (mysqli_num_rows($result) > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
-        if ($row['rol'] === 'P') {
-          $pre->close();
-          $this->con->close();
-          return true;
-        }
-      }
-    }
-    $pre->close();
-    $this->con->close();
-    return false;
-  }
-
-  function getUserById($id)
-  {
-    $this->connect();
-    $pre = mysqli_prepare($this->con, 'SELECT email, username, rol FROM users WHERE id=?');
-    $pre->bind_param('i', $id);
-    $pre->execute();
-    $result = $pre->get_result();
-
-    if (mysqli_num_rows($result) > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
-        $res['email'] = $row['email'];
-        $res['rol'] = $row['rol'];
-        $res['username'] = $row['username'];
-      }
-    } else {
-      $res = [];
-    }
-    $pre->close();
-    $this->con->close();
-    return $res;
-  }
-
-  function getUserByEmail($mail)
-  {
-    $this->connect();
-    $pre = mysqli_prepare($this->con, 'SELECT id, password FROM users WHERE email=?');
-    $pre->bind_param('s', $mail);
-    $pre->execute();
-    $result = $pre->get_result();
-
-    if (mysqli_num_rows($result) > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
-        $res['pass'] = $row['password'];
-        $res['id'] = $row['id'];
-      }
-    } else {
-      $res = [];
-    }
-    $pre->close();
-    $this->con->close();
-    return $res;
-  }
-
-  function updateUserField($username, $email, $password, $id)
-  {
-
-    if ($username) {
-      $field = $username;
-      $val = 'username';
-    }
-    if ($email) {
-      $field = $email;
-      $val = 'email';
-    }
-    if ($password) {
-      $field = password_hash($password, PASSWORD_DEFAULT);
-      $val = 'password';
-    }
-    $this->connect();
-    $pre = mysqli_prepare($this->con, "UPDATE users SET $val=? WHERE id=?");
-    $pre->bind_param('si', $field, $id);
-    $pre->execute();
-    $result = $pre->get_result();
-    $pre->close();
-    $this->con->close();
-    return $result;
   }
 
   // FILMS
@@ -248,6 +139,46 @@ class Repository extends Connection
     return $posterMovies;
   }
 
+  function getItalianTopMovies()
+  {
+    $ids = [];
+    $titles = [];
+    $posters = [];
+    $posterMovies = [];
+
+    $this->connect();
+    $result = mysqli_query($this->con, 'SELECT id, title, poster_path FROM movies WHERE language="it" ORDER BY vote_count DESC LIMIT 20');
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        array_push($ids, $row['id']);
+        array_push($titles, $row['title']);
+        array_push($posters, $row['poster_path']);
+      }
+    }
+    array_push($posterMovies, $ids, $titles, $posters);
+    $this->con->close();
+    return $posterMovies;
+  }
+
+    function deleteMoviesListLinks($listId)
+  {
+    $this->connect();
+    $pre = mysqli_prepare($this->con, 'DELETE FROM movies_in_list WHERE id_list=?');
+    $pre->bind_param("i", $listId);
+    $pre->execute();
+    $this->con->close();
+  }
+
+    function deleteList($listId)
+  {
+    $this->connect();
+    $pre = mysqli_prepare($this->con, 'DELETE FROM list_user_movies WHERE id=?');
+    $pre->bind_param("i", $listId);
+    $pre->execute();
+    $pre->close();
+    $this->con->close();
+  }
+
   function getPaginationMovies($min, $size)
   {
     $this->connect();
@@ -272,12 +203,6 @@ class Repository extends Connection
     array_push($posterMovies, $ids, $titles, $posters);
     $this->con->close();
     return $posterMovies;
-  }
-  function deleteFilms()
-  {
-    $this->connect();
-    mysqli_query($this->con, 'DELETE FROM MOVIES');
-    $this->con->close();
   }
 
   function getSearchMovies($movie)
@@ -316,7 +241,7 @@ class Repository extends Connection
     $pre->execute();
     $res = $pre->get_result();
     $info = (object) [];
-    
+
     while ($row = $res->fetch_assoc()) {
       $idMovie = $row['id'];
       $info = (object) [
@@ -509,163 +434,4 @@ class Repository extends Connection
     $this->con->close();
     return "deleted";
   }
-
-  // LISTS
-
-  function addList($name, $user): void
-  {
-    $this->connect();
-    $pre = mysqli_prepare($this->con, 'INSERT INTO list_user_movies (name, id_user) VALUES (?,?)');
-    $pre->bind_param('si', $name, $user);
-    $pre->execute();
-    $pre->close();
-    $this->con->close();
-  }
-
-  function getAllListUser($user)
-  {
-    $this->connect();
-    $allLists = [];
-    $pre = mysqli_prepare($this->con, 'SELECT id, name FROM list_user_movies WHERE id_user = ?');
-    $pre->bind_param('i', $user);
-    $pre->execute();
-    $result = $pre->get_result();
-    if (mysqli_num_rows($result) > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
-        $allLists[$row['id']] = $row['name'];
-      }
-    }
-    $this->con->close();
-    return $allLists;
-  }
-
-  function getListUser($name, $user)
-  {
-    $this->connect();
-    $response = '';
-    $pre = mysqli_prepare($this->con, 'SELECT l.id FROM list_user_movies l INNER JOIN users u ON l.id_user = u.id WHERE l.name = ? AND l.id_user = ?');
-    $pre->bind_param('si', $name, $user);
-    $pre->execute();
-    $result = $pre->get_result();
-    if (mysqli_num_rows($result) > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
-        $response = $row['id'];
-      }
-    }
-    $this->con->close();
-    return $response;
-  }
-
-  function listExist($name, $user)
-  {
-    $this->connect();
-    $response = '';
-    $pre = mysqli_prepare($this->con, 'SELECT count(u.id) id FROM list_user_movies l INNER JOIN users u ON l.id_user = u.id WHERE l.name = ? AND l.id_user = ?');
-    $pre->bind_param('si', $name, $user);
-    $pre->execute();
-    $result = $pre->get_result();
-    if (mysqli_num_rows($result) > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
-        $response = $row['id'];
-      }
-    }
-    $this->con->close();
-
-    if ($response)
-      return true;
-    else
-      return false;
-  }
-
-  function getMoviesList($list)
-  {
-    $this->connect();
-    $allMovies = [];
-    $pre = mysqli_prepare($this->con, 'SELECT id_movie, poster_path, title FROM movies_in_list ml INNER JOIN movies m ON m.id = ml.id_movie WHERE id_list = ?');
-    $pre->bind_param('i', $list);
-    $pre->execute();
-    $result = $pre->get_result();
-    if (mysqli_num_rows($result) > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
-        $movie = (object) [
-          "id" => $row["id_movie"],
-          "img" => $row["poster_path"],
-          "name" => $row["title"],
-        ];
-        array_push($allMovies, $movie);
-      }
-    }
-    $this->con->close();
-    return $allMovies;
-  }
-
-  function addMovieToList($filmId, $listId)
-  {
-    $query = "INSERT INTO movies_in_list (id_list, id_movie) VALUES (?,?)";
-
-    $this->connect();
-    $pre = mysqli_prepare($this->con, $query);
-    $pre->bind_param("ii", $listId, $filmId);
-    $pre->execute();
-
-    $pre->close();
-    $this->con->close();
-  }
-
-
-  function deleteList($listId)
-  {
-    $this->connect();
-    $pre = mysqli_prepare($this->con, 'DELETE FROM list_user_movies WHERE id=?');
-    $pre->bind_param("i", $listId);
-    $pre->execute();
-    $pre->close();
-    $this->con->close();
-  }
-
-  function deleteMoviesListLinks($listId)
-  {
-    $this->connect();
-    $pre = mysqli_prepare($this->con, 'DELETE FROM movies_in_list WHERE id_list=?');
-    $pre->bind_param("i", $listId);
-    $pre->execute();
-    $this->con->close();
-  }
-  function deleteMoviesLinks()
-  {
-    $this->connect();
-    mysqli_query($this->con, 'DELETE FROM movies_in_list');
-    $this->con->close();
-  }
-
-  function deleteCommentLinks()
-  {
-    $this->connect();
-    mysqli_query($this->con, 'DELETE FROM comments');
-    $this->con->close();
-  }
-
-  function deleteLikesLinks()
-  {
-    $this->connect();
-    mysqli_query($this->con, 'DELETE FROM likes');
-    $this->con->close();
-  }
-
-  function extractId()
-  {
-    $queryExtract = 'SELECT MAX(id) id FROM movies';
-    $this->connect();
-    $res = mysqli_query($this->con, $queryExtract);
-    if (mysqli_num_rows($res) > 0) {
-      while ($row = $res->fetch_assoc()) {
-        $id = $row['id'];
-      }
-    } else {
-      $id = "";
-    }
-    $this->con->close();
-    return $id;
-  }
-
 }

@@ -6,7 +6,7 @@ const addList = (e) => {
   e.preventDefault();
   const name = listName.value;
   if (name) {
-    fetch(`src/controllers/AddList.php?name=${name}`)
+    fetch(`src/controllers/Lists.php?type=add&name=${name}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -28,7 +28,7 @@ const addList = (e) => {
 formList.addEventListener('submit', addList);
 
 window.addEventListener('load', () => {
-  fetch(`src/controllers/GetLists.php`)
+  fetch(`src/controllers/Lists.php?type=getLists`)
     .then((res) => res.json())
     .then((data) => {
       if (data !== 'N') {
@@ -69,7 +69,7 @@ function openInfoFilmLists(e) {
 }
 
 function prepareListLink(link) {
-  fetch(`src/controllers/GetMoviesList.php?list=${link.dataset.id}`)
+  fetch(`src/controllers/Lists.php?type=getMovies&list=${link.dataset.id}`)
     .then((res) => res.json())
     .then((data) => {
       link.addEventListener('click', () => getMovies(data));
@@ -78,7 +78,7 @@ function prepareListLink(link) {
 }
 
 function prepareDeleteLink(link) {
-  fetch(`src/controllers/DeleteList.php?list=${link.dataset.id}`)
+  fetch(`src/controllers/Lists.php?type=delete&list=${link.dataset.id}`)
     .then((res) => res.json())
     .then(() => {
       Swal.fire({

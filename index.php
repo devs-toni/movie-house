@@ -1,16 +1,18 @@
 <?php
 // INIT
 session_start();
-set_include_path(str_replace('\\', '/', __DIR__ . '/'));
+
 require_once('config.php');
 require_once(DIR_MODELS . 'User.php');
 require_once(DIR_MODELS . 'Movie.php');
 require_once(DIR_TEMPLATES . 'Templates.php');
-require_once(DIR_REPO . 'Repository.php');
+require_once(DIR_REPO . 'MovieRepository.php');
+require_once(DIR_REPO . 'UserRepository.php');
 require_once(DIR_SESSION . 'Session.php');
 
 // VARIABLES
-$db = new Repository();
+$dbMovies = new MovieRepository();
+$dbUsers = new UserRepository();
 $isLogged = false;
 $isAdmin = false;
 $isAdult = false;
@@ -20,19 +22,21 @@ if (isset($_SESSION['user']))
   Session::checkSessionExpiration();
 if (isset($_SESSION['user'])) {
   $isLogged = true;
-  $isAdmin = $db->isAdmin($_SESSION['user']);
-  $isAdult = $db->isAdult($_SESSION['user']);
+  $isAdmin = $dbUsers->isAdmin($_SESSION['user']);
+  $isAdult = $dbUsers->isAdult($_SESSION['user']);
 }
 
 // TEMPLATES
 Templates::addHeader('Neflis', ['loadApi', 'printFilms'], ['formValidation', 'configuration', 'script']);
-include_once(DIR_TEMPLATES . 'aside.php');
+Templates::addAside();
 Templates::addNav($isLogged, $isAdmin);
-include_once(DIR_TEMPLATES . 'trendingFilms.php');
-include_once(DIR_TEMPLATES . 'spanishFilms.php');
-$isLogged && include_once(DIR_TEMPLATES . 'voteFilms.php');
-$isAdult && include_once(DIR_TEMPLATES . 'adultFilms.php');
-include_once(DIR_TEMPLATES . 'allFilms.php');
+Templates::addSearchSection();
+$isAdult && Templates::addNewSection('adult', 'Adult', 'Adult Films', 'sections');
+Templates::addNewSection('trend', 'Trend', 'Top Trending Films', 'sections');
+$isLogged && Templates::addNewSection('votes', 'Vote' , 'Most Voted By Users', 'sections');
+Templates::addNewSection('spa', 'Spa', 'Top Spanish Films', 'sections');
+Templates::addNewSection('it', 'It', 'Top Italian Films', 'sections');
+
 include_once(DIR_TEMPLATES . 'modalLogin.php');
 include_once(DIR_TEMPLATES . 'modalSignUp.php');
 include_once(DIR_TEMPLATES . 'modalConfig.php');

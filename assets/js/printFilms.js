@@ -19,24 +19,29 @@ const { imagesUrl, trendingUrl, apiUrl } = await getApiUrls();
 
   } else {
     switch (action) {
-      case "mark":
+      case "trend":
         results = await fetchApi(trendingUrl);
         const file = new FormData();
         results = results.filter(f => f.poster_path !== null && f.release_date !== null);
         const json = JSON.stringify(results);
         file.append("films", json);
-        let ids = await fetchDb('src/controllers/TrendingFilms.php', file);
+        let ids = await fetchDb('src/controllers/Index.php?type=trend', file);
         printApiFilms(results, printContainer, 20, false, ids, imagesUrl);
         break;
 
-      case "vote":
-        results = await fetchDb('src/controllers/MostVotedFilms.php', null);
-        printDbFilms(results, printContainer, false);
+      case "votes":
+        results = await fetchDb('src/controllers/Index.php?type=vote', null);
+        printDbFilms(results, printContainer, false, 'votes');
         break;
 
       case "spa":
-        results = await fetchDb('src/controllers/SpanishFilms.php', null);
-        printDbFilms(results, printContainer, false);
+        results = await fetchDb('src/controllers/Index.php?type=spa', null);
+        printDbFilms(results, printContainer, false, 'spa');
+        break;
+     
+      case "it":
+        results = await fetchDb('src/controllers/Index.php?type=it', null);
+        printDbFilms(results, printContainer, false, 'it');
         break;
 
       case "adult":
@@ -65,12 +70,12 @@ const { imagesUrl, trendingUrl, apiUrl } = await getApiUrls();
 function printApiFilms(results, container, files, isAdult, ids, imagesUrl) {
 
   for (let i = 0; i < files; i++) {
-    container.innerHTML += `<div class="carousel__film"><img class="${isAdult ? "adult" : ""}" src="${imagesUrl}${results[i].poster_path}" alt="${results[i].title}" ${!isAdult ? 'data-id=' : ''}${ids[i]}"></div>`;
+    container.innerHTML += `<div class="carousel-${isAdult ? "adult" : "trend"}__film"><img class="${isAdult ? "adult" : ""}" src="${imagesUrl}${results[i].poster_path}" alt="${results[i].title}" ${!isAdult ? 'data-id=' : ''}${ids && ids[i]}"></div>`;
   }
 }
 
-function printDbFilms(results, container, isCatalogue) {
+function printDbFilms(results, container, isCatalogue, className) {
   for (let i = 0; i < results[0].length; i++) {
-    container.innerHTML += `<div class="${isCatalogue ? 'list__film' : 'carousel-votes__film'}"><img src="${results[2][i]}" alt="${results[1][i]}" data-id="${results[0][i]}"></div>`
+    container.innerHTML += `<div class="${isCatalogue ? 'list__film' : `carousel-${className}__film`}"><img src="${results[2][i]}" alt="${results[1][i]}" data-id="${results[0][i]}"></div>`
   }
 }

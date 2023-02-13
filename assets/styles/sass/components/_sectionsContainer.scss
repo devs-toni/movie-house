@@ -3,8 +3,9 @@
 
 .top-trend,
 .top-votes,
-.top-spanish,
-.top-p {
+.top-spa,
+.top-it,
+.top-adult {
   width: 86%;
   margin: 40px 0 120px 90px;
 
@@ -54,19 +55,21 @@
         right: 0;
       }
 
-      .carousel-container,
+      .carousel-trend-container,
       .carousel-votes-container,
       .carousel-spa-container,
-      .carousel-p-container {
+      .carousel-it-container,
+      .carousel-adult-container {
         width: 100%;
         padding: 20px 0;
         overflow: hidden;
         scroll-behavior: smooth;
 
-        .carousel,
+        .carousel-trend,
         .carousel-votes,
         .carousel-spa,
-        .carousel-p {
+        .carousel-it,
+        .carousel-adult {
           display: flex;
           flex-wrap: nowrap;
 
@@ -115,8 +118,9 @@
 
   .top-trend,
   .top-votes,
-  .top-spanish,
-  .top-p {
+  .top-spa,
+  .top-it,
+  .top-adult {
     margin-left: 50px;
     margin-bottom: 120px;
   }
@@ -126,19 +130,22 @@
 
   .top-trend,
   .top-votes,
-  .top-spanish,
-  .top-p {
+  .top-spa,
+  .top-it,
+  .top-adult {
     .top {
       &__main {
 
-        .carousel-container,
+        .carousel-trend-container,
         .carousel-votes-container,
-        .carousel-p-container,
-        .carousel-spa-container {
+        .carousel-adult-container,
+        .carousel-spa-container,
+        .carousel-it-container {
 
-          .carousel,
+          .carousel-trend,
           .carousel-votes,
-          .carousel-p,
+          .carousel-adult,
+          .carousel-it,
           .carousel-spa {
             &__film {
               min-height: 300px;
@@ -155,8 +162,9 @@
 
   .top-trend,
   .top-votes,
-  .top-spanish,
-  .top-p {
+  .top-spa,
+  .top-it,
+  .top-adult {
     margin: 0 auto;
     margin-bottom: 120px;
 
@@ -168,15 +176,17 @@
           display: none;
         }
 
-        .carousel-container,
+        .carousel-trend-container,
         .carousel-votes-container,
-        .carousel-p-container,
+        .carousel-it-container,
+        .carousel-adult-container,
         .carousel-spa-container {
           overflow: visible;
 
-          .carousel,
+          .carousel-trend,
           .carousel-votes,
-          .carousel-p,
+          .carousel-adult,
+          .carousel-it,
           .carousel-spa {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -203,19 +213,22 @@
 
   .top-trend,
   .top-votes,
-  .top-spanish,
-  .top-p {
+  .top-spa,
+  .top-it,
+  .top-adult {
     .top {
       &__main {
 
-        .carousel-container,
+        .carousel-trend-container,
         .carousel-votes-container,
-        .carousel-p-container,
+        .carousel-adult-container,
+        .carousel-it-container,
         .carousel-spa-container {
 
-          .carousel,
+          .carousel-trend,
           .carousel-votes,
-          .carousel-p,
+          .carousel-adult,
+          .carousel-it,
           .carousel-spa {
             &__film {
               min-height: 160px;
@@ -231,19 +244,22 @@
 
   .top-trend,
   .top-votes,
-  .top-spanish,
-  .top-p {
+  .top-spa,
+  .top-it,
+  .top-adult {
     .top {
       &__main {
 
-        .carousel-container,
+        .carousel-trend-container,
         .carousel-votes-container,
-        .carousel-p-container,
+        .carousel-adult-container,
+        .carousel-it-container,
         .carousel-spa-container {
 
-          .carousel,
+          .carousel-trend,
           .carousel-votes,
-          .carousel-p,
+          .carousel-adult,
+          .carousel-it,
           .carousel-spa {
             &__film {
               min-height: 120px;
@@ -259,8 +275,9 @@
 
   .top-trend,
   .top-votes,
-  .top-spanish,
-  .top-p {
+  .top-spa,
+  .top-it,
+  .top-adult {
     margin: 0 auto;
     margin-bottom: 120px;
 
@@ -273,15 +290,17 @@
 
       &__main {
 
-        .carousel-container,
+        .carousel-trend-container,
         .carousel-votes-container,
-        .carousel-p-container,
+        .carousel-adult-container,
+        .carousel-it-container,
         .carousel-spa-container {
           overflow: visible;
 
-          .carousel,
+          .carousel-trend,
           .carousel-votes,
-          .carousel-p,
+          .carousel-adult,
+          .carousel-it,
           .carousel-spa {
             display: grid;
             grid-template-columns: repeat(4, 1fr);

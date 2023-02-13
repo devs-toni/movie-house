@@ -40,6 +40,15 @@ CREATE TABLE movies_in_list (
     FOREIGN KEY (id_movie) REFERENCES movies (id)  ON DELETE CASCADE
 );
 
+CREATE TABLE movies_genres (
+    id INT NOT NULL AUTO_INCREMENT,
+    id_movie INT NOT NULL,
+    id_genre INT NOT NULL, 
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_genre) REFERENCES genres (id)  ON DELETE CASCADE,
+    FOREIGN KEY (id_movie) REFERENCES movies (id)  ON DELETE CASCADE
+);
+
 CREATE TABLE comments (
     id INT NOT NULL AUTO_INCREMENT,
     id_user INT NOT NULL,
@@ -48,6 +57,12 @@ CREATE TABLE comments (
     PRIMARY KEY (id),
     FOREIGN KEY (id_user) REFERENCES users (id)  ON DELETE CASCADE,
     FOREIGN KEY (id_movie) REFERENCES movies (id)  ON DELETE CASCADE
+);
+
+CREATE TABLE genres (
+    id INT NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE likes (
