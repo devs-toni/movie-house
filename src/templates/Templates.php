@@ -143,7 +143,7 @@ class Templates
   static function addNewSection($name, $arrows, $title, $js)
   {
     ?>
-            <section class="top-<?= $name ?>">
+            <section class="top-<?= $name ?>" id="top-section">
           <div class="top">
             <div class="top__controls">
               <h3><?= $title ?></h3>
@@ -152,16 +152,15 @@ class Templates
       
               <button role="button" id="leftArrow<?= $arrows ?>" class="left-arrow">&lt;</button>
       
-              <div class="carousel-<?= $name ?>-container">
-                <div class="carousel-<?= $name ?>"></div>
+              <div class="carousel-container" id="carousel-<?= $name ?>-container">
+                <div class="carousel" id="carousel-<?= $name ?>"></div>
               </div>
       
               <button role="button" id="rightArrow<?= $arrows ?>" class="right-arrow">&gt;</button>
             </div>
           </div>
-          <script src="assets/js/<?= $js ?>.js"></script>
           <script type="text/javascript">
-            printFilms(null, '.carousel-<?= $name ?>', '<?= $name ?>');
+            printFilms(null, '#carousel-<?= $name ?>', '<?= $name ?>');
           </script>
         </section>
             <?php

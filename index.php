@@ -30,12 +30,19 @@ if (isset($_SESSION['user'])) {
 Templates::addHeader('Neflis', ['loadApi', 'printFilms'], ['formValidation', 'configuration', 'script']);
 Templates::addAside();
 Templates::addNav($isLogged, $isAdmin);
-Templates::addSearchSection();
-$isAdult && Templates::addNewSection('adult', 'Adult', 'Adult Films', 'sections');
+if ($isAdult) {
+  Templates::addNewSection('adult', 'Adult', 'Adult Films', 'sections');
+  echo '<script src="assets/js/sectionAdult.js"></script>';
+}
 Templates::addNewSection('trend', 'Trend', 'Top Trending Films', 'sections');
-$isLogged && Templates::addNewSection('votes', 'Vote' , 'Most Voted By Users', 'sections');
+if ($isLogged) {
+  Templates::addNewSection('votes', 'Vote', 'Most Voted By Users', 'sections');
+  echo '<script src="assets/js/sectionVoted.js"></script>';
+}
 Templates::addNewSection('spa', 'Spa', 'Top Spanish Films', 'sections');
 Templates::addNewSection('it', 'It', 'Top Italian Films', 'sections');
+echo '<script src="assets/js/sections.js"></script>';
+Templates::addSearchSection();
 
 include_once(DIR_TEMPLATES . 'modalLogin.php');
 include_once(DIR_TEMPLATES . 'modalSignUp.php');
@@ -45,9 +52,9 @@ Templates::addFooter(['modals', 'alerts']);
 //ALERT EXPIRATION
 if (isset($_REQUEST['expire'])) {
   ?>
-        <script>
-          window.history.pushState('', '', 'index.php');
-          customAlert('center', 'info', '', '<h4>Session expired . . .</h4>', false, 4000, '#232323', '#ff683f');
-        </script>
-      <?php
+                <script>
+                  window.history.pushState('', '', 'index.php');
+                  customAlert('center', 'info', '', '<h4>Session expired . . .</h4>', false, 4000, '#232323', '#ff683f');
+                </script>
+              <?php
 }

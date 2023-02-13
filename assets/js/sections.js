@@ -1,20 +1,4 @@
-const rowVotes = document.querySelector('.carousel-votes-container');
-
-const leftArrowVote = document.getElementById('leftArrowVote');
-const rightArrowVote = document.getElementById('rightArrowVote');
-
-rightArrowVote.addEventListener('click', () => {
-  rowVotes.scrollLeft += rowVotes.offsetWidth + 90;
-});
-leftArrowVote.addEventListener('click', () => {
-  rowVotes.scrollLeft -= (rowVotes.offsetWidth + 90);
-});
-
-
-
-
-
-const rowIt = document.querySelector('.carousel-it-container');
+const rowIt = document.querySelector('#carousel-it-container');
 
 const leftArrowIt = document.getElementById('leftArrowIt');
 const rightArrowIt = document.getElementById('rightArrowIt');
@@ -29,7 +13,7 @@ leftArrowIt.addEventListener('click', () => {
 
 
 
-const rowSpa = document.querySelector('.carousel-spa-container');
+const rowSpa = document.querySelector('#carousel-spa-container');
 
 const leftArrowSpa = document.getElementById('leftArrowSpa');
 const rightArrowSpa = document.getElementById('rightArrowSpa');
@@ -45,7 +29,7 @@ leftArrowSpa.addEventListener('click', () => {
 
 
 
-const rowTrend = document.querySelector('.carousel-trend-container');
+const rowTrend = document.querySelector('#carousel-trend-container');
 
 const leftArrowTrend = document.getElementById('leftArrowTrend');
 const rightArrowTrend = document.getElementById('rightArrowTrend');
@@ -55,19 +39,4 @@ rightArrowTrend.addEventListener('click', () => {
 });
 leftArrowTrend.addEventListener('click', () => {
   rowTrend.scrollLeft -= (rowTrend.offsetWidth + 90);
-});
-
-
-
-
-const rowAdult = document.querySelector('.carousel-adult-container');
-
-const leftArrowAdult = document.getElementById('leftArrowAdult');
-const rightArrowAdult = document.getElementById('rightArrowAdult');
-
-rightArrowAdult.addEventListener('click', () => {
-  rowAdult.scrollLeft += rowAdult.offsetWidth + 90;
-});
-leftArrowAdult.addEventListener('click', () => {
-  rowAdult.scrollLeft -= (rowAdult.offsetWidth + 90);
 });

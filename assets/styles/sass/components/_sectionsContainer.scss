@@ -1,11 +1,7 @@
 @use '../abstracts/variables' as var;
 @import '../abstracts/animations';
 
-.top-trend,
-.top-votes,
-.top-spa,
-.top-it,
-.top-adult {
+#top-section {
   width: 86%;
   margin: 40px 0 120px 90px;
 
@@ -55,21 +51,13 @@
         right: 0;
       }
 
-      .carousel-trend-container,
-      .carousel-votes-container,
-      .carousel-spa-container,
-      .carousel-it-container,
-      .carousel-adult-container {
+      .carousel-container {
         width: 100%;
         padding: 20px 0;
         overflow: hidden;
         scroll-behavior: smooth;
 
-        .carousel-trend,
-        .carousel-votes,
-        .carousel-spa,
-        .carousel-it,
-        .carousel-adult {
+        .carousel {
           display: flex;
           flex-wrap: nowrap;
 
