@@ -34,13 +34,14 @@ if ($isAdult) {
   Templates::addNewSection('adult', 'Adult', 'Adult Films', 'sections');
   echo '<script src="assets/js/sectionAdult.js"></script>';
 }
-Templates::addNewSection('trend', 'Trend', 'Top Trending Films', 'sections');
 if ($isLogged) {
   Templates::addNewSection('votes', 'Vote', 'Most Voted By Users', 'sections');
   echo '<script src="assets/js/sectionVoted.js"></script>';
 }
+Templates::addNewSection('trend', 'Trend', 'Top Trending Films', 'sections');
 Templates::addNewSection('spa', 'Spa', 'Top Spanish Films', 'sections');
 Templates::addNewSection('it', 'It', 'Top Italian Films', 'sections');
+Templates::addNewSection('action', 'Action', 'Action Films', 'sections');
 echo '<script src="assets/js/sections.js"></script>';
 Templates::addSearchSection();
 

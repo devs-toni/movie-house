@@ -1,42 +1,18 @@
-const rowIt = document.querySelector('#carousel-it-container');
+setCarouselActions('trend');
+setCarouselActions('spa');
+setCarouselActions('it');
+setCarouselActions('action');
 
-const leftArrowIt = document.getElementById('leftArrowIt');
-const rightArrowIt = document.getElementById('rightArrowIt');
+function setCarouselActions(section) {
+  const rowAction = document.querySelector(`#carousel-${section}-container`);
 
-rightArrowIt.addEventListener('click', () => {
-  rowIt.scrollLeft += rowIt.offsetWidth + 90;
-});
-leftArrowIt.addEventListener('click', () => {
-  rowIt.scrollLeft -= (rowIt.offsetWidth + 90);
-});
+  const leftArrowAction = document.getElementById(`leftArrow${section.charAt(0).toUpperCase()}`);
+  const rightArrowAction = document.getElementById(`rightArrow${section.charAt(0).toUpperCase()}`);
 
-
-
-
-const rowSpa = document.querySelector('#carousel-spa-container');
-
-const leftArrowSpa = document.getElementById('leftArrowSpa');
-const rightArrowSpa = document.getElementById('rightArrowSpa');
-
-rightArrowSpa.addEventListener('click', () => {
-  rowSpa.scrollLeft += rowSpa.offsetWidth + 90;
-});
-leftArrowSpa.addEventListener('click', () => {
-  rowSpa.scrollLeft -= (rowSpa.offsetWidth + 90);
-});
-
-
-
-
-
-const rowTrend = document.querySelector('#carousel-trend-container');
-
-const leftArrowTrend = document.getElementById('leftArrowTrend');
-const rightArrowTrend = document.getElementById('rightArrowTrend');
-
-rightArrowTrend.addEventListener('click', () => {
-  rowTrend.scrollLeft += rowTrend.offsetWidth + 90;
-});
-leftArrowTrend.addEventListener('click', () => {
-  rowTrend.scrollLeft -= (rowTrend.offsetWidth + 90);
-});
+  rightArrowAction.addEventListener('click', () => {
+    rowAction.scrollLeft += rowAction.offsetWidth + 90;
+  });
+  leftArrowAction.addEventListener('click', () => {
+    rowAction.scrollLeft -= (rowAction.offsetWidth + 90);
+  });
+}

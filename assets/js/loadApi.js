@@ -45,7 +45,6 @@ async function getApiUrls() {
 }
 
 async function getApiUrlFetch(type) {
-  console.log(type);
   let url = '';
 
   await fetch(`src/controllers/GetApi.php?type=${type}`)
