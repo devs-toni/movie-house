@@ -5,6 +5,7 @@ const filmsContainer = document.getElementById('films');
 const addList = (e) => {
   e.preventDefault();
   const name = listName.value;
+  listName.value = '';
   if (name) {
     fetch(`src/controllers/Lists.php?type=add&name=${name}`)
       .then((res) => res.json())
@@ -35,8 +36,10 @@ window.addEventListener('load', () => {
         getLists(data.lists);
         getMovies(data.movies);
         const linkList = document.querySelectorAll('#linkList');
-        linkList.forEach((l) => {
+        linkList.forEach((l, i) => {
           prepareListLink(l);
+          if (i === 0)
+            l.classList.add('active');
         });
         const deleteList = document.querySelectorAll('#deleteList');
         deleteList.forEach((l) => {
@@ -54,13 +57,18 @@ const getLists = (data) => {
   }
 }
 
-const getMovies = (data) => {
+const getMovies = (data, e) => {
+  const linkList = document.querySelectorAll('#linkList');
+  linkList.forEach((l) => l.classList.remove('active'));
+  e?.target.classList.add('active');
   filmsContainer.innerHTML = '';
   if (data.length > 0) {
     for (const movie of data) {
+      filmsContainer.dataset.id = e?.target.dataset.id;
       filmsContainer.innerHTML += `<div class="film" onclick="openInfoFilmLists(event)"><img src="${movie.img}" alt="${movie.name}" data-id="${movie.id}"></div>`
     }
   }
+  //document.querySelector(`#linkList[data-id="${id}"]`).classList.add('active');
 }
 
 function openInfoFilmLists(e) {
@@ -69,10 +77,13 @@ function openInfoFilmLists(e) {
 }
 
 function prepareListLink(link) {
-  fetch(`src/controllers/Lists.php?type=getMovies&list=${link.dataset.id}`)
+  const id = link.dataset.id;
+  fetch(`src/controllers/Lists.php?type=getMovies&list=${id}`)
     .then((res) => res.json())
     .then((data) => {
-      link.addEventListener('click', () => getMovies(data));
+      link.addEventListener('click', (id) => {
+        getMovies(data, id);
+      });
     })
     .catch((err) => console.error(err));
 }
@@ -94,7 +105,7 @@ function prepareDeleteLink(link) {
         confirmButtonColor: "green",
       }).then((result) => {
         if (result.isConfirmed) {
-          document.querySelector(`div.one-list[data-id="${link.dataset.id}"]`).remove();
+          removeListRefresh(link);
           Swal.fire({
             title: "Deleted!",
             text: "Your file has been deleted.",
@@ -107,4 +118,11 @@ function prepareDeleteLink(link) {
       });
     })
     .catch((err) => console.error(err));
+}
+
+function removeListRefresh(link) {
+  if (filmsContainer.dataset.id === link.dataset.id) {
+    document.querySelector('#films').innerHTML = '';
+  }
+  document.querySelector(`div.one-list[data-id="${link.dataset.id}"]`).remove();
 }

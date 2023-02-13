@@ -10,16 +10,9 @@ switch ($type) {
   case 'trend':
     $response = getTrendingFilms($dbMovies);
     break;
-  case 'vote':
-    $response = $dbMovies->getMostVotedMovies();
+  default:
+    $response = $dbMovies->getSectionMovies($type);
     break;
-  case 'spa':
-    $response = $dbMovies->getSpanishTopMovies();
-    break;
-  case 'it':
-    $response = $dbMovies->getItalianTopMovies();
-    break;
-
 }
 
 echo json_encode($response);

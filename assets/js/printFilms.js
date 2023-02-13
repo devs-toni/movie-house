@@ -29,21 +29,6 @@ async function printFilms(data, container, action) {
         printApiFilms(results, printContainer, 20, false, ids, imagesUrl);
         break;
 
-      case "votes":
-        results = await fetchDb('src/controllers/Index.php?type=vote', null);
-        printDbFilms(results, printContainer, false, 'votes');
-        break;
-
-      case "spa":
-        results = await fetchDb('src/controllers/Index.php?type=spa', null);
-        printDbFilms(results, printContainer, false, 'spa');
-        break;
-
-      case "it":
-        results = await fetchDb('src/controllers/Index.php?type=it', null);
-        printDbFilms(results, printContainer, false, 'it');
-        break;
-
       case "adult":
         let films = [];
         for (let i = 1; i <= 12; i++) {
@@ -58,6 +43,11 @@ async function printFilms(data, container, action) {
         results = results.filter(f => f.adult);
         printApiFilms(results, printContainer, 20, true, null, imagesUrl);
         break;
+
+      default:
+        results = await fetchDb(`src/controllers/Index.php?type=${action}`, null);
+        printDbFilms(results, printContainer, false, action);
+        break;
     }
   }
 
@@ -70,7 +60,7 @@ async function printFilms(data, container, action) {
 function printApiFilms(results, container, files, isAdult, ids, imagesUrl) {
 
   for (let i = 0; i < files; i++) {
-    container.innerHTML += `<div class="carousel__film" id="carousel-${isAdult ? "adult" : "trend"}"><img class="${isAdult ? "adult" : ""}" src="${imagesUrl}${results[i].poster_path}" alt="${results[i].title}" ${!isAdult ? 'data-id=' : ''}${ids && ids[i]}"></div>`;
+    if (results[i]) container.innerHTML += `<div class="carousel__film" id="carousel-${isAdult ? "adult" : "trend"}"><img class="${isAdult ? "adult" : ""}" src="${imagesUrl}${results[i].poster_path}" alt="${results[i].title}" ${!isAdult ? 'data-id=' : ''}${ids?.[i]}"></div>`;
   }
 }
 

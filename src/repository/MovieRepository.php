@@ -14,7 +14,7 @@ class MovieRepository extends Connection
     $this->con->close();
   }
 
-    function addMovieGenres($idFilm, $genre)
+  function addMovieGenres($idFilm, $genre)
   {
     $this->connect();
     $pre = mysqli_prepare($this->con, 'INSERT INTO movies_genres (id_movie, id_genre) VALUES (?,?)');
@@ -96,8 +96,34 @@ class MovieRepository extends Connection
     return $allPosterMovies;
   }
 
-  function getMostVotedMovies()
+  function getSectionMovies($section)
   {
+    switch ($section) {
+      case 'spa':
+        $query = 'SELECT id, title, poster_path FROM movies WHERE language="es" ORDER BY vote_average DESC LIMIT 40';
+        break;
+      case 'it':
+        $query = 'SELECT id, title, poster_path FROM movies WHERE language="it" ORDER BY vote_average DESC LIMIT 40';
+        break;
+      case 'votes':
+        $query = 'SELECT id, title, poster_path FROM movies ORDER BY vote_count DESC LIMIT 40';
+        break;
+      default:
+        if (str_contains($section, '_')) {
+          $array = [];
+          $arrayTitle = explode(' ', str_replace('_', ' ', $section));
+          foreach ($arrayTitle as $word) {
+            array_push($array, ucfirst($word));
+          }
+          $section = implode(' ', $array);
+        } else
+          $section = ucfirst($section);
+        $query = 'SELECT m.title, m.poster_path, m.id FROM 
+        (SELECT id_movie FROM movies_genres WHERE id_genre = (SELECT id FROM genres WHERE name="' . $section . '")) i 
+        INNER JOIN movies m ON i.id_movie = m.id WHERE m.id = i.id_movie AND m.language="en" ORDER BY vote_average ASC LIMIT 40';
+        break;
+    }
+
     $ids = [];
     $titles = [];
     $posters = [];
@@ -105,7 +131,7 @@ class MovieRepository extends Connection
 
     $this->connect();
 
-    $result = mysqli_query($this->con, 'SELECT id, title, poster_path FROM movies ORDER BY vote_count DESC LIMIT 20');
+    $result = mysqli_query($this->con, $query);
     if (mysqli_num_rows($result) > 0) {
       while ($row = mysqli_fetch_assoc($result)) {
         array_push($ids, $row['id']);
@@ -126,73 +152,7 @@ class MovieRepository extends Connection
     $posterMovies = [];
 
     $this->connect();
-    $result = mysqli_query($this->con, 'SELECT id, title, poster_path FROM movies WHERE language="es" ORDER BY vote_count DESC LIMIT 20');
-    if (mysqli_num_rows($result) > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
-        array_push($ids, $row['id']);
-        array_push($titles, $row['title']);
-        array_push($posters, $row['poster_path']);
-      }
-    }
-    array_push($posterMovies, $ids, $titles, $posters);
-    $this->con->close();
-    return $posterMovies;
-  }
-
-  function getItalianTopMovies()
-  {
-    $ids = [];
-    $titles = [];
-    $posters = [];
-    $posterMovies = [];
-
-    $this->connect();
-    $result = mysqli_query($this->con, 'SELECT id, title, poster_path FROM movies WHERE language="it" ORDER BY vote_count DESC LIMIT 20');
-    if (mysqli_num_rows($result) > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
-        array_push($ids, $row['id']);
-        array_push($titles, $row['title']);
-        array_push($posters, $row['poster_path']);
-      }
-    }
-    array_push($posterMovies, $ids, $titles, $posters);
-    $this->con->close();
-    return $posterMovies;
-  }
-
-    function deleteMoviesListLinks($listId)
-  {
-    $this->connect();
-    $pre = mysqli_prepare($this->con, 'DELETE FROM movies_in_list WHERE id_list=?');
-    $pre->bind_param("i", $listId);
-    $pre->execute();
-    $this->con->close();
-  }
-
-    function deleteList($listId)
-  {
-    $this->connect();
-    $pre = mysqli_prepare($this->con, 'DELETE FROM list_user_movies WHERE id=?');
-    $pre->bind_param("i", $listId);
-    $pre->execute();
-    $pre->close();
-    $this->con->close();
-  }
-
-  function getPaginationMovies($min, $size)
-  {
-    $this->connect();
-
-    $ids = [];
-    $titles = [];
-    $posters = [];
-    $posterMovies = [];
-
-    $pre = mysqli_prepare($this->con, 'SELECT id, title, poster_path FROM movies LIMIT ?, ?');
-    $pre->bind_param('ii', $min, $size);
-    $pre->execute();
-    $result = $pre->get_result();
-
+    $result = mysqli_query($this->con, 'SELECT id, title, poster_path FROM movies WHERE language="es" ORDER BY vote_count DESC LIMIT 40');
     if (mysqli_num_rows($result) > 0) {
       while ($row = mysqli_fetch_assoc($result)) {
         array_push($ids, $row['id']);

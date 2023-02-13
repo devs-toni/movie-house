@@ -1,7 +1,7 @@
 const rowVotes = document.querySelector('#carousel-votes-container');
 
-const leftArrowVote = document.getElementById('leftArrowVote');
-const rightArrowVote = document.getElementById('rightArrowVote');
+const leftArrowVote = document.getElementById('leftArrowVotes');
+const rightArrowVote = document.getElementById('rightArrowVotes');
 
 rightArrowVote.addEventListener('click', () => {
   rowVotes.scrollLeft += rowVotes.offsetWidth + 90;

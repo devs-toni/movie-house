@@ -203,7 +203,7 @@ function deleteComment(idCommentToDelete) {
 }
 
 function chooseListToAdd() {
-  fetch("src/controllers/Lists.php?type=choose&idUser=" + idUserRegistered, {
+  fetch(`src/controllers/Lists.php?type=choose&idUser=${idUserRegistered}&idFilm=${idOpenedFilm}`, {
     method: "GET",
   })
     .then((res) => res.json())
@@ -211,14 +211,12 @@ function chooseListToAdd() {
       console.log(data);
       if (data) {
         containerLists.textContent = "";
-        for (const name in data) {
+        for (const name in data.lists) {
           const p = document.createElement("p");
-          p.textContent = data[name];
+          p.textContent = data.lists[name];
           p.setAttribute("data-id", name);
           containerLists.appendChild(p);
-          document
-            .querySelector(`[data-id="${name}"]`)
-            .addEventListener("click", addFilmToList);
+          document.querySelector(`[data-id="${name}"]`).addEventListener("click", addFilmToList);
         }
       }
       modalAddFilmToList.show();

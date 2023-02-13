@@ -16,6 +16,7 @@ $dbUsers = new UserRepository();
 $isLogged = false;
 $isAdmin = false;
 $isAdult = false;
+$sections = ['action', 'comedy', 'adventure', 'history', 'horror', 'drama', 'thriller', 'crime', 'fantasy', 'documentary', 'science_fiction', 'western', 'mystery', 'music', 'romance', 'family', 'war'];
 
 // USER LOGIN
 if (isset($_SESSION['user']))
@@ -31,17 +32,20 @@ Templates::addHeader('Neflis', ['loadApi', 'printFilms'], ['formValidation', 'co
 Templates::addAside();
 Templates::addNav($isLogged, $isAdmin);
 if ($isAdult) {
-  Templates::addNewSection('adult', 'Adult', 'Adult Films', 'sections');
+  Templates::addNewSection('adult', 'Adult Films');
   echo '<script src="assets/js/sectionAdult.js"></script>';
+  Templates::addNewSection('trend', 'Trending');
+
 }
 if ($isLogged) {
-  Templates::addNewSection('votes', 'Vote', 'Most Voted By Users', 'sections');
+  Templates::addNewSection('votes', 'Most Voted By Users');
   echo '<script src="assets/js/sectionVoted.js"></script>';
 }
-Templates::addNewSection('trend', 'Trend', 'Top Trending Films', 'sections');
-Templates::addNewSection('spa', 'Spa', 'Top Spanish Films', 'sections');
-Templates::addNewSection('it', 'It', 'Top Italian Films', 'sections');
-Templates::addNewSection('action', 'Action', 'Action Films', 'sections');
+foreach ($sections as $sec) {
+  Templates::addNewSection($sec, ucfirst($sec));
+}
+Templates::addNewSection('spa', 'Spanish');
+Templates::addNewSection('it', 'Italian');
 echo '<script src="assets/js/sections.js"></script>';
 Templates::addSearchSection();
 
@@ -53,9 +57,9 @@ Templates::addFooter(['modals', 'alerts']);
 //ALERT EXPIRATION
 if (isset($_REQUEST['expire'])) {
   ?>
-                <script>
-                  window.history.pushState('', '', 'index.php');
-                  customAlert('center', 'info', '', '<h4>Session expired . . .</h4>', false, 4000, '#232323', '#ff683f');
-                </script>
-              <?php
+                  <script>
+                    window.history.pushState('', '', 'index.php');
+                    customAlert('center', 'info', '', '<h4>Session expired . . .</h4>', false, 4000, '#232323', '#ff683f');
+                  </script>
+                <?php
 }

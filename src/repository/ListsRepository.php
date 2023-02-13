@@ -103,4 +103,40 @@ class ListsRepository extends Connection
     $this->con->close();
     return $allLists;
   }
+  function getSpecificLists($user, $film)
+  {
+    $this->connect();
+    $allLists = [];
+    $pre = mysqli_prepare($this->con, 'SELECT lists.id, lists.name FROM movies_in_list ml INNER JOIN (SELECT l.id, l.name FROM neflis.movies_in_list m JOIN list_user_movies l WHERE l.id_user = ? group by id) as lists ON lists.id = ml.id_list WHERE ml.id_movie = ? GROUP BY id;
+');
+    $pre->bind_param('ii', $user, $film);
+    $pre->execute();
+    $result = $pre->get_result();
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        $allLists[$row['id']] = $row['name'];
+      }
+    }
+    $this->con->close();
+    return $allLists;
+  }
+
+  function deleteMoviesListLinks($listId)
+  {
+    $this->connect();
+    $pre = mysqli_prepare($this->con, 'DELETE FROM movies_in_list WHERE id_list=?');
+    $pre->bind_param("i", $listId);
+    $pre->execute();
+    $this->con->close();
+  }
+
+  function deleteList($listId)
+  {
+    $this->connect();
+    $pre = mysqli_prepare($this->con, 'DELETE FROM list_user_movies WHERE id=?');
+    $pre->bind_param("i", $listId);
+    $pre->execute();
+    $pre->close();
+    $this->con->close();
+  }
 }

@@ -10,7 +10,7 @@ switch ($type) {
     $response = getMoviesInList($dbLists);
     break;
   case 'getLists':
-    $response = getAllLists($dbLists);
+    $response = getAllLists($dbLists, false);
     break;
   case 'add':
     $response = addList($dbLists);
@@ -19,7 +19,7 @@ switch ($type) {
     $response = addFilmToList($dbLists);
     break;
   case 'choose':
-    $response = $dbLists->getAllListUser($_REQUEST['idUser']);
+    $response = getAllLists($dbLists, true);
     break;
   case 'delete':
     $response = deleteList($dbLists);
@@ -34,10 +34,19 @@ function getMoviesInList($db)
   return $db->getMoviesList($listId);
 }
 
-function getAllLists($db)
+function getAllLists($db, $inspect)
 {
   $user = $_SESSION['user'];
   $lists = $db->getAllListUser($user);
+  if ($inspect) {
+    $mustNot = $db->getSpecificLists($_REQUEST['idUser'], $_REQUEST['idFilm']);
+    foreach ($lists as $id => $list) {
+      foreach ($mustNot as $notId => $l) {
+        if ($id == $notId)
+          unset($lists[$id]);
+      }
+    }
+  }
 
   if (count($lists) > 0) {
     $movies = $db->getMoviesList(array_key_first($lists));
