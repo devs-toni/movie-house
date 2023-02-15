@@ -3,7 +3,7 @@ const tableBody = document.getElementById('tableBody');
 const list = document.getElementById('paginatedList');
 const title = document.querySelector(".all__title");
 let adminPage = false;
-
+const sectionsNames = ['adult', 'trend', 'votes', 'spa', 'it', 'action', 'comedy', 'adventure', 'history', 'horror', 'drama', 'thriller', 'crime', 'fantasy', 'documentary', 'science_fiction', 'western', 'mystery', 'music', 'romance', 'family', 'war'];
 searchInput && searchInput.addEventListener("keyup", searchMovies);
 
 function searchMovies() {
@@ -38,15 +38,15 @@ function searchMovies() {
 }
 
 function adaptViewToSearch(action) {
-  const listTrend = document.querySelector(".top-trend");
-  const listSpa = document.querySelector(".top-spanish");
-  const listAdult = document.querySelector(".top-p");
-  const listVotes = document.querySelector(".top-votes");
-  const lists = [listTrend, listSpa, listVotes, listAdult];
+  const lists = [];
+  sectionsNames.forEach(elm => {
+    const section = document.querySelector(`.top-${elm}`);
+    lists.push(section);
+  });
 
   if (action === 'hide') {
-    lists.forEach((c) => c.classList.add('hidden'));
+    lists.forEach((c) => c?.classList.add('hidden'));
   } else {
-    lists.forEach((c) => c.classList.remove('hidden'));
+    lists.forEach((c) => c?.classList.remove('hidden'));
   }
 }

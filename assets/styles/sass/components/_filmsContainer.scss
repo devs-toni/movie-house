@@ -38,7 +38,7 @@
           grid-template-columns: repeat(8, 1fr);
           gap: 10px;
 
-          &__film {
+          .carousel__film {
             width: 100%;
             aspect-ratio:  1 / 1.5;
             transition: .3 ease all;
