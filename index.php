@@ -16,7 +16,7 @@ $dbUsers = new UserRepository();
 $isLogged = false;
 $isAdmin = false;
 $isAdult = false;
-$sections = ['action', 'comedy', 'adventure', 'history', 'horror', 'drama', 'thriller', 'crime', 'fantasy', 'documentary', 'science_fiction', 'western', 'mystery', 'music', 'romance', 'family', 'war'];
+$sections = ['history', 'thriller', 'action', 'comedy', 'adventure', 'horror', 'drama', 'crime', 'fantasy', 'documentary', 'science_fiction', 'western', 'mystery', 'music', 'romance', 'family', 'war'];
 
 // USER LOGIN
 if (isset($_SESSION['user']))
@@ -37,12 +37,12 @@ if ($isAdult) {
 }
 
 Templates::addNewSection('trend', 'Trending');
+foreach ($sections as $sec) {
+  Templates::addNewSection($sec, ucfirst($sec));
+}
 if ($isLogged) {
   Templates::addNewSection('votes', 'Most Voted By Users');
   echo '<script src="assets/js/sectionVoted.js"></script>';
-}
-foreach ($sections as $sec) {
-  Templates::addNewSection($sec, ucfirst($sec));
 }
 Templates::addNewSection('spa', 'Spanish');
 Templates::addNewSection('it', 'Italian');
