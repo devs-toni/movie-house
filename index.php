@@ -34,9 +34,9 @@ Templates::addNav($isLogged, $isAdmin);
 if ($isAdult) {
   Templates::addNewSection('adult', 'Adult Films');
   echo '<script src="assets/js/sectionAdult.js"></script>';
-  Templates::addNewSection('trend', 'Trending');
-
 }
+
+Templates::addNewSection('trend', 'Trending');
 if ($isLogged) {
   Templates::addNewSection('votes', 'Most Voted By Users');
   echo '<script src="assets/js/sectionVoted.js"></script>';

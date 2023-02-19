@@ -1,4 +1,4 @@
-const sections = ['action', 'comedy', 'adventure', 'history', 'horror', 'drama', 'thriller', 'crime', 'fantasy', 'documentary', 'science_fiction', 'western', 'mystery', 'music', 'romance', 'family', 'war'];
+const sections = ['trend', 'it', 'spa', 'action', 'comedy', 'adventure', 'history', 'horror', 'drama', 'thriller', 'crime', 'fantasy', 'documentary', 'science_fiction', 'western', 'mystery', 'music', 'romance', 'family', 'war'];
 sections.map(s => setCarouselActions(s));
 
 function setCarouselActions(section) {
