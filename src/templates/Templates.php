@@ -112,7 +112,7 @@ class Templates
   {
     ?>
                   <div class="aside">
-                    <p>Neflis</p>
+                    <p>Movie House</p>
                   </div>
                 <?php
   }

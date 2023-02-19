@@ -28,7 +28,7 @@ if (isset($_SESSION['user'])) {
 }
 
 // TEMPLATES
-Templates::addHeader('Neflis', ['loadApi', 'printFilms'], ['formValidation', 'configuration', 'script']);
+Templates::addHeader('Movie House', ['loadApi', 'printFilms'], ['formValidation', 'configuration', 'script']);
 Templates::addAside();
 Templates::addNav($isLogged, $isAdmin);
 if ($isAdult) {
