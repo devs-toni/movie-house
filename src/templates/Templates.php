@@ -31,7 +31,7 @@ class Templates
                           <?php
   }
 
-  static function addFooter(array|null $scripts)
+  static function addFooter(?array $scripts)
   {
     ?>
                             <?php foreach ($scripts as $s) { ?>
