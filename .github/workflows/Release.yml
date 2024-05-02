@@ -14,6 +14,28 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Create config.php
+        run: |
+          echo "<?php" > config.php
+          echo "define ('DIR_BASE', $_SERVER['DOCUMENT_ROOT'].'/moviehouse/');" >> config.php
+          echo "define('DIR_CONTROLLERS', DIR_BASE . 'src/controllers/');" >> config.php
+          echo "define('DIR_MODELS', DIR_BASE . 'src/models/');" >> config.php
+          echo "define('DIR_REPO', DIR_BASE . 'src/repository/');" >> config.php
+          echo "define('DIR_TEMPLATES', DIR_BASE . 'src/templates/');" >> config.php
+          echo "define('DIR_SESSION', DIR_BASE . 'src/utils/');" >> config.php
+          echo "define('DB', 'database');" >> config.php
+          echo "define('USER', 'root');" >> config.php
+          echo "define('PASS', '${{secrets.DB_PASSWORD}}');" >> config.php
+          echo "define('DB_NAME', 'neflis');" >> config.php
+          echo "define('PAGE_SIZE', 60);" >> config.php
+          echo "define('API_IMAGE_URL', 'https://image.tmdb.org/t/p/w500');" >> config.php
+          echo "define('KEY', '${{secrets.API_KEY}}');" >> config.php
+          echo "define('API', 'https://api.themoviedb.org/3/movie/popular?api_key=' . KEY . '&language=en-US');"
+          echo "define('API_TRENDING', 'https://api.themoviedb.org/3/trending/movie/week?api_key=' . KEY . '&language=en-US&page=1');" >> config.php
+          echo "define('API_GENRES', 'https://api.themoviedb.org/3/genre/movie/list?api_key=' . KEY . '&language=en-US');" >> config.php
+          echo "?>" >> config.php
+        
+        
       - name: Get current version
         id: get_version
         run: |
