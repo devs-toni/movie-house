@@ -33,7 +33,6 @@ jobs:
           echo "define('API', 'https://api.themoviedb.org/3/movie/popular?api_key=' . KEY . '&language=en-US');"
           echo "define('API_TRENDING', 'https://api.themoviedb.org/3/trending/movie/week?api_key=' . KEY . '&language=en-US&page=1');" >> config.php
           echo "define('API_GENRES', 'https://api.themoviedb.org/3/genre/movie/list?api_key=' . KEY . '&language=en-US');" >> config.php
-          echo "?>" >> config.php
         
         
       - name: Get current version
