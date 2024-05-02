@@ -17,7 +17,7 @@ jobs:
       - name: Create config.php
         run: |
           echo "<?php" > config.php
-          echo "define ('DIR_BASE', $_SERVER['DOCUMENT_ROOT'].'/');" >> config.php
+          echo "define ('DIR_BASE', __DIR__ . '/');" >> config.php
           echo "define('DIR_CONTROLLERS', DIR_BASE . 'src/controllers/');" >> config.php
           echo "define('DIR_MODELS', DIR_BASE . 'src/models/');" >> config.php
           echo "define('DIR_REPO', DIR_BASE . 'src/repository/');" >> config.php
