@@ -33,7 +33,7 @@ jobs:
         run: | 
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          
+
       - name: Create SNAPSHOT and Update
         id: create_snapshot
         run: |
@@ -45,9 +45,9 @@ jobs:
           NEW_VERSION="$MAJOR.$NEW_MINOR.$PATCH-SNAPSHOT"
           sed -i "s/$VERSION/$NEW_VERSION/" version.txt
           echo "::set-output name=new_version::$NEW_VERSION"
-          git add version.txt
+          git add .
           git commit -m "Update develop version"
-          git push origin master
+          git push origin main
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
