@@ -61,4 +61,4 @@ jobs:
           context: .
           dockerfile: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/moviehouse:${{ steps.create_snapshot.outputs.new_version }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/moviehouse:${{ steps.get_version.outputs.version }}
