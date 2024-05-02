@@ -15,7 +15,7 @@ $dbMovies = new MovieRepository();
 $dbUsers = new UserRepository();
 $isLogged = false;
 $isAdmin = false;
-$isAdult = true;
+$isAdult = false;
 $sections = ['history', 'thriller', 'action', 'comedy', 'adventure', 'horror', 'drama', 'crime', 'fantasy', 'documentary', 'science_fiction', 'western', 'mystery', 'music', 'romance', 'family', 'war'];
 
 // USER LOGIN
