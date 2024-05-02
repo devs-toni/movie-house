@@ -29,6 +29,11 @@ jobs:
           draft: false
           prerelease: false
 
+      - name: Configure Git User
+        run: | 
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          
       - name: Create SNAPSHOT and Update
         id: create_snapshot
         run: |
