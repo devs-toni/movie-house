@@ -1,0 +1,72 @@
+name: Release
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+
+    permissions: 
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Get current version
+        id: get_version
+        run: |
+          VERSION=$(grep 'VERSION=' version.txt | cut -d'=' -f2 | cut -d'-' -f1)
+          echo "::set-output name=version::$VERSION"
+
+      - name: Crear tag y release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: |
+            version.txt
+          tag_name: ${{ steps.get_version.outputs.version }}
+          release_name: Release ${{ steps.get_version.outputs.version }}
+          body: |
+            Release ${{ steps.get_version.outputs.version }}
+          draft: false
+          prerelease: false
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          generateReleaseNotes: true
+          tag: ${{ steps.get_version.outputs.version }}
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Create SNAPSHOT and Update
+        id: create_snapshot
+        run: |
+          VERSION=$(grep 'VERSION=' version.txt | cut -d'=' -f2)
+          MAJOR=$(echo $VERSION | cut -d'.' -f1)
+          MINOR=$(echo $VERSION | cut -d'.' -f2)
+          PATCH=$(echo $VERSION | cut -d'.' -f3 | cut -d'-' -f1)
+          NEW_MINOR=$((MINOR + 1))
+          NEW_VERSION="$MAJOR.$NEW_MINOR.$PATCH-SNAPSHOT"
+          sed -i "s/$VERSION/$NEW_VERSION/" version.txt
+          echo "::set-output name=new_version::$NEW_VERSION"
+          git add version.txt
+          git commit -m "Update develop version"
+          git push origin master
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build & push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          dockerfile: Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/moviehouse:${{ steps.create_snapshot.outputs.new_version }}
