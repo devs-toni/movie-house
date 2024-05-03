@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  moviehouse-db:
+    container_name: moviehouse-database
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'moviehouse'
+      MYSQL_ROOT_PASSWORD: 'moviehouse'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - ../.mysql:/var/lib/mysql
