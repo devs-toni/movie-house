@@ -48,7 +48,7 @@ Este proceso generará una nueva versión en el proyecto, subirá la versión ac
 
 ## Infrastructura y Despliegue
 
-* **📦 GitOps Repository:** [🚀 `stack/portfolio`](https://github.com/devs-toni/Infrastructure-gitops/tree/main/src/web-server/stacks/moviehouse)
-* **🐳 Docker Hub:** [devstoni/arcp](https://hub.docker.com/repository/docker/devstoni/moviehouse/general)
+* **📦 GitOps Repository:** [🚀 `stack/moviehouse`](https://github.com/devs-toni/Infrastructure-gitops/tree/main/src/web-server/stacks/moviehouse)
+* **🐳 Docker Hub:** [devstoni/moviehouse](https://hub.docker.com/repository/docker/devstoni/moviehouse/general)
 
 La aplicación dispone de repositorio público en Docker Hub, desde donde se va versionando para obtener el paquete en producción.
